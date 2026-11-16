@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="klbq_ammo_heart">
+  <Symbol name="klbq_ammo_heart">
+    <Frame framenum="0" duration="1" x="0" y="-56.0" w="64" h="112" image="klbq_ammo_heart_0" />
+  </Symbol>
+</Build>

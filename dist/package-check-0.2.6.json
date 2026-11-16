@@ -1,0 +1,37 @@
+{
+  "version": "0.2.6",
+  "game_version": "760178",
+  "build_id": "26230496",
+  "runtime_files": 77,
+  "engineering_files": 797,
+  "source_deploy_packages_sha256_equal": true,
+  "archives_valid": true,
+  "scml_references_complete": true,
+  "scml_image_references": 140,
+  "source_scope_kanami_only": true,
+  "deployment_extras": [
+    ".kanami-task-owned"
+  ],
+  "other_task_copies_retained": [
+    "klbq_lilith_kanami_verify"
+  ],
+  "unit_tests": 378,
+  "lua51_runtime_parse_files": 35,
+  "native_checks_current_gameplay": {
+    "engine-base-equipment": 68,
+    "engine-weapon_inputs-happy-void-equipment_before_user_disabled": 15
+  },
+  "gui_revalidated": [
+    "bag_without_extra_buttons",
+    "domain_ring_radius_12",
+    "normal_chinese_speech",
+    "crossbow_final_front_and_back_standing_pose",
+    "crossbow_F_8Hz_release_stops",
+    "requiem_RMB_X_spider_and_bearger_damage_and_retaliation"
+  ],
+  "happy_enabled_in_future_actual_validation": false,
+  "T_mods_enabled": true,
+  "remote_multiplayer_revalidated": false,
+  "caves_revalidated": false,
+  "native_shutdown_assertions_recorded": true
+}

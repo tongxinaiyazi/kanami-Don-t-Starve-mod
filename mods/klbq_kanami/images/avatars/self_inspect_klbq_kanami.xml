@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Atlas>
+  <Texture filename="self_inspect_klbq_kanami.tex" />
+  <Elements>
+    <Element name="self_inspect_klbq_kanami.tex" u1="0.00390625" u2="0.99609375" v1="0.00390625" v2="0.99609375" />
+  </Elements>
+</Atlas>

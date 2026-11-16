@@ -1,0 +1,32 @@
+{
+  "version": "1.0.1",
+  "revision": "fate-config-2026-11-01",
+  "runtime_files": 77,
+  "source_install_staging_zip_hashes_match": true,
+  "staging": "D:\\SOFTWARE\\DSTWorkshop\\klbq_kanami_v1_0_1_fateconfig",
+  "packages": [
+    {
+      "file": "klbq_kanami-1.0.1-dst.zip",
+      "bytes": 2300469,
+      "sha256": "ff1d2d83472814bb86273ed27ccde62956e1bdf7078757d950edae6e61922318",
+      "entries": 77
+    },
+    {
+      "file": "klbq_kanami-1.0.1-source-art.zip",
+      "bytes": 50023333,
+      "sha256": "25a1b7caf31dccbf9d7202b755907432ba9f30f14f806b3a021078ab73382f62",
+      "entries": 903
+    }
+  ],
+  "regression_tests": 394,
+  "regression_log": "docs/reports/regression-fate-config-1.0.1.txt",
+  "fate_config_choices": [
+    0.03,
+    0.05,
+    0.1,
+    0.2
+  ],
+  "fate_config_default": 0.03,
+  "gameplay_retested_this_revision": false,
+  "report": "docs/reports/fate-config-2026-11-01.md"
+}

@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="klbq_blade">
+  <Symbol name="klbq_blade">
+    <Frame framenum="0" duration="1" x="0" y="-32.0" w="195" h="64" image="klbq_blade_0" />
+  </Symbol>
+</Build>

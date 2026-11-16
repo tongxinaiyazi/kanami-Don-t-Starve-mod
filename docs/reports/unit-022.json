@@ -1,0 +1,8 @@
+{
+  "tests": 300,
+  "pass": 300,
+  "exit_code": 0,
+  "command": "python -m unittest discover -s tests/gameplay -q",
+  "date": "2026-10-28",
+  "source": "Fresh root execution, after curse integration; 57.221 seconds"
+}

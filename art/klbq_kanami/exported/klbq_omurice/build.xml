@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="klbq_omurice">
+  <Symbol name="klbq_omurice">
+    <Frame framenum="0" duration="1" x="0" y="-40.0" w="112" h="80" image="klbq_omurice_0" />
+  </Symbol>
+</Build>

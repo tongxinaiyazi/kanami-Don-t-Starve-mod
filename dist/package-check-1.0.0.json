@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "baseline_version": "0.2.6",
+  "game_version": "760178",
+  "runtime_files": 77,
+  "engineering_files": 804,
+  "archives_valid": true,
+  "source_runtime_packages_upload_directory_sha256_equal": true,
+  "gameplay_and_art_unchanged": true,
+  "runtime_changes": [
+    "README.md",
+    "modinfo.lua",
+    "modmain.lua"
+  ],
+  "entry_and_syntax_tests_passed": 3,
+  "lua51_parse_files": 35,
+  "baseline_unit_tests": 378,
+  "baseline_native_base_checks": 68,
+  "baseline_test_version": "0.2.6",
+  "upload_directory": "D:\\SOFTWARE\\DSTWorkshop\\klbq_kanami_v1_0_0",
+  "preview": "D:\\SOFTWARE\\DSTWorkshop\\kanami-preview-v1.0.0.png",
+  "preview_bytes": 314618,
+  "uploaded": false,
+  "deployment_updated": true,
+  "installed_version": "1.0.0",
+  "packages": [
+    {
+      "file": "klbq_kanami-1.0.0-dst.zip",
+      "bytes": 1837909,
+      "sha256": "1506895a0f6e44f91d2ea3ea2f644765d74982c668d7b9ec760e5fbc358d21dc",
+      "entries": 77
+    },
+    {
+      "file": "klbq_kanami-1.0.0-source-art.zip",
+      "bytes": 34642000,
+      "sha256": "c679c68a3a87c5bdd9a76f7990b2e1b80ad20ffc6b09f65c7a054b1b86468101",
+      "entries": 804
+    }
+  ],
+  "author": "奈娅子",
+  "ingame_description": "模组交流群：1131263408",
+  "metadata_revision": "2026-10-30 author and in-game description",
+  "source_deployed_runtime_sha256_equal": true
+}

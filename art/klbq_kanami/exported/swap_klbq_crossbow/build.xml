@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="swap_klbq_crossbow">
+  <Symbol name="swap_object">
+    <Frame framenum="0" duration="30" x="35" y="-8" w="142" h="90" image="swap_object_0" />
+  </Symbol>
+</Build>

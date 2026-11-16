@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-15",
+  "version": "2.0.1",
+  "game_version": "762172",
+  "runtime_files": 91,
+  "runtime_sha256": "d789c0a6b18504ac8a6e1070abe05535b75f2f93b2e1b19e6236b0f4d609723e",
+  "source_installed_publish_zip_match": true,
+  "runtime_changes_from_2_0_0": [
+    "README.md",
+    "modinfo.lua",
+    "modmain.lua",
+    "scripts/prefabs/klbq_resources.lua",
+    "scripts/prefabs/klbq_singularity.lua"
+  ],
+  "gameplay_tests": {
+    "passed": 447,
+    "seconds": 81.104
+  },
+  "resource_addon_runtime_tests": {
+    "passed": 18
+  },
+  "final_mod_registration_tests": {
+    "passed": 3
+  },
+  "engine": {
+    "exit_code": 0,
+    "complete": true,
+    "pass": 10,
+    "fail": 0,
+    "lua_error": false,
+    "log": "D:\\SOFTWARE\\项目\\饥荒\\docs\\reports\\engine-bag-equipment.log"
+  },
+  "installed_directory": "E:\\steam\\steamapps\\common\\Don't Starve Together\\mods\\klbq_kanami",
+  "publish_directory": "D:\\SOFTWARE\\DSTWorkshop\\klbq_kanami",
+  "workshop_download_unchanged": true,
+  "workshop_uploaded": false,
+  "untested": [
+    "graphical client",
+    "remote multiplayer",
+    "cave migration",
+    "long survival"
+  ],
+  "packages": [
+    {
+      "file": "klbq_kanami-2.0.1-dst.zip",
+      "bytes": 4225447,
+      "sha256": "d789c0a6b18504ac8a6e1070abe05535b75f2f93b2e1b19e6236b0f4d609723e",
+      "entries": 91
+    },
+    {
+      "file": "klbq_kanami-2.0.1-source-art.zip",
+      "bytes": 81760556,
+      "sha256": "52b9b9ac7cc8a568c34b02a08009a264d6c74d1c432fb5c6502625ad8aca0990",
+      "entries": 1233
+    }
+  ]
+}

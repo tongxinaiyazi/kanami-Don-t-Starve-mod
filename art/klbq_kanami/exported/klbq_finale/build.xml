@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="klbq_finale">
+  <Symbol name="klbq_finale">
+    <Frame framenum="0" duration="1" x="0" y="-40.0" w="240" h="80" image="klbq_finale_0" />
+  </Symbol>
+</Build>

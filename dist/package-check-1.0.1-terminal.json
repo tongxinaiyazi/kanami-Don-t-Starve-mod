@@ -1,0 +1,36 @@
+{
+  "version": "1.0.1",
+  "revision": "terminal-integration-2026-11-02",
+  "runtime_files": 85,
+  "source_install_staging_zip_hashes_match": true,
+  "stable_publish_verified": true,
+  "staging": "D:\\SOFTWARE\\DSTWorkshop\\klbq_kanami",
+  "packages": [
+    {
+      "file": "klbq_kanami-1.0.1-dst.zip",
+      "bytes": 2466935,
+      "sha256": "24848fd072e9154ef516a2f7fdeaf6a2344b011dda4f0eaa9dbcffe584c5d6a7",
+      "entries": 85
+    },
+    {
+      "file": "klbq_kanami-1.0.1-source-art.zip",
+      "bytes": 50325517,
+      "sha256": "bb72001c5020910ec15e2a30431da517a1af58d8768f5e37497837245e24dae0",
+      "entries": 920
+    }
+  ],
+  "regression_tests": 400,
+  "native_server_without_addon": {
+    "pass": 4,
+    "fail": 0
+  },
+  "native_server_with_addon": {
+    "pass": 4,
+    "fail": 0
+  },
+  "game_build": "761239",
+  "lua_error": false,
+  "graphical_client_retested": false,
+  "resource_addon_source_unchanged": true,
+  "report": "docs/reports/terminal-integration-2026-11-02.md"
+}

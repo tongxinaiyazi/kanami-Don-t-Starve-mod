@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="swap_klbq_finale">
+  <Symbol name="swap_object">
+    <Frame framenum="0" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_0" />
+    <Frame framenum="1" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_1" />
+    <Frame framenum="2" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_2" />
+    <Frame framenum="3" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_3" />
+    <Frame framenum="4" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_4" />
+    <Frame framenum="5" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_5" />
+    <Frame framenum="6" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_6" />
+    <Frame framenum="7" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_7" />
+    <Frame framenum="8" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_8" />
+    <Frame framenum="9" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_9" />
+    <Frame framenum="10" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_10" />
+    <Frame framenum="11" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_11" />
+    <Frame framenum="12" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_12" />
+    <Frame framenum="13" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_13" />
+    <Frame framenum="14" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_14" />
+    <Frame framenum="15" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_15" />
+    <Frame framenum="16" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_16" />
+    <Frame framenum="17" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_17" />
+    <Frame framenum="18" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_18" />
+    <Frame framenum="19" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_19" />
+    <Frame framenum="20" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_20" />
+    <Frame framenum="21" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_21" />
+    <Frame framenum="22" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_22" />
+    <Frame framenum="23" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_23" />
+    <Frame framenum="24" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_24" />
+    <Frame framenum="25" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_25" />
+    <Frame framenum="26" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_26" />
+    <Frame framenum="27" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_27" />
+    <Frame framenum="28" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_28" />
+    <Frame framenum="29" duration="1" x="60" y="-9" w="240" h="80" image="swap_object_29" />
+  </Symbol>
+</Build>

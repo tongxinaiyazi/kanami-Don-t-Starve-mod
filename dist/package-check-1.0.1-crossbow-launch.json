@@ -1,0 +1,28 @@
+{
+  "version": "1.0.1",
+  "revision": "crossbow-launch-2026-11-01",
+  "runtime_files": 77,
+  "source_install_staging_zip_hashes_match": true,
+  "stable_publish_verified": true,
+  "staging": "D:\\SOFTWARE\\DSTWorkshop\\klbq_kanami",
+  "packages": [
+    {
+      "file": "klbq_kanami-1.0.1-dst.zip",
+      "bytes": 2300725,
+      "sha256": "deec9d65e9b8a06fc9af8c2169484e85ce50df02893eb3ab9eaa1633a13f9ede",
+      "entries": 77
+    },
+    {
+      "file": "klbq_kanami-1.0.1-source-art.zip",
+      "bytes": 50027387,
+      "sha256": "c68a3982958af035d82ffce2b85516ad1d41d83e858609fb5d245aa1bea31ccc",
+      "entries": 904
+    }
+  ],
+  "regression_tests": 396,
+  "native_engine_tests": 22,
+  "native_engine_build": "761239",
+  "lua_error": false,
+  "graphical_muzzle_alignment_retested": false,
+  "report": "docs/reports/crossbow-launch-2026-11-01.md"
+}

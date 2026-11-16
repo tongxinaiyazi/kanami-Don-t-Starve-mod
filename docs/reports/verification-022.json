@@ -1,0 +1,37 @@
+{
+  "version": "0.2.2",
+  "unit": {
+    "tests": 300,
+    "pass": 300,
+    "exit_code": 0,
+    "command": "python -m unittest discover -s tests/gameplay -q",
+    "date": "2026-10-28",
+    "source": "Fresh root execution, after curse integration; 57.221 seconds"
+  },
+  "native": {
+    "exit_code": 0,
+    "complete": true,
+    "pass": 56,
+    "fail": 0,
+    "lua_error": false,
+    "log": "D:\\SOFTWARE\\项目\\饥荒\\docs\\reports\\engine-base-equipment.log"
+  },
+  "happy": {
+    "exit_code": 0,
+    "complete": true,
+    "pass": 19,
+    "fail": 0,
+    "lua_error": false,
+    "log": "D:\\SOFTWARE\\项目\\饥荒\\docs\\reports\\engine-happy.log"
+  },
+  "void": {
+    "pass": 8,
+    "fail": 0,
+    "lua_error": false,
+    "command_exit_code": 0,
+    "log": "void-combat-022.log"
+  },
+  "gui_retested": false,
+  "remote_multiplayer_retested": false,
+  "caves_transfer_retested": false
+}

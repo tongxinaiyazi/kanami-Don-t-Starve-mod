@@ -1,0 +1,60 @@
+{
+  "version": "1.0.1",
+  "revision": "imprint-materials-and-visibility-2026-11-03",
+  "runtime_files": 91,
+  "source_install_staging_zip_hashes_match": true,
+  "stable_publish_verified": true,
+  "staging": "D:\\SOFTWARE\\DSTWorkshop\\klbq_kanami",
+  "packages": [
+    {
+      "file": "klbq_kanami-1.0.1-dst.zip",
+      "bytes": 2559341,
+      "sha256": "699a1b21b785f9561a124170c5d6577db22f6b21e65181afd5bfa19f9134a678",
+      "entries": 91
+    },
+    {
+      "file": "klbq_kanami-1.0.1-source-art.zip",
+      "bytes": 69196889,
+      "sha256": "6c11f37e4b8d07fb5343d71a9562e53667c27dbb26877ee2a7c91024363b7510",
+      "entries": 1086
+    }
+  ],
+  "regression_tests": 433,
+  "native_server_with_addon_and_equipment": {
+    "exit_code": 0,
+    "complete": true,
+    "pass": 9,
+    "fail": 0,
+    "lua_error": false,
+    "log": "D:\\SOFTWARE\\项目\\饥荒\\docs\\reports\\engine-imprint-addon-equipment.log"
+  },
+  "client_rpc_unlock_masks": [
+    1,
+    3,
+    7,
+    15
+  ],
+  "world_reload_independent_masks": [
+    15,
+    8
+  ],
+  "native_projection_forms_verified": [
+    "chop",
+    "mine",
+    "dig",
+    "idle"
+  ],
+  "qa_slow_motion_for_work_frames": 0.15,
+  "game_version": "761239",
+  "steam_build": "26335394",
+  "old_task_game_copies_removed": true,
+  "embedded_resource_scripts_match_addon": 3,
+  "workshop_uploaded": false,
+  "unverified": [
+    "remote physical client",
+    "caves migration",
+    "long playtest",
+    "clear ground LED comparison screenshot"
+  ],
+  "report": "docs/reports/imprint-materials-2026-11-02.md"
+}

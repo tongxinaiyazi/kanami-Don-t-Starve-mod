@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="swap_klbq_requiem">
+  <Symbol name="swap_object">
+    <Frame framenum="0" duration="30" x="0" y="-99" w="108" h="285" image="swap_object_0" />
+  </Symbol>
+</Build>

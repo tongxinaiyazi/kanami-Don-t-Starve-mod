@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="klbq_crossbow">
+  <Symbol name="klbq_crossbow">
+    <Frame framenum="0" duration="1" x="0" y="-56.0" w="168" h="112" image="klbq_crossbow_0" />
+  </Symbol>
+</Build>

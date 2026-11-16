@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="klbq_ammo_doom">
+  <Symbol name="klbq_ammo_doom">
+    <Frame framenum="0" duration="1" x="0" y="-64.0" w="80" h="128" image="klbq_ammo_doom_0" />
+  </Symbol>
+</Build>

@@ -1,0 +1,9 @@
+{
+  "version": "0.2.0",
+  "date": "2026-10-28T03:39:58.279537",
+  "command": "python -m unittest discover -s tests/gameplay -q",
+  "tests": 145,
+  "failures": 0,
+  "errors": 0,
+  "exit_code": 0
+}

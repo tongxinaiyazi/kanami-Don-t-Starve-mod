@@ -1,0 +1,35 @@
+{
+  "version": "1.0.1",
+  "date": "2026-11-10",
+  "runtime_files": 91,
+  "source": "D:\\SOFTWARE\\项目\\饥荒\\mods\\klbq_kanami",
+  "installed": "E:\\steam\\steamapps\\common\\Don't Starve Together\\mods\\klbq_kanami",
+  "upload": "D:\\SOFTWARE\\DSTWorkshop\\klbq_kanami",
+  "all_runtime_hashes_match": true,
+  "archives": [
+    {
+      "file": "klbq_kanami-1.0.1-dst.zip",
+      "bytes": 2781260,
+      "sha256": "442b5328ff42918c614795dbbfb38e0e09fc772ac82437a447d153629d8ad60f",
+      "entries": 91
+    },
+    {
+      "file": "klbq_kanami-1.0.1-source-art.zip",
+      "bytes": 75990700,
+      "sha256": "c1e1d9f9500d10344815827cde8a592698ffa98f23e0607a72fcfab2158827e7",
+      "entries": 1216
+    }
+  ],
+  "retired_task_owned_installs": [
+    "klbq_kanami_startup_old",
+    "klbq_kanami_verify",
+    "klbq_kanami_test",
+    "klbq_kanami_client_qa",
+    "klbq_kanami_void_test",
+    "klbq_kanami_resource_test"
+  ],
+  "gameplay_tests": 434,
+  "body_pipeline_tests": 23,
+  "lua_syntax_files": 44,
+  "gui_report": "docs/reports/body-v2-2026-11-10.md"
+}

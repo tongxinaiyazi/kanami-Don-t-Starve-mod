@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="swap_klbq_imprint_tool">
+  <Symbol name="swap_idle_0">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_0_0" />
+  </Symbol>
+  <Symbol name="swap_idle_1">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_1_0" />
+  </Symbol>
+  <Symbol name="swap_idle_2">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_2_0" />
+  </Symbol>
+  <Symbol name="swap_idle_3">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_3_0" />
+  </Symbol>
+  <Symbol name="swap_idle_4">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_4_0" />
+  </Symbol>
+  <Symbol name="swap_idle_5">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_5_0" />
+  </Symbol>
+  <Symbol name="swap_idle_6">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_6_0" />
+  </Symbol>
+  <Symbol name="swap_idle_7">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_7_0" />
+  </Symbol>
+  <Symbol name="swap_idle_8">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_8_0" />
+  </Symbol>
+  <Symbol name="swap_idle_9">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_9_0" />
+  </Symbol>
+  <Symbol name="swap_idle_10">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_10_0" />
+  </Symbol>
+  <Symbol name="swap_idle_11">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_11_0" />
+  </Symbol>
+  <Symbol name="swap_idle_12">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_12_0" />
+  </Symbol>
+  <Symbol name="swap_idle_13">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_13_0" />
+  </Symbol>
+  <Symbol name="swap_idle_14">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_14_0" />
+  </Symbol>
+  <Symbol name="swap_idle_15">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_idle_15_0" />
+  </Symbol>
+  <Symbol name="swap_chop_0">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_0_0" />
+  </Symbol>
+  <Symbol name="swap_chop_1">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_1_0" />
+  </Symbol>
+  <Symbol name="swap_chop_2">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_2_0" />
+  </Symbol>
+  <Symbol name="swap_chop_3">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_3_0" />
+  </Symbol>
+  <Symbol name="swap_chop_4">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_4_0" />
+  </Symbol>
+  <Symbol name="swap_chop_5">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_5_0" />
+  </Symbol>
+  <Symbol name="swap_chop_6">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_6_0" />
+  </Symbol>
+  <Symbol name="swap_chop_7">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_7_0" />
+  </Symbol>
+  <Symbol name="swap_chop_8">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_8_0" />
+  </Symbol>
+  <Symbol name="swap_chop_9">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_9_0" />
+  </Symbol>
+  <Symbol name="swap_chop_10">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_10_0" />
+  </Symbol>
+  <Symbol name="swap_chop_11">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_11_0" />
+  </Symbol>
+  <Symbol name="swap_chop_12">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_12_0" />
+  </Symbol>
+  <Symbol name="swap_chop_13">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_13_0" />
+  </Symbol>
+  <Symbol name="swap_chop_14">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_14_0" />
+  </Symbol>
+  <Symbol name="swap_chop_15">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_chop_15_0" />
+  </Symbol>
+  <Symbol name="swap_mine_0">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_0_0" />
+  </Symbol>
+  <Symbol name="swap_mine_1">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_1_0" />
+  </Symbol>
+  <Symbol name="swap_mine_2">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_2_0" />
+  </Symbol>
+  <Symbol name="swap_mine_3">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_3_0" />
+  </Symbol>
+  <Symbol name="swap_mine_4">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_4_0" />
+  </Symbol>
+  <Symbol name="swap_mine_5">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_5_0" />
+  </Symbol>
+  <Symbol name="swap_mine_6">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_6_0" />
+  </Symbol>
+  <Symbol name="swap_mine_7">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_7_0" />
+  </Symbol>
+  <Symbol name="swap_mine_8">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_8_0" />
+  </Symbol>
+  <Symbol name="swap_mine_9">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_9_0" />
+  </Symbol>
+  <Symbol name="swap_mine_10">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_10_0" />
+  </Symbol>
+  <Symbol name="swap_mine_11">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_11_0" />
+  </Symbol>
+  <Symbol name="swap_mine_12">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_12_0" />
+  </Symbol>
+  <Symbol name="swap_mine_13">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_13_0" />
+  </Symbol>
+  <Symbol name="swap_mine_14">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_14_0" />
+  </Symbol>
+  <Symbol name="swap_mine_15">
+    <Frame framenum="0" duration="30" x="9" y="-50" w="128" h="160" image="swap_mine_15_0" />
+  </Symbol>
+  <Symbol name="swap_dig_0">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_0_0" />
+  </Symbol>
+  <Symbol name="swap_dig_1">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_1_0" />
+  </Symbol>
+  <Symbol name="swap_dig_2">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_2_0" />
+  </Symbol>
+  <Symbol name="swap_dig_3">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_3_0" />
+  </Symbol>
+  <Symbol name="swap_dig_4">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_4_0" />
+  </Symbol>
+  <Symbol name="swap_dig_5">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_5_0" />
+  </Symbol>
+  <Symbol name="swap_dig_6">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_6_0" />
+  </Symbol>
+  <Symbol name="swap_dig_7">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_7_0" />
+  </Symbol>
+  <Symbol name="swap_dig_8">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_8_0" />
+  </Symbol>
+  <Symbol name="swap_dig_9">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_9_0" />
+  </Symbol>
+  <Symbol name="swap_dig_10">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_10_0" />
+  </Symbol>
+  <Symbol name="swap_dig_11">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_11_0" />
+  </Symbol>
+  <Symbol name="swap_dig_12">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_12_0" />
+  </Symbol>
+  <Symbol name="swap_dig_13">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_13_0" />
+  </Symbol>
+  <Symbol name="swap_dig_14">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_14_0" />
+  </Symbol>
+  <Symbol name="swap_dig_15">
+    <Frame framenum="0" duration="30" x="-9" y="50" w="128" h="160" image="swap_dig_15_0" />
+  </Symbol>
+</Build>

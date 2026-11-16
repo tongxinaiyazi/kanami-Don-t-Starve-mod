@@ -1,0 +1,27 @@
+{
+  "version": "1.0.1",
+  "revision": "2026-10-31-rigfix",
+  "runtime_files": 77,
+  "source_zip_stage_install_sha256_match": true,
+  "zip_crc_ok": true,
+  "old_owned_installs": [],
+  "workshop_uploaded": false,
+  "stage": "D:\\SOFTWARE\\DSTWorkshop\\klbq_kanami_v1_0_1_rigfix",
+  "regression": {
+    "tests": 386,
+    "seconds": 82.419,
+    "result": "OK"
+  },
+  "visual_scope": [
+    "front-side-back idle",
+    "keyboard run",
+    "held rifle run",
+    "normal eat"
+  ],
+  "not_verified": [
+    "remote second PC",
+    "caves",
+    "all animations and equipment"
+  ],
+  "runtime_zip_sha256": "bd88f76f383e833a11aaa48a10bcf896df932069a3f23ce4331e1053b4abd164"
+}

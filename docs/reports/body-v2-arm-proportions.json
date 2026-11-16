@@ -1,0 +1,314 @@
+{
+  "arm_upper/0": {
+    "widths_20_50_80": [
+      11.75,
+      11.75,
+      9.75
+    ],
+    "anchors": {
+      "shoulder": {
+        "source_sheet": [
+          914,
+          451
+        ],
+        "target_canvas": [
+          42.0,
+          32.0
+        ]
+      },
+      "elbow": {
+        "source_sheet": [
+          911,
+          646
+        ],
+        "target_canvas": [
+          42.0,
+          74.0
+        ]
+      },
+      "outer_midpoint": {
+        "source_sheet": [
+          958,
+          550
+        ],
+        "target_canvas": [
+          47.5,
+          51.0
+        ]
+      }
+    }
+  },
+  "arm_upper/1": {
+    "widths_20_50_80": [
+      14.0,
+      15.5,
+      13.0
+    ],
+    "anchors": {
+      "shoulder": {
+        "source_sheet": [
+          914,
+          451
+        ],
+        "target_canvas": [
+          49.0,
+          32.0
+        ]
+      },
+      "elbow": {
+        "source_sheet": [
+          911,
+          646
+        ],
+        "target_canvas": [
+          44.0,
+          75.0
+        ]
+      },
+      "outer_midpoint": {
+        "source_sheet": [
+          958,
+          550
+        ],
+        "target_canvas": [
+          53.960088695193086,
+          49.948847522696866
+        ]
+      }
+    }
+  },
+  "arm_upper/2": {
+    "widths_20_50_80": [
+      10.75,
+      11.0,
+      8.75
+    ],
+    "anchors": {
+      "shoulder": {
+        "source_sheet": [
+          914,
+          451
+        ],
+        "target_canvas": [
+          39.0,
+          32.0
+        ]
+      },
+      "elbow": {
+        "source_sheet": [
+          911,
+          646
+        ],
+        "target_canvas": [
+          42.0,
+          71.0
+        ]
+      },
+      "outer_midpoint": {
+        "source_sheet": [
+          958,
+          550
+        ],
+        "target_canvas": [
+          45.936740846729286,
+          50.466404550251596
+        ]
+      }
+    }
+  },
+  "arm_upper/3": {
+    "widths_20_50_80": [
+      10.75,
+      12.0,
+      10.75
+    ],
+    "anchors": {
+      "shoulder": {
+        "source_sheet": [
+          914,
+          451
+        ],
+        "target_canvas": [
+          43.0,
+          32.0
+        ]
+      },
+      "elbow": {
+        "source_sheet": [
+          911,
+          646
+        ],
+        "target_canvas": [
+          42.0,
+          75.0
+        ]
+      },
+      "outer_midpoint": {
+        "source_sheet": [
+          958,
+          550
+        ],
+        "target_canvas": [
+          48.06391871798806,
+          50.815439970185764
+        ]
+      }
+    }
+  },
+  "arm_lower/0": {
+    "widths_20_50_80": [
+      9.75,
+      6.5,
+      5.75
+    ],
+    "anchors": {
+      "elbow": {
+        "source_sheet": [
+          354,
+          230
+        ],
+        "target_canvas": [
+          32,
+          28
+        ]
+      },
+      "wrist": {
+        "source_sheet": [
+          358,
+          1640
+        ],
+        "target_canvas": [
+          32,
+          64
+        ]
+      },
+      "outer_midpoint": {
+        "source_sheet": [
+          535,
+          950
+        ],
+        "target_canvas": [
+          36,
+          46
+        ]
+      }
+    }
+  },
+  "arm_lower/1": {
+    "widths_20_50_80": [
+      10.75,
+      9.0,
+      6.75
+    ],
+    "anchors": {
+      "elbow": {
+        "source_sheet": [
+          354,
+          230
+        ],
+        "target_canvas": [
+          34,
+          29
+        ]
+      },
+      "wrist": {
+        "source_sheet": [
+          358,
+          1640
+        ],
+        "target_canvas": [
+          36,
+          78
+        ]
+      },
+      "outer_midpoint": {
+        "source_sheet": [
+          535,
+          950
+        ],
+        "target_canvas": [
+          40,
+          53
+        ]
+      }
+    }
+  },
+  "arm_lower/2": {
+    "widths_20_50_80": [
+      10.25,
+      8.0,
+      6.25
+    ],
+    "anchors": {
+      "elbow": {
+        "source_sheet": [
+          354,
+          230
+        ],
+        "target_canvas": [
+          72.0,
+          30.0
+        ]
+      },
+      "wrist": {
+        "source_sheet": [
+          358,
+          1640
+        ],
+        "target_canvas": [
+          31.0,
+          43.0
+        ]
+      },
+      "outer_midpoint": {
+        "source_sheet": [
+          535,
+          950
+        ],
+        "target_canvas": [
+          50.86550277870809,
+          41.42197030207936
+        ]
+      }
+    }
+  },
+  "arm_lower/5": {
+    "widths_20_50_80": [
+      10.75,
+      9.0,
+      6.75
+    ],
+    "anchors": {
+      "elbow": {
+        "source_sheet": [
+          354,
+          230
+        ],
+        "target_canvas": [
+          33,
+          28
+        ]
+      },
+      "wrist": {
+        "source_sheet": [
+          358,
+          1640
+        ],
+        "target_canvas": [
+          31,
+          68
+        ]
+      },
+      "outer_midpoint": {
+        "source_sheet": [
+          535,
+          950
+        ],
+        "target_canvas": [
+          37,
+          48
+        ]
+      }
+    }
+  }
+}

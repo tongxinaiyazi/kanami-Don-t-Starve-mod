@@ -1,0 +1,442 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Anims>
+  <anim name="domain" root="klbq_kanami_fx" framerate="30">
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0" m_b="0" m_c="0" m_d="1.0" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0010452846326765" m_b="0" m_c="0" m_d="1.0010452846326765" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0020791169081775" m_b="0" m_c="0" m_d="1.0020791169081775" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0030901699437496" m_b="0" m_c="0" m_d="1.0030901699437496" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.004067366430758" m_b="0" m_c="0" m_d="1.004067366430758" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.005" m_b="0" m_c="0" m_d="1.005" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0058778525229248" m_b="0" m_c="0" m_d="1.0058778525229248" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0066913060635885" m_b="0" m_c="0" m_d="1.0066913060635885" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.007431448254774" m_b="0" m_c="0" m_d="1.007431448254774" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0080901699437494" m_b="0" m_c="0" m_d="1.0080901699437494" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0086602540378444" m_b="0" m_c="0" m_d="1.0086602540378444" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.009135454576426" m_b="0" m_c="0" m_d="1.009135454576426" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0095105651629515" m_b="0" m_c="0" m_d="1.0095105651629515" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.009781476007338" m_b="0" m_c="0" m_d="1.009781476007338" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0099452189536828" m_b="0" m_c="0" m_d="1.0099452189536828" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.01" m_b="0" m_c="0" m_d="1.01" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0099452189536828" m_b="0" m_c="0" m_d="1.0099452189536828" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.009781476007338" m_b="0" m_c="0" m_d="1.009781476007338" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0095105651629515" m_b="0" m_c="0" m_d="1.0095105651629515" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.009135454576426" m_b="0" m_c="0" m_d="1.009135454576426" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0086602540378444" m_b="0" m_c="0" m_d="1.0086602540378444" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0080901699437494" m_b="0" m_c="0" m_d="1.0080901699437494" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.007431448254774" m_b="0" m_c="0" m_d="1.007431448254774" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0066913060635885" m_b="0" m_c="0" m_d="1.0066913060635885" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0058778525229248" m_b="0" m_c="0" m_d="1.0058778525229248" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.005" m_b="0" m_c="0" m_d="1.005" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.004067366430758" m_b="0" m_c="0" m_d="1.004067366430758" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0030901699437496" m_b="0" m_c="0" m_d="1.0030901699437496" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0020791169081775" m_b="0" m_c="0" m_d="1.0020791169081775" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0010452846326765" m_b="0" m_c="0" m_d="1.0010452846326765" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0" m_b="0" m_c="0" m_d="1.0" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9989547153673235" m_b="0" m_c="0" m_d="0.9989547153673235" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9979208830918224" m_b="0" m_c="0" m_d="0.9979208830918224" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9969098300562506" m_b="0" m_c="0" m_d="0.9969098300562506" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.995932633569242" m_b="0" m_c="0" m_d="0.995932633569242" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.995" m_b="0" m_c="0" m_d="0.995" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9941221474770753" m_b="0" m_c="0" m_d="0.9941221474770753" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9933086939364114" m_b="0" m_c="0" m_d="0.9933086939364114" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9925685517452261" m_b="0" m_c="0" m_d="0.9925685517452261" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9919098300562506" m_b="0" m_c="0" m_d="0.9919098300562506" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9913397459621556" m_b="0" m_c="0" m_d="0.9913397459621556" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9908645454235739" m_b="0" m_c="0" m_d="0.9908645454235739" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9904894348370484" m_b="0" m_c="0" m_d="0.9904894348370484" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.990218523992662" m_b="0" m_c="0" m_d="0.990218523992662" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9900547810463173" m_b="0" m_c="0" m_d="0.9900547810463173" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.99" m_b="0" m_c="0" m_d="0.99" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9900547810463173" m_b="0" m_c="0" m_d="0.9900547810463173" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.990218523992662" m_b="0" m_c="0" m_d="0.990218523992662" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9904894348370484" m_b="0" m_c="0" m_d="0.9904894348370484" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9908645454235739" m_b="0" m_c="0" m_d="0.9908645454235739" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9913397459621556" m_b="0" m_c="0" m_d="0.9913397459621556" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9919098300562506" m_b="0" m_c="0" m_d="0.9919098300562506" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9925685517452261" m_b="0" m_c="0" m_d="0.9925685517452261" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9933086939364114" m_b="0" m_c="0" m_d="0.9933086939364114" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9941221474770753" m_b="0" m_c="0" m_d="0.9941221474770753" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.995" m_b="0" m_c="0" m_d="0.995" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.995932633569242" m_b="0" m_c="0" m_d="0.995932633569242" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9969098300562506" m_b="0" m_c="0" m_d="0.9969098300562506" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9979208830918224" m_b="0" m_c="0" m_d="0.9979208830918224" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9989547153673235" m_b="0" m_c="0" m_d="0.9989547153673235" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="tracer" root="klbq_kanami_fx" framerate="30">
+    <frame x="0" y="0" w="512" h="512">
+      <element name="tracer" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="tracer" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="tracer" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="tracer" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="tracer" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="tracer" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="tracer" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="tracer" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="domain_cast" root="klbq_kanami_fx" framerate="30">
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.15" m_b="0" m_c="0" m_d="0.15" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.1793103448275862" m_b="0" m_c="0" m_d="0.1793103448275862" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.20862068965517241" m_b="0" m_c="0" m_d="0.20862068965517241" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.2379310344827586" m_b="0" m_c="0" m_d="0.2379310344827586" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.2672413793103448" m_b="0" m_c="0" m_d="0.2672413793103448" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.296551724137931" m_b="0" m_c="0" m_d="0.296551724137931" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.3258620689655172" m_b="0" m_c="0" m_d="0.3258620689655172" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.35517241379310344" m_b="0" m_c="0" m_d="0.35517241379310344" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.38448275862068965" m_b="0" m_c="0" m_d="0.38448275862068965" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.4137931034482758" m_b="0" m_c="0" m_d="0.4137931034482758" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.443103448275862" m_b="0" m_c="0" m_d="0.443103448275862" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.4724137931034482" m_b="0" m_c="0" m_d="0.4724137931034482" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.5017241379310344" m_b="0" m_c="0" m_d="0.5017241379310344" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.5310344827586206" m_b="0" m_c="0" m_d="0.5310344827586206" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.5603448275862069" m_b="0" m_c="0" m_d="0.5603448275862069" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.5896551724137931" m_b="0" m_c="0" m_d="0.5896551724137931" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.6189655172413793" m_b="0" m_c="0" m_d="0.6189655172413793" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.6482758620689655" m_b="0" m_c="0" m_d="0.6482758620689655" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.6775862068965517" m_b="0" m_c="0" m_d="0.6775862068965517" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.7068965517241379" m_b="0" m_c="0" m_d="0.7068965517241379" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.7362068965517241" m_b="0" m_c="0" m_d="0.7362068965517241" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.7655172413793103" m_b="0" m_c="0" m_d="0.7655172413793103" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.7948275862068965" m_b="0" m_c="0" m_d="0.7948275862068965" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.8241379310344829" m_b="0" m_c="0" m_d="0.8241379310344829" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.853448275862069" m_b="0" m_c="0" m_d="0.853448275862069" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.8827586206896552" m_b="0" m_c="0" m_d="0.8827586206896552" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9120689655172414" m_b="0" m_c="0" m_d="0.9120689655172414" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9413793103448276" m_b="0" m_c="0" m_d="0.9413793103448276" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="0.9706896551724138" m_b="0" m_c="0" m_d="0.9706896551724138" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="domain" frame="0" layername="object" z_index="0" m_a="1.0" m_b="0" m_c="0" m_d="1.0" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="revive" root="klbq_kanami_fx" framerate="30">
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.4" m_b="0" m_c="0" m_d="0.4" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.43333333333333335" m_b="0" m_c="0" m_d="0.43333333333333335" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.4666666666666667" m_b="0" m_c="0" m_d="0.4666666666666667" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.5" m_b="0" m_c="0" m_d="0.5" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.5333333333333333" m_b="0" m_c="0" m_d="0.5333333333333333" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.5666666666666667" m_b="0" m_c="0" m_d="0.5666666666666667" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.6000000000000001" m_b="0" m_c="0" m_d="0.6000000000000001" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.6333333333333333" m_b="0" m_c="0" m_d="0.6333333333333333" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.6666666666666667" m_b="0" m_c="0" m_d="0.6666666666666667" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.7" m_b="0" m_c="0" m_d="0.7" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.7333333333333334" m_b="0" m_c="0" m_d="0.7333333333333334" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.7666666666666666" m_b="0" m_c="0" m_d="0.7666666666666666" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.8" m_b="0" m_c="0" m_d="0.8" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.8333333333333334" m_b="0" m_c="0" m_d="0.8333333333333334" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.8666666666666667" m_b="0" m_c="0" m_d="0.8666666666666667" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.9" m_b="0" m_c="0" m_d="0.9" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.9333333333333333" m_b="0" m_c="0" m_d="0.9333333333333333" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="0.9666666666666667" m_b="0" m_c="0" m_d="0.9666666666666667" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="1.0" m_b="0" m_c="0" m_d="1.0" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="1.0333333333333332" m_b="0" m_c="0" m_d="1.0333333333333332" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="1.0666666666666667" m_b="0" m_c="0" m_d="1.0666666666666667" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="1.1" m_b="0" m_c="0" m_d="1.1" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="1.1333333333333333" m_b="0" m_c="0" m_d="1.1333333333333333" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="1.1666666666666667" m_b="0" m_c="0" m_d="1.1666666666666667" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="1.2000000000000002" m_b="0" m_c="0" m_d="1.2000000000000002" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="1.2333333333333334" m_b="0" m_c="0" m_d="1.2333333333333334" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="1.2666666666666666" m_b="0" m_c="0" m_d="1.2666666666666666" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="1.3" m_b="0" m_c="0" m_d="1.3" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="1.3333333333333335" m_b="0" m_c="0" m_d="1.3333333333333335" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="revive" frame="0" layername="object" z_index="0" m_a="1.3666666666666667" m_b="0" m_c="0" m_d="1.3666666666666667" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="sweep" root="klbq_kanami_fx" framerate="30">
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="1.0" m_b="0.0" m_c="-0.0" m_d="1.0" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="0.9135454576426009" m_b="0.40673664307580015" m_c="-0.40673664307580015" m_d="0.9135454576426009" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="0.6691306063588582" m_b="0.7431448254773941" m_c="-0.7431448254773941" m_d="0.6691306063588582" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="0.30901699437494745" m_b="0.9510565162951535" m_c="-0.9510565162951535" m_d="0.30901699437494745" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="-0.10452846326765333" m_b="0.9945218953682734" m_c="-0.9945218953682734" m_d="-0.10452846326765333" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="-0.4999999999999998" m_b="0.8660254037844387" m_c="-0.8660254037844387" m_d="-0.4999999999999998" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="-0.8090169943749473" m_b="0.5877852522924732" m_c="-0.5877852522924732" m_d="-0.8090169943749473" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="-0.9781476007338057" m_b="0.20791169081775931" m_c="-0.20791169081775931" m_d="-0.9781476007338057" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="-0.9781476007338057" m_b="-0.20791169081775907" m_c="0.20791169081775907" m_d="-0.9781476007338057" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="-0.8090169943749475" m_b="-0.587785252292473" m_c="0.587785252292473" m_d="-0.8090169943749475" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="-0.5000000000000004" m_b="-0.8660254037844385" m_c="0.8660254037844385" m_d="-0.5000000000000004" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="-0.10452846326765423" m_b="-0.9945218953682733" m_c="0.9945218953682733" m_d="-0.10452846326765423" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="0.30901699437494723" m_b="-0.9510565162951536" m_c="0.9510565162951536" m_d="0.30901699437494723" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="0.6691306063588585" m_b="-0.743144825477394" m_c="0.743144825477394" m_d="0.6691306063588585" m_tx="0" m_ty="0" />
+    </frame>
+    <frame x="0" y="0" w="512" h="512">
+      <element name="sweep" frame="0" layername="object" z_index="0" m_a="0.913545457642601" m_b="-0.40673664307580015" m_c="0.40673664307580015" m_d="0.913545457642601" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+</Anims>

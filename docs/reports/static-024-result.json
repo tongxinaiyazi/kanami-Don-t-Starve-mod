@@ -1,0 +1,8 @@
+{
+  "version": "0.2.4",
+  "lua51_parse_files": 49,
+  "errors": 0,
+  "unit_tests": 337,
+  "unit_failed": 0,
+  "unit_log": "unit-024.log"
+}

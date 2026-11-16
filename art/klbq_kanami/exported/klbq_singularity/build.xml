@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="klbq_singularity">
+  <Symbol name="klbq_singularity">
+    <Frame framenum="0" duration="1" x="0" y="-52.0" w="112" h="104" image="klbq_singularity_0" />
+  </Symbol>
+</Build>

@@ -1,0 +1,634 @@
+--- /dev/null
++++ tools/run_engine.py
+@@ -0,0 +1,135 @@
++"""Run the actual DST server in a task-owned miniature host and offline save.
++
++Original binaries/data are read/copied for local tests only. Installed mods and
++normal user storage are never changed. This host is not a redistributable game.
++"""
++from __future__ import annotations
++import argparse, json, os, re, shutil, socket, subprocess, time, uuid
++from pathlib import Path
++
++MOD=Path(__file__).resolve().parents[1]
++GAME=Path("E:/steam/steamapps/common/Don't Starve Together")
++STAGE=Path("D:/SOFTWARE/CodexData/temp/klbq_resources_engine")
++REPORT=MOD/"docs/reports"
++RUNTIME_FILES=["modinfo.lua","modmain.lua","modicon.xml","modicon.tex"]
++PORT_ERROR=re.compile(r"invalid port selection|fall(?:ing)?\s*back[^\r\n]*port", re.IGNORECASE)
++ACTUAL_PORT=re.compile(r"(?<!\S)(?:ServerPort:|Lan Server Started on port:)\s*(\d+)", re.IGNORECASE)
++
++def choose_lan_port():
++    """Probe the LAN-only range, keeping the normal default port untouched."""
++    for port in range(11018,10997,-1):
++        if port == 10999:
++            continue
++        with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as probe:
++            try:
++                probe.bind(("127.0.0.1",port))
++            except OSError:
++                continue
++            return port
++    raise RuntimeError("No available LAN UDP port in 10998..11018 (10999 reserved)")
++
++def runtime_copy(destination):
++    destination.mkdir(parents=True,exist_ok=True)
++    for name in RUNTIME_FILES: shutil.copy2(MOD/name,destination/name)
++    for folder in ["scripts","images","anim"]:
++        shutil.copytree(MOD/folder,destination/folder,dirs_exist_ok=True)
++
++def prepare(phase,server_port):
++    if STAGE.exists() and not (STAGE/".klbq-resources-owned").is_file():
++        raise RuntimeError("Refusing an unowned test directory")
++    STAGE.mkdir(parents=True,exist_ok=True)
++    (STAGE/".klbq-resources-owned").write_text("isolated klbq_resources engine test\n")
++    host=STAGE/"game"
++    binary=host/"bin64"
++    binary.mkdir(parents=True,exist_ok=True)
++    for source in (GAME/"bin64").iterdir():
++        if source.suffix.lower()==".dll" or source.name=="dontstarve_dedicated_server_nullrenderer_x64.exe":
++            shutil.copy2(source,binary/source.name)
++    # Junction target is checked before creation and never modified.
++    data=host/"data"
++    if not data.exists():
++        quote=lambda path: "'"+str(path).replace("'", "''")+"'"
++        command="New-Item -ItemType Junction -Path "+quote(data)+" -Target "+quote(GAME/"data")+" | Out-Null"
++        subprocess.run(["powershell.exe","-NoProfile","-NonInteractive","-Command",command],check=True,
++                       creationflags=subprocess.CREATE_NO_WINDOW)
++    if data.resolve()!=(GAME/"data").resolve():
++        raise RuntimeError("Unexpected test data junction target")
++    mods=host/"mods"
++    runtime_copy(mods/"klbq_resources")
++    shutil.copytree(MOD/"tests/engine_mod",mods/"klbq_resources_test",dirs_exist_ok=True)
++    (mods/"modsettings.lua").write_text("-- isolated resource test only\n",encoding="utf-8")
++    last_cluster=STAGE/"last-cluster.json"
++    if phase == "reload":
++        name=json.loads(last_cluster.read_text(encoding="utf-8"))["cluster"]
++        if not re.fullmatch(r"ResourcesSmoke-[0-9a-f]{12}",name):
++            raise RuntimeError("Invalid task-owned cluster name")
++    else:
++        name="ResourcesSmoke-"+uuid.uuid4().hex[:12]
++        last_cluster.write_text(json.dumps({"cluster":name}),encoding="utf-8")
++    cluster=STAGE/"storage/DoNotStarveTogether"/name
++    shard=cluster/"Master"
++    shard.mkdir(parents=True,exist_ok=True)
++    (cluster/"cluster.ini").write_text("[GAMEPLAY]\ngame_mode=endless\nmax_players=2\npvp=false\npause_when_empty=false\n\n[NETWORK]\ncluster_name=Resource isolated regression\noffline_cluster=true\nlan_only_cluster=true\n\n[MISC]\nconsole_enabled=true\n\n[SHARD]\nshard_enabled=false\n",encoding="utf-8")
++    (shard/"server.ini").write_text("[NETWORK]\nserver_port="+str(server_port)+"\n\n[STEAM]\nauthentication_port=8791\nmaster_server_port=27041\n\n[SHARD]\nis_master=true\n",encoding="utf-8")
++    (shard/"worldgenoverride.lua").write_text('return {override_enabled=true,preset="SURVIVAL_TOGETHER",overrides={world_size="small",season_start="autumn",start_location="default"}}\n',encoding="utf-8")
++    return binary,shard
++
++def phase_run(binary,shard,phase,timeout,server_port):
++    (shard/"modoverrides.lua").write_text('return {["klbq_resources"]={enabled=true},["klbq_resources_test"]={enabled=true,configuration_options={phase="'+phase+'"}}}\n',encoding="utf-8")
++    REPORT.mkdir(parents=True,exist_ok=True)
++    log=REPORT/("engine-"+phase+".log")
++    command=[str(binary/"dontstarve_dedicated_server_nullrenderer_x64.exe"),
++             "-persistent_storage_root",str(STAGE/"storage"),"-conf_dir","DoNotStarveTogether",
++             "-cluster",shard.parent.name,"-shard","Master","-offline","-bind_ip","127.0.0.1",
++             "-port",str(server_port),"-skip_update_server_mods"]
++    env=os.environ.copy();env["SteamAppId"]="322330"
++    with log.open("wb") as out:
++        process=subprocess.Popen(command,cwd=binary,env=env,stdin=subprocess.PIPE,stdout=out,
++                                 stderr=subprocess.STDOUT,creationflags=subprocess.CREATE_NO_WINDOW)
++        start=time.monotonic();last_update=0
++        try:
++            while process.poll() is None and time.monotonic()-start<timeout:
++                time.sleep(1)
++                text=log.read_text(encoding="utf-8",errors="replace")
++                elapsed=int(time.monotonic()-start)
++                if elapsed-last_update>=15:
++                    markers=[line for line in text.splitlines() if "[RESOURCES_TEST]" in line]
++                    print(phase,elapsed,"s",markers[-1] if markers else "world startup",flush=True)
++                    last_update=elapsed
++                if "LUA ERROR" in text or "Error loading prefab" in text or PORT_ERROR.search(text):
++                    break
++            if process.poll() is None:
++                try:
++                    process.stdin.write(b"c_shutdown(false)\n");process.stdin.flush()
++                    process.wait(timeout=10)
++                except (OSError,subprocess.TimeoutExpired):
++                    process.terminate();process.wait(timeout=10)
++        finally:
++            if process.poll() is None:
++                process.kill();process.wait(timeout=10)
++    text=log.read_text(encoding="utf-8",errors="replace")
++    markers=[line for line in text.splitlines() if "[RESOURCES_TEST]" in line]
++    print("\n".join(markers),flush=True)
++    actual_ports=[int(port) for port in ACTUAL_PORT.findall(text)]
++    result={"phase":phase,"server_port":server_port,"actual_server_ports":actual_ports,
++            "port_error":bool(PORT_ERROR.search(text)) or any(port!=server_port for port in actual_ports),
++            "exit_code":process.returncode,"pass":sum("PASS" in line for line in markers),
++            "fail":sum("FAIL" in line for line in markers),"complete":any("COMPLETE" in line for line in markers),
++            "lua_error":"LUA ERROR" in text,"log":str(log)}
++    (REPORT/("engine-"+phase+"-result.json")).write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
++    if result["exit_code"]!=0 or result["lua_error"] or result["port_error"] or result["fail"] or not result["complete"]:
++        raise RuntimeError("Engine "+phase+" failed: "+json.dumps(result))
++    return result
++
++def main():
++    parser=argparse.ArgumentParser()
++    parser.add_argument("--phase",choices=["both","create","reload"],default="both")
++    parser.add_argument("--seconds",type=int,default=120)
++    args=parser.parse_args()
++    server_port=choose_lan_port()
++    binary,shard=prepare(args.phase,server_port)
++    phases=["create","reload"] if args.phase=="both" else [args.phase]
++    results=[phase_run(binary,shard,p,args.seconds,server_port) for p in phases]
++    print(json.dumps(results),flush=True)
++
++if __name__=="__main__":main()
+--- /dev/null
++++ tests/test_engine_runner.py
+@@ -0,0 +1,128 @@
++"""Exercise the isolated runner without starting the game executable."""
++import importlib.util
++import json
++import socket
++import tempfile
++import unittest
++from pathlib import Path
++from unittest import mock
++
++spec = importlib.util.spec_from_file_location(
++    "resource_engine_runner", Path(__file__).parents[1] / "tools/run_engine.py")
++runner = importlib.util.module_from_spec(spec)
++spec.loader.exec_module(runner)
++
++
++class LanPortTests(unittest.TestCase):
++    def test_helper_exists(self):
++        self.assertTrue(callable(getattr(runner, "choose_lan_port", None)),
++                        "Missing choose_lan_port helper")
++
++    def test_occupied_port_is_skipped_and_probe_is_closed(self):
++        # Holding the actual preferred available UDP port proves the helper
++        # checks the OS, rather than merely returning a different constant.
++        first = runner.choose_lan_port()
++        self.assertIn(first, range(10998, 11019))
++        self.assertNotEqual(first, 10999)
++        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as held:
++            held.bind(("127.0.0.1", first))
++            second = runner.choose_lan_port()
++            self.assertLess(second, first)
++            self.assertNotEqual(second, 10999)
++            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as probe:
++                probe.bind(("127.0.0.1", second))
++
++    def test_exhaustion_is_clear_and_every_probe_is_closed(self):
++        probes = []
++
++        class BusySocket:
++            def __enter__(self):
++                probes.append(self)
++                self.closed = False
++                return self
++
++            def bind(self, address):
++                self.address = address
++                raise OSError("occupied")
++
++            def __exit__(self, *_):
++                self.closed = True
++
++        with mock.patch.object(runner.socket, "socket", side_effect=lambda *_: BusySocket()):
++            with self.assertRaisesRegex(RuntimeError, "10998.*11018"):
++                runner.choose_lan_port()
++        self.assertEqual([p.address for p in probes],
++                         [("127.0.0.1", p) for p in range(11018, 10997, -1) if p != 10999])
++        self.assertTrue(all(p.closed for p in probes))
++
++
++class RunnerPortTests(unittest.TestCase):
++    def test_main_passes_selected_port_to_configuration_and_both_phases(self):
++        with mock.patch.object(runner, "choose_lan_port", return_value=11017), \
++             mock.patch.object(runner, "prepare", return_value=("binary", "shard")) as prepare, \
++             mock.patch.object(runner, "phase_run", return_value={}) as phase_run, \
++             mock.patch("sys.argv", ["run_engine.py"]), mock.patch("builtins.print"):
++            runner.main()
++        prepare.assert_called_once_with("both", 11017)
++        self.assertEqual(phase_run.call_args_list,
++                         [mock.call("binary", "shard", "create", 120, 11017),
++                          mock.call("binary", "shard", "reload", 120, 11017)])
++
++    def run_fake_phase(self, root, log_text):
++        shard = root / "cluster/Master"
++        shard.mkdir(parents=True)
++        report = root / "reports"
++
++        def start_process(command, **kwargs):
++            self.assertEqual(command[command.index("-port") + 1], "11017")
++            kwargs["stdout"].write(log_text.encode())
++            kwargs["stdout"].flush()
++            return mock.Mock(poll=lambda: 0, returncode=0)
++
++        with mock.patch.object(runner, "REPORT", report), \
++             mock.patch.object(runner.subprocess, "Popen", side_effect=start_process), \
++             mock.patch("builtins.print"):
++            return runner.phase_run(root / "binary", shard, "create", 1, 11017)
++
++    def test_port_is_in_executable_arguments_and_result_json(self):
++        with tempfile.TemporaryDirectory(dir="D:/SOFTWARE/CodexData/temp") as folder:
++            root = Path(folder)
++            result = self.run_fake_phase(root, "SteamGameServer_Init(10999,27041)\n[00:00:01]: ServerPort: 11017\n[00:00:01]: SteamMasterServerPort: 27041\n[00:00:01]: Lan Server Started on port: 11017\n[RESOURCES_TEST] PASS\n[RESOURCES_TEST] COMPLETE\n")
++            saved = json.loads((root / "reports/engine-create-result.json").read_text())
++        self.assertEqual(result["server_port"], 11017)
++        self.assertEqual(saved["server_port"], 11017)
++        self.assertEqual(saved["actual_server_ports"], [11017, 11017])
++
++    def test_invalid_port_or_fallback_fails_even_with_complete_marker(self):
++        for warning in ("Invalid port selection", "Falling back to default port 10999",
++                        "ServerPort: 10999", "Lan Server Started on port: 10999"):
++            with self.subTest(warning=warning), \
++                 tempfile.TemporaryDirectory(dir="D:/SOFTWARE/CodexData/temp") as folder:
++                with self.assertRaisesRegex(RuntimeError, "Engine create failed"):
++                    self.run_fake_phase(Path(folder), warning + "\n[RESOURCES_TEST] COMPLETE\n")
++
++    def test_prepare_writes_selected_port_to_server_ini(self):
++        with tempfile.TemporaryDirectory(dir="D:/SOFTWARE/CodexData/temp") as folder:
++            root = Path(folder)
++            game = root / "installed"
++            (game / "bin64").mkdir(parents=True)
++            (game / "data").mkdir()
++            stage = root / "stage"
++            data = stage / "game/data"
++            data.mkdir(parents=True)
++            (stage / "game/mods").mkdir()
++            (stage / ".klbq-resources-owned").write_text("test fixture\n")
++            original_resolve = Path.resolve
++
++            def resolve(path, *args, **kwargs):
++                return game / "data" if path == data else original_resolve(path, *args, **kwargs)
++
++            with mock.patch.object(runner, "GAME", game), mock.patch.object(runner, "STAGE", stage), \
++                 mock.patch.object(runner, "runtime_copy"), mock.patch.object(runner.shutil, "copytree"), \
++                 mock.patch.object(Path, "resolve", resolve):
++                _, shard = runner.prepare("create", 11017)
++            self.assertIn("server_port=11017\n", (shard / "server.ini").read_text())
++
++
++if __name__ == "__main__":
++    unittest.main()
+--- /dev/null
++++ docs/port-fix-report.md
+@@ -0,0 +1,220 @@
++# LAN port isolation fix — 2026-10-30
++
++## Scope and cause
++
++Only `tools/run_engine.py`, `tests/test_engine_runner.py`, and this report were changed.
++The runner previously configured/requested 11041, outside the current LAN-only
++10998..11018 range. The engine warned `Invalid port selection: 11041` and used
++10999, defeating test isolation. Existing success checks ignored that warning.
++
++## Change
++
++- `choose_lan_port()` probes real UDP binds on 127.0.0.1, preferring 11018
++  down through 10998 while skipping normal default 10999. Context managers
++  close both successful and failed probe sockets; exhaustion raises a clear
++  RuntimeError naming the allowed range.
++- `main()` chooses once, passing the same port into `prepare()` and both
++  `phase_run()` calls. `server.ini` and executable `-port` use that value.
++- Logs containing invalid-port/fallback warnings fail validation. Parsed
++  `ServerPort:` and `Lan Server Started on port:` values must match the chosen
++  port; a silent fallback therefore also fails. The earlier
++  `SteamGameServer_Init(10999,27041)` message is intentionally excluded.
++- Result JSON records `server_port`, `actual_server_ports`, and `port_error`.
++- No dependencies were added. No server process was launched or another process
++  modified/terminated. Real engine reruns remain the parent task's responsibility.
++
++The bind probe is a point-in-time availability check: another process may claim
++the port after the probe closes. Engine failures or logged fallback then fail
++the run; the helper never evicts another process.
++
++## RED: missing helper, before production edits
++
++Working directory for all commands below:
++`D:\SOFTWARE\项目\饥荒\mods\klbq_resources`.
++
++The initial `python -B ...` invocation resolved to the Windows Store alias,
++returned exit 1 with no output, and was not treated as test evidence. The
++installed Python launcher was then used.
++
++Command:
++
++```powershell
++py -3 -B -m unittest discover -s tests -p test_engine_runner.py -k helper_exists -v
++```
++
++Output (exit 1):
++
++```text
++test_helper_exists (test_engine_runner.LanPortTests.test_helper_exists) ... FAIL
++
++======================================================================
++FAIL: test_helper_exists (test_engine_runner.LanPortTests.test_helper_exists)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "D:\SOFTWARE\项目\饥荒\mods\klbq_resources\tests\test_engine_runner.py", line 18, in test_helper_exists
++    self.assertTrue(callable(getattr(runner, "choose_lan_port", None)),
++    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++                    "Missing choose_lan_port helper")
++                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++AssertionError: False is not true : Missing choose_lan_port helper
++
++----------------------------------------------------------------------
++Ran 1 test in 0.000s
++
++FAILED (failures=1)
++```
++
++The full seven-test pre-implementation run used
++`py -3 -B -m unittest discover -s tests -p test_engine_runner.py -v` and ended
++`FAILED (failures=1, errors=7)`: missing helper/socket import and the old
++prepare/phase_run argument counts. This was expected missing-API evidence.
++During the first GREEN attempts, the configuration fixture itself required its
++ownership marker and empty mods directory; these were added to the fixture.
++No production behavior was relaxed to satisfy those setup errors.
++
++## RED: silent fallback, before mismatch detection
++
++After the parent supplied real log formats, added both mismatch cases to the
++existing fallback test and observed the expected behavioral failures.
++
++Command:
++
++```powershell
++py -3 -B -m unittest discover -s tests -p test_engine_runner.py -k invalid_port -v
++```
++
++Output (exit 1):
++
++```text
++test_invalid_port_or_fallback_fails_even_with_complete_marker (test_engine_runner.RunnerPortTests.test_invalid_port_or_fallback_fails_even_with_complete_marker) ...
++  test_invalid_port_or_fallback_fails_even_with_complete_marker (test_engine_runner.RunnerPortTests.test_invalid_port_or_fallback_fails_even_with_complete_marker) (warning='ServerPort: 10999') ... FAIL
++  test_invalid_port_or_fallback_fails_even_with_complete_marker (test_engine_runner.RunnerPortTests.test_invalid_port_or_fallback_fails_even_with_complete_marker) (warning='Lan Server Started on port: 10999') ... FAIL
++
++======================================================================
++FAIL: test_invalid_port_or_fallback_fails_even_with_complete_marker (test_engine_runner.RunnerPortTests.test_invalid_port_or_fallback_fails_even_with_complete_marker) (warning='ServerPort: 10999')
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "D:\SOFTWARE\项目\饥荒\mods\klbq_resources\tests\test_engine_runner.py", line 100, in test_invalid_port_or_fallback_fails_even_with_complete_marker
++    with self.assertRaisesRegex(RuntimeError, "Engine create failed"):
++         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++AssertionError: RuntimeError not raised
++
++======================================================================
++FAIL: test_invalid_port_or_fallback_fails_even_with_complete_marker (test_engine_runner.RunnerPortTests.test_invalid_port_or_fallback_fails_even_with_complete_marker) (warning='Lan Server Started on port: 10999')
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "D:\SOFTWARE\项目\饥荒\mods\klbq_resources\tests\test_engine_runner.py", line 100, in test_invalid_port_or_fallback_fails_even_with_complete_marker
++    with self.assertRaisesRegex(RuntimeError, "Engine create failed"):
++         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++AssertionError: RuntimeError not raised
++
++----------------------------------------------------------------------
++Ran 1 test in 0.022s
++
++FAILED (failures=2)
++```
++
++## GREEN: final targeted regression suite
++
++Command:
++
++```powershell
++py -3 -B -m unittest discover -s tests -p test_engine_runner.py -v
++```
++
++Output (exit 0):
++
++```text
++test_exhaustion_is_clear_and_every_probe_is_closed (test_engine_runner.LanPortTests.test_exhaustion_is_clear_and_every_probe_is_closed) ... ok
++test_helper_exists (test_engine_runner.LanPortTests.test_helper_exists) ... ok
++test_occupied_port_is_skipped_and_probe_is_closed (test_engine_runner.LanPortTests.test_occupied_port_is_skipped_and_probe_is_closed) ... ok
++test_invalid_port_or_fallback_fails_even_with_complete_marker (test_engine_runner.RunnerPortTests.test_invalid_port_or_fallback_fails_even_with_complete_marker) ... ok
++test_main_passes_selected_port_to_configuration_and_both_phases (test_engine_runner.RunnerPortTests.test_main_passes_selected_port_to_configuration_and_both_phases) ... ok
++test_port_is_in_executable_arguments_and_result_json (test_engine_runner.RunnerPortTests.test_port_is_in_executable_arguments_and_result_json) ... ok
++test_prepare_writes_selected_port_to_server_ini (test_engine_runner.RunnerPortTests.test_prepare_writes_selected_port_to_server_ini) ... ok
++
++----------------------------------------------------------------------
++Ran 7 tests in 0.048s
++
++OK
++```
++
++The occupied-port test calls the actual helper, holds an actual UDP socket on
++its first selected port, and confirms a lower allowed port is selected. It
++immediately binds that second port to verify the successful probe was closed.
++Exhaustion/order/reserved-port/failed-close behavior uses a deterministic busy
++socket fixture. Fake-process tests exercise the real runner command construction,
++result JSON serialization, warning/fallback rejection and normal success without
++starting the engine. The configuration test exercises real `prepare()` file
++writing in a disposable D-drive fixture while replacing installed-game copying
++and junction resolution. Temporary fixtures are removed by context managers.
++
++## Follow-up: distinguish complete port labels from SteamMasterServerPort
++
++The parent's real create run passed 24 engine checks and exited 0 on 11018,
++but the first parser matched the `ServerPort:` suffix inside
++`SteamMasterServerPort: 27041`. That falsely produced
++`actual_server_ports: [11018, 27041, 11018]`. The parser now requires whitespace
++or start-of-input immediately before the complete label. This accepts timestamped
++game-port labels and excludes the Steam master port. No server was started by
++this subtask.
++
++First extended the successful fake-process fixture with timestamped
++`ServerPort: 11017`, `SteamMasterServerPort: 27041`, and
++`Lan Server Started on port: 11017`, and asserted the serialized actual ports
++are exactly `[11017, 11017]`.
++
++RED command:
++
++```powershell
++py -3 -B -m unittest discover -s tests -p test_engine_runner.py -k port_is_in_executable -v
++```
++
++Output (exit 1; the RuntimeError is the observed false-rejection bug):
++
++```text
++test_port_is_in_executable_arguments_and_result_json (test_engine_runner.RunnerPortTests.test_port_is_in_executable_arguments_and_result_json) ... ERROR
++
++======================================================================
++ERROR: test_port_is_in_executable_arguments_and_result_json (test_engine_runner.RunnerPortTests.test_port_is_in_executable_arguments_and_result_json)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "D:\SOFTWARE\项目\饥荒\mods\klbq_resources\tests\test_engine_runner.py", line 90, in test_port_is_in_executable_arguments_and_result_json
++    result = self.run_fake_phase(root, "SteamGameServer_Init(10999,27041)\n[00:00:01]: ServerPort: 11017\n[00:00:01]: SteamMasterServerPort: 27041\n[00:00:01]: Lan Server Started on port: 11017\n[RESOURCES_TEST] PASS\n[RESOURCES_TEST] COMPLETE\n")
++  File "D:\SOFTWARE\项目\饥荒\mods\klbq_resources\tests\test_engine_runner.py", line 85, in run_fake_phase
++    return runner.phase_run(root / "binary", shard, "create", 1, 11017)
++           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "D:\SOFTWARE\项目\饥荒\mods\klbq_resources\tools\run_engine.py", line 121, in phase_run
++    raise RuntimeError("Engine "+phase+" failed: "+json.dumps(result))
++RuntimeError: Engine create failed: {"phase": "create", "server_port": 11017, "actual_server_ports": [11017, 27041, 11017], "port_error": true, "exit_code": 0, "pass": 1, "fail": 0, "complete": true, "lua_error": false, "log": "D:\\SOFTWARE\\CodexData\\temp\\tmp_docfqkj\\reports\\engine-create.log"}
++
++----------------------------------------------------------------------
++Ran 1 test in 0.010s
++
++FAILED (errors=1)
++```
++
++Then changed only the port regex to require the complete-label boundary.
++
++GREEN command:
++
++```powershell
++py -3 -B -m unittest discover -s tests -p test_engine_runner.py -v
++```
++
++Output (exit 0):
++
++```text
++test_exhaustion_is_clear_and_every_probe_is_closed (test_engine_runner.LanPortTests.test_exhaustion_is_clear_and_every_probe_is_closed) ... ok
++test_helper_exists (test_engine_runner.LanPortTests.test_helper_exists) ... ok
++test_occupied_port_is_skipped_and_probe_is_closed (test_engine_runner.LanPortTests.test_occupied_port_is_skipped_and_probe_is_closed) ... ok
++test_invalid_port_or_fallback_fails_even_with_complete_marker (test_engine_runner.RunnerPortTests.test_invalid_port_or_fallback_fails_even_with_complete_marker) ... ok
++test_main_passes_selected_port_to_configuration_and_both_phases (test_engine_runner.RunnerPortTests.test_main_passes_selected_port_to_configuration_and_both_phases) ... ok
++test_port_is_in_executable_arguments_and_result_json (test_engine_runner.RunnerPortTests.test_port_is_in_executable_arguments_and_result_json) ... ok
++test_prepare_writes_selected_port_to_server_ini (test_engine_runner.RunnerPortTests.test_prepare_writes_selected_port_to_server_ini) ... ok
++
++----------------------------------------------------------------------
++Ran 7 tests in 0.038s
++
++OK
++```
+--- /dev/null
++++ docs/reports/verification.md
+@@ -0,0 +1,48 @@
++# 0.1.0 验证记录
++
++日期：2026-10-30。目标：DST 760178，Windows 本机。
++
++## 结果
++
++- Lua 5.1 运行单元检查 18/18：20 项身份与查询 API、无效输入、同版注册去重、版本冲突、受限 modinfo、可调用 Asset 表、严格全局变量环境、客户端/服务器构造分界。
++- 编译资源检查 3/3：20 个地面动画与 Symbol 绑定，库存图集 20 个原生 64×64 区域，KTEX/BILD/ANIM 格式与图标。
++- ZIP 检查 2/2：12 个允许的运行文件，文件位于模组根部，无参考图、工具、测试、存档、缓存或日志。
++- 隔离测试端口检查 7/7：只选择 LAN 允许的空闲 UDP 端口，跳过默认 10999；配置与启动参数一致，并拒绝端口回落。自动检查合计 30/30。
++- 实际无渲染专服创建阶段 24 项通过：20 个实体的生成、原生存档记录往返、背包与箱子转移、堆叠上限、图集/动画名绑定，以及同类合堆、溢出/拆分、异类拒绝混堆、无额外配方。
++- 实际保存退出并启动第二个服务器进程，重载阶段 21 项通过：20 种资源各自的独立数量恢复，且没有额外资源身份。
++- 两阶段均退出码 0、失败数 0、无 Lua 错误。工具创建新世界后重复运行，两阶段再次通过。
++- 最终两阶段实际端口均为 11018，与选择值一致，未出现端口回落；端口解析同时排除了独立的 SteamMasterServerPort 字段。
++- 香奈美与莉莉丝 104 个文件和任务开始时 SHA256 一致，未新增、删改这些模组的文件。
++
++## 证据
++
++- [创建阶段结果](engine-create-result.json)、[创建日志](engine-create.log)。
++- [重载阶段结果](engine-reload-result.json)、[重载日志](engine-reload.log)。
++- [核心实现 RED/GREEN](../core-report.md)。
++- [端口修复 RED/GREEN](../port-fix-report.md)。
++- [运行包文件与 SHA256 清单](../../release/manifest.json)。
++- 库存与地面运行切图已查看：`art/inventory-atlas.png`、`art/runtime-preview.png`。
++- 初次资产检查为预期 3 项失败（未构建）；初次包检查为预期 2 项失败（未打包），构建打包后均通过。
++
++## 运行隔离
++
++服务器在任务自己的 D 盘临时根下运行。只读链接游戏 data，复制本机运行所需二进制和本附属模组到临时主机；不覆盖游戏安装目录中的模组，不读写用户正式存档。只在临时离线测试世界生成资源和测试实体。
++
++临时测试世界与编译中间目录在任务结束时清理；本页关联日志、结果、源码、艺术工程、运行包保留。
++
++## 检查命令
++
++在项目根目录：
++
++```powershell
++& 'D:\SOFTWARE\CodexData\runtimes\codex-primary-runtime\dependencies\python\python.exe' -B -m unittest discover -s mods/klbq_resources/tests -p 'test_*.py' -v
++py -3 -B mods/klbq_resources/tools/build_assets.py
++py -3 -B mods/klbq_resources/tools/package_mod.py
++py -3 -B mods/klbq_resources/tools/run_engine.py --seconds 120
++```
++
++## 证据边界
++
++无渲染专服的动画名与资源绑定检查不等于实际游戏画面验收。未完成图形客户端的库存/地面画面、另一台远端客户端、实际海面浮水、洞穴跨分片、长期运行、停用模组和未来融合版本的存档迁移验证。
++
++本包没有来源、用途或经济系统。控制台生成与开发查询是测试/集成入口，不是自动资源发放。
+--- /dev/null
++++ docs/融合与调用.md
+@@ -0,0 +1,88 @@
++# 融合与调用
++
++运行版本 0.1.0；查询 API 版本 1。例子只供以后接入代码，不会在本包中自动执行或产生资源。
++
++跨模组查询应放在 `AddSimPostInit` 或实体/玩法回调中，等各模组完成加载后再 `require`，避免依赖模组加载顺序。合并到同一宿主后的注册调用可直接放在该宿主入口。
++
++## 查询
++
++```lua
++local Resources = require("klbq_resources/api")
++local prefab = Resources.GetPrefab("stringsea_beacon")
++-- "klbq_resource_stringsea_beacon"
++local definition = Resources.GetDefinition(prefab)
++-- definition.key / prefab / name / inspect / category
++local is_resource = Resources.IsResource(existing_item)
++```
++
++`GetDefinition`、`GetPrefab` 接受短键或完整 Prefab ID，未知/无效输入返回 `nil`。`IsResource` 接受完整 ID 或实体，未知对象返回 `false`，不只凭标签认定资源。目录条目共享，调用方只读使用。
++
++没有生成、扣除、兑换或抽卡 API。未来玩法由其自身在服务器端操作原生物品数量，不在客户端改权威状态。
++
++### 短键
++
++- 货币：`bablo_crystal`、`base_string`、`ideal_coin`。
++- 凭证：`memory_sequence`、`redirect_sequence`、`stringsea_beacon`、`initial_sequence`、`resonance_sequence`。
++- 外观材料：`topology_ring`、`tracing_plate`。
++- 模式资源：`card_fragment`、`dice`。
++- 终端：`terminal_michelle`、`terminal_xinghui`、`terminal_ming`、`terminal_qiandai`、`terminal_xi`、`terminal_kanami`、`terminal_flavia`、`terminal_eika`。
++
++运行真值是 `scripts/klbq_resources/catalog.lua`；`docs/resource-catalog.json` 是设计比对数据，单元检查校对两者。
++
++## 测试世界查看
++
++在独立测试世界的服务器控制台输入：
++
++```lua
++c_spawn("klbq_resource_bablo_crystal")
++c_spawn("klbq_resource_stringsea_beacon")
++c_spawn("klbq_resource_terminal_kanami")
++```
++
++这是开发查看方式，不是正式来源设计。默认每组 40；收纳、保存和数量使用原生组件，没有账号绑定或死亡保留。
++
++## 合并步骤
++
++本轮未修改香奈美。以后获准合并时：
++
++1. 复制 `scripts/klbq_resources/` 和 `scripts/prefabs/klbq_resources.lua` 到主模组同路径。
++2. 复制 `anim/klbq_resources_items.zip`、`images/klbq_resources_items.xml`、`images/klbq_resources_items.tex`。
++3. 在主模组入口加入：
++
++```lua
++require("klbq_resources/register").Install(env)
++```
++
++4. 保留主模组原有列表。安装函数追加 `PrefabFiles`、`Assets` 和资源字符串，不替换整张表。
++5. 保留全部 20 个 `klbq_resource_` ID、图片元素名及动画名；不替换现有 `klbq_crystal`。
++6. 继续使用 DST 两端必装；合并后关闭独立包，只保留一个运行所有者，并完整重启。
++7. 在备份的独立世界验证旧物品、地面/容器/背包、重连与洞穴切换，再迁移正式使用。
++
++同一 Lua 进程中，本版通过 `KLBQ_RESOURCES_OWNER` 保护同版重复注册；已加载目录与所有者版本冲突时明确报错。
++
++DST 共享 `require` 缓存，因此这不是支持任意不同版本副本并存或热更新的保证。融合时同步同版代码并只启用一个所有者；跨版本共存应另做版本化入口，不随意清理游戏模块缓存。
++
++## 文件职责
++
++- `catalog.lua`：稳定身份、中文名称、类别、检查文本、40 个堆叠上限和共同资源路径。
++- `api.lua`：查定义、查 Prefab、识别资源；加载时不依赖游戏对象。
++- `register.lua`：追加资源与字符串、登记图集和同版唯一所有者。
++- `prefabs/klbq_resources.lua`：统一联网物品工厂，两端共通结构先建，`SetPristine()` 后客户端返回，服务器添加原生物品/堆叠组件。
++- `art/`、`tools/`、`tests/`、`docs/`：开发资料，排除于运行 ZIP。
++
++## 构建与验证
++
++在项目根目录执行：
++
++```powershell
++py -3 -B mods/klbq_resources/tools/build_assets.py
++py -3 -B mods/klbq_resources/tools/package_mod.py
++& 'D:\SOFTWARE\CodexData\runtimes\codex-primary-runtime\dependencies\python\python.exe' -B -m unittest discover -s mods/klbq_resources/tests -p 'test_*.py' -v
++py -3 -B mods/klbq_resources/tools/run_engine.py --seconds 120
++```
++
++Lua 单元检查使用项目既有 Lua 5.1 依赖；美术由本机已安装 Klei 工具编译。构建脚本只对生成图执行机械裁切、缩放、打包和格式转换。
++
++专服测试在任务独有的 D 盘临时目录复制小型运行环境，仅通过只读数据联接读取已安装游戏素材；每轮新建离线世界，创建与重载阶段共用本轮世界，不覆盖已安装模组或正式存档。
++
++验证范围详见 [verification.md](reports/verification.md)。

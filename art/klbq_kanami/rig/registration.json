@@ -1,0 +1,897 @@
+{
+  "format": 1,
+  "units": "DST local coordinates; PNG pixels; y points down",
+  "frames": {
+    "arm_lower/0": {
+      "image": "parts/arm_lower_0.png",
+      "canvas": [
+        18,
+        44
+      ],
+      "centre": [
+        0.0,
+        17.0
+      ]
+    },
+    "arm_lower/1": {
+      "image": "parts/arm_lower_1.png",
+      "canvas": [
+        22,
+        60
+      ],
+      "centre": [
+        0.0,
+        25.0
+      ]
+    },
+    "arm_lower/2": {
+      "image": "parts/arm_lower_2.png",
+      "canvas": [
+        64,
+        42
+      ],
+      "centre": [
+        -17.5,
+        7.5
+      ]
+    },
+    "arm_lower/3": {
+      "image": "parts/arm_lower_3.png",
+      "canvas": [
+        18,
+        44
+      ],
+      "centre": [
+        0.0,
+        17.0
+      ]
+    },
+    "arm_lower/4": {
+      "image": "parts/arm_lower_4.png",
+      "canvas": [
+        22,
+        60
+      ],
+      "centre": [
+        0.0,
+        25.0
+      ]
+    },
+    "arm_lower/5": {
+      "image": "parts/arm_lower_5.png",
+      "canvas": [
+        18,
+        44
+      ],
+      "centre": [
+        0.0,
+        17.0
+      ]
+    },
+    "arm_lower/6": {
+      "image": "parts/arm_lower_6.png",
+      "canvas": [
+        64,
+        42
+      ],
+      "centre": [
+        -17.5,
+        7.5
+      ]
+    },
+    "hand/0": {
+      "image": "parts/hand_0.png",
+      "canvas": [
+        22,
+        32
+      ],
+      "centre": [
+        0.0,
+        12.8
+      ]
+    },
+    "hand/1": {
+      "image": "parts/hand_1.png",
+      "canvas": [
+        16,
+        30
+      ],
+      "centre": [
+        0.0,
+        12.0
+      ]
+    },
+    "hand/2": {
+      "image": "parts/hand_2.png",
+      "canvas": [
+        22,
+        32
+      ],
+      "centre": [
+        0.0,
+        12.8
+      ]
+    },
+    "hand/3": {
+      "image": "parts/hand_3.png",
+      "canvas": [
+        22,
+        32
+      ],
+      "centre": [
+        0.0,
+        12.8
+      ]
+    },
+    "hand/4": {
+      "image": "parts/hand_4.png",
+      "canvas": [
+        16,
+        30
+      ],
+      "centre": [
+        0.0,
+        12.0
+      ]
+    },
+    "hand/5": {
+      "image": "parts/hand_5.png",
+      "canvas": [
+        22,
+        32
+      ],
+      "centre": [
+        0.0,
+        12.8
+      ]
+    },
+    "hand/6": {
+      "image": "parts/hand_6.png",
+      "canvas": [
+        16,
+        30
+      ],
+      "centre": [
+        0.0,
+        12.0
+      ]
+    },
+    "hand/7": {
+      "image": "parts/hand_7.png",
+      "canvas": [
+        16,
+        30
+      ],
+      "centre": [
+        0.0,
+        12.0
+      ]
+    },
+    "hand/8": {
+      "image": "parts/hand_8.png",
+      "canvas": [
+        16,
+        30
+      ],
+      "centre": [
+        0.0,
+        12.0
+      ]
+    },
+    "hand/9": {
+      "image": "parts/hand_9.png",
+      "canvas": [
+        22,
+        32
+      ],
+      "centre": [
+        0.0,
+        12.8
+      ]
+    },
+    "hand/10": {
+      "image": "parts/hand_10.png",
+      "canvas": [
+        16,
+        30
+      ],
+      "centre": [
+        0.0,
+        12.0
+      ]
+    },
+    "hand/11": {
+      "image": "parts/hand_11.png",
+      "canvas": [
+        22,
+        32
+      ],
+      "centre": [
+        0.0,
+        12.8
+      ]
+    },
+    "hand/12": {
+      "image": "parts/hand_12.png",
+      "canvas": [
+        16,
+        30
+      ],
+      "centre": [
+        0.0,
+        12.0
+      ]
+    },
+    "hand/13": {
+      "image": "parts/hand_13.png",
+      "canvas": [
+        22,
+        32
+      ],
+      "centre": [
+        0.0,
+        12.8
+      ]
+    },
+    "hand/14": {
+      "image": "parts/hand_14.png",
+      "canvas": [
+        16,
+        30
+      ],
+      "centre": [
+        0.0,
+        12.0
+      ]
+    },
+    "hand/15": {
+      "image": "parts/hand_15.png",
+      "canvas": [
+        22,
+        32
+      ],
+      "centre": [
+        0.0,
+        12.8
+      ]
+    },
+    "hand/16": {
+      "image": "parts/hand_16.png",
+      "canvas": [
+        16,
+        30
+      ],
+      "centre": [
+        0.0,
+        12.0
+      ]
+    },
+    "hand/17": {
+      "image": "parts/hand_17.png",
+      "canvas": [
+        22,
+        32
+      ],
+      "centre": [
+        0.0,
+        12.8
+      ]
+    },
+    "hand/18": {
+      "image": "parts/hand_18.png",
+      "canvas": [
+        22,
+        32
+      ],
+      "centre": [
+        0.0,
+        12.8
+      ]
+    },
+    "hand/19": {
+      "image": "parts/hand_19.png",
+      "canvas": [
+        22,
+        32
+      ],
+      "centre": [
+        0.0,
+        12.8
+      ]
+    },
+    "torso/0": {
+      "image": "parts/torso_0.png",
+      "canvas": [
+        68,
+        84
+      ],
+      "centre": [
+        -0.19949999451637268,
+        -36.89899826049805
+      ]
+    },
+    "torso/1": {
+      "image": "parts/torso_1.png",
+      "canvas": [
+        76,
+        84
+      ],
+      "centre": [
+        -3.0994999408721924,
+        -36.374000549316406
+      ]
+    },
+    "torso/2": {
+      "image": "parts/torso_2.png",
+      "canvas": [
+        76,
+        84
+      ],
+      "centre": [
+        3.700500011444092,
+        -37.29899978637695
+      ]
+    },
+    "torso/3": {
+      "image": "parts/torso_3.png",
+      "canvas": [
+        68,
+        88
+      ],
+      "centre": [
+        0.6754999756813049,
+        -42.999000549316406
+      ]
+    },
+    "torso/4": {
+      "image": "parts/torso_4.png",
+      "canvas": [
+        80,
+        88
+      ],
+      "centre": [
+        6.92549991607666,
+        -42.749000549316406
+      ]
+    },
+    "torso/5": {
+      "image": "parts/torso_5.png",
+      "canvas": [
+        76,
+        88
+      ],
+      "centre": [
+        -4.32450008392334,
+        -42.374000549316406
+      ]
+    },
+    "torso/6": {
+      "image": "parts/torso_6.png",
+      "canvas": [
+        68,
+        84
+      ],
+      "centre": [
+        -0.1745000034570694,
+        -42.17399978637695
+      ]
+    },
+    "torso/7": {
+      "image": "parts/torso_7.png",
+      "canvas": [
+        84,
+        84
+      ],
+      "centre": [
+        -9.349499702453613,
+        -42.04899978637695
+      ]
+    },
+    "torso/8": {
+      "image": "parts/torso_8.png",
+      "canvas": [
+        80,
+        84
+      ],
+      "centre": [
+        1.6505000591278076,
+        -41.94900131225586
+      ]
+    },
+    "torso/9": {
+      "image": "parts/torso_9.png",
+      "canvas": [
+        84,
+        72
+      ],
+      "centre": [
+        10.825499534606934,
+        -6.749499797821045
+      ]
+    },
+    "torso/10": {
+      "image": "parts/torso_10.png",
+      "canvas": [
+        76,
+        68
+      ],
+      "centre": [
+        -3.499500036239624,
+        -43.32400131225586
+      ]
+    },
+    "leg/0": {
+      "image": "parts/leg_0.png",
+      "canvas": [
+        24,
+        56
+      ],
+      "centre": [
+        0.0,
+        20.100500106811523
+      ]
+    },
+    "leg/1": {
+      "image": "parts/leg_1.png",
+      "canvas": [
+        24,
+        60
+      ],
+      "centre": [
+        0.0,
+        19.475500106811523
+      ]
+    },
+    "leg/2": {
+      "image": "parts/leg_2.png",
+      "canvas": [
+        24,
+        60
+      ],
+      "centre": [
+        0.0,
+        20.925500869750977
+      ]
+    },
+    "leg/3": {
+      "image": "parts/leg_3.png",
+      "canvas": [
+        24,
+        64
+      ],
+      "centre": [
+        0.0,
+        23.375499725341797
+      ]
+    },
+    "leg/4": {
+      "image": "parts/leg_4.png",
+      "canvas": [
+        72,
+        64
+      ],
+      "centre": [
+        -8.0,
+        16.0
+      ]
+    },
+    "leg/5": {
+      "image": "parts/leg_5.png",
+      "canvas": [
+        24,
+        64
+      ],
+      "centre": [
+        0.0,
+        23.15049934387207
+      ]
+    },
+    "leg/6": {
+      "image": "parts/leg_6.png",
+      "canvas": [
+        72,
+        64
+      ],
+      "centre": [
+        -8.0,
+        16.0
+      ]
+    },
+    "leg/7": {
+      "image": "parts/leg_7.png",
+      "canvas": [
+        72,
+        64
+      ],
+      "centre": [
+        -8.0,
+        16.0
+      ]
+    },
+    "leg/8": {
+      "image": "parts/leg_8.png",
+      "canvas": [
+        32,
+        60
+      ],
+      "centre": [
+        0.0,
+        21.550500869750977
+      ]
+    },
+    "leg/9": {
+      "image": "parts/leg_9.png",
+      "canvas": [
+        24,
+        56
+      ],
+      "centre": [
+        0.0,
+        20.100500106811523
+      ]
+    },
+    "leg/10": {
+      "image": "parts/leg_10.png",
+      "canvas": [
+        24,
+        64
+      ],
+      "centre": [
+        0.0,
+        23.375499725341797
+      ]
+    },
+    "arm_upper_skin/0": {
+      "image": "parts/arm_upper_skin_0.png",
+      "canvas": [
+        24,
+        60
+      ],
+      "centre": [
+        -2.32450008392334,
+        19.850500106811523
+      ]
+    },
+    "arm_upper_skin/1": {
+      "image": "parts/arm_upper_skin_1.png",
+      "canvas": [
+        20,
+        32
+      ],
+      "centre": [
+        -0.5494999885559082,
+        9.400500297546387
+      ]
+    },
+    "arm_upper_skin/2": {
+      "image": "parts/arm_upper_skin_2.png",
+      "canvas": [
+        24,
+        60
+      ],
+      "centre": [
+        -2.32450008392334,
+        19.850500106811523
+      ]
+    },
+    "arm_upper/0": {
+      "image": "parts/arm_upper_0.png",
+      "canvas": [
+        30,
+        60
+      ],
+      "centre": [
+        0.0,
+        18.0
+      ]
+    },
+    "arm_upper/1": {
+      "image": "parts/arm_upper_1.png",
+      "canvas": [
+        30,
+        60
+      ],
+      "centre": [
+        0.0,
+        18.0
+      ]
+    },
+    "arm_upper/2": {
+      "image": "parts/arm_upper_2.png",
+      "canvas": [
+        30,
+        60
+      ],
+      "centre": [
+        0.0,
+        18.0
+      ]
+    },
+    "arm_upper/3": {
+      "image": "parts/arm_upper_3.png",
+      "canvas": [
+        30,
+        60
+      ],
+      "centre": [
+        0.0,
+        18.0
+      ]
+    },
+    "arm_upper/4": {
+      "image": "parts/arm_upper_4.png",
+      "canvas": [
+        30,
+        44
+      ],
+      "centre": [
+        0.0,
+        8.0
+      ]
+    },
+    "arm_upper/5": {
+      "image": "parts/arm_upper_5.png",
+      "canvas": [
+        30,
+        60
+      ],
+      "centre": [
+        0.0,
+        18.0
+      ]
+    },
+    "arm_upper/6": {
+      "image": "parts/arm_upper_6.png",
+      "canvas": [
+        30,
+        60
+      ],
+      "centre": [
+        0.0,
+        18.0
+      ]
+    },
+    "foot/0": {
+      "image": "parts/foot_0.png",
+      "canvas": [
+        16,
+        30
+      ],
+      "centre": [
+        0.0,
+        12.0
+      ]
+    },
+    "foot/1": {
+      "image": "parts/foot_1.png",
+      "canvas": [
+        27,
+        30
+      ],
+      "centre": [
+        5.9399999999999995,
+        10.5
+      ]
+    },
+    "foot/2": {
+      "image": "parts/foot_2.png",
+      "canvas": [
+        27,
+        30
+      ],
+      "centre": [
+        5.9399999999999995,
+        10.5
+      ]
+    },
+    "foot/3": {
+      "image": "parts/foot_3.png",
+      "canvas": [
+        16,
+        30
+      ],
+      "centre": [
+        0.0,
+        12.0
+      ]
+    },
+    "foot/4": {
+      "image": "parts/foot_4.png",
+      "canvas": [
+        16,
+        30
+      ],
+      "centre": [
+        0.0,
+        12.0
+      ]
+    },
+    "foot/5": {
+      "image": "parts/foot_5.png",
+      "canvas": [
+        27,
+        30
+      ],
+      "centre": [
+        5.9399999999999995,
+        3.5
+      ]
+    },
+    "foot/6": {
+      "image": "parts/foot_6.png",
+      "canvas": [
+        16,
+        30
+      ],
+      "centre": [
+        0.0,
+        12.0
+      ]
+    },
+    "foot/7": {
+      "image": "parts/foot_7.png",
+      "canvas": [
+        27,
+        30
+      ],
+      "centre": [
+        5.9399999999999995,
+        3.5
+      ]
+    },
+    "torso_pelvis/0": {
+      "image": "parts/torso_pelvis_0.png",
+      "canvas": [
+        72,
+        48
+      ],
+      "centre": [
+        0.0005000000237487257,
+        -10.649499893188477
+      ]
+    },
+    "torso_pelvis/1": {
+      "image": "parts/torso_pelvis_1.png",
+      "canvas": [
+        72,
+        52
+      ],
+      "centre": [
+        0.5005000233650208,
+        -11.249500274658203
+      ]
+    },
+    "torso_pelvis/2": {
+      "image": "parts/torso_pelvis_2.png",
+      "canvas": [
+        68,
+        48
+      ],
+      "centre": [
+        0.25049999356269836,
+        -10.474499702453613
+      ]
+    },
+    "torso_pelvis/3": {
+      "image": "parts/torso_pelvis_3.png",
+      "canvas": [
+        68,
+        48
+      ],
+      "centre": [
+        0.0005000000237487257,
+        -10.024499893188477
+      ]
+    },
+    "torso_pelvis/4": {
+      "image": "parts/torso_pelvis_4.png",
+      "canvas": [
+        68,
+        48
+      ],
+      "centre": [
+        -1.3244999647140503,
+        -10.799500465393066
+      ]
+    },
+    "torso_pelvis/5": {
+      "image": "parts/torso_pelvis_5.png",
+      "canvas": [
+        68,
+        44
+      ],
+      "centre": [
+        -0.49950000643730164,
+        -10.049500465393066
+      ]
+    },
+    "torso_pelvis/6": {
+      "image": "parts/torso_pelvis_6.png",
+      "canvas": [
+        72,
+        52
+      ],
+      "centre": [
+        0.0005000000237487257,
+        -11.424500465393066
+      ]
+    },
+    "torso_pelvis/7": {
+      "image": "parts/torso_pelvis_7.png",
+      "canvas": [
+        72,
+        52
+      ],
+      "centre": [
+        -0.24950000643730164,
+        -11.999500274658203
+      ]
+    },
+    "torso_pelvis/8": {
+      "image": "parts/torso_pelvis_8.png",
+      "canvas": [
+        76,
+        52
+      ],
+      "centre": [
+        -2.424499988555908,
+        -11.749500274658203
+      ]
+    },
+    "torso_pelvis/9": {
+      "image": "parts/torso_pelvis_9.png",
+      "canvas": [
+        76,
+        72
+      ],
+      "centre": [
+        -1.7244999408721924,
+        -7.999499797821045
+      ]
+    },
+    "torso_pelvis/10": {
+      "image": "parts/torso_pelvis_10.png",
+      "canvas": [
+        72,
+        52
+      ],
+      "centre": [
+        0.9505000114440918,
+        -11.524499893188477
+      ]
+    },
+    "headbase/2": {
+      "image": "parts/headbase_2.png",
+      "canvas": [
+        172,
+        188
+      ],
+      "centre": [
+        -6.249499797821045,
+        -60.02450180053711
+      ]
+    },
+    "headbase_hat/2": {
+      "image": "parts/headbase_2.png",
+      "canvas": [
+        172,
+        188
+      ],
+      "centre": [
+        -6.249499797821045,
+        -60.02450180053711
+      ]
+    },
+    "klbq_neck/0": {
+      "image": "parts/klbq_neck_0.png",
+      "canvas": [
+        24,
+        22
+      ],
+      "centre": [
+        0,
+        -88
+      ]
+    }
+  }
+}

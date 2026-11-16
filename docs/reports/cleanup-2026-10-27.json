@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-27",
+  "status": "blocked_before_execution",
+  "reason": "Automatic approval rejected the removal command: blocked by policy. No more specific reason was provided.",
+  "deleted_files": 0,
+  "deleted_bytes": 0,
+  "candidate_bytes": 155677700,
+  "preserve": [
+    "mods/klbq_kanami source and deployed mod",
+    "art/klbq_kanami editable artwork",
+    "dist release packages",
+    "active kanami_client storage, including user-created Cluster_1 Master/Caves",
+    "active kanami_engine/DoNotStarveTogether/KanamiPlaytest",
+    "active klbq_kanami_test fixture",
+    "runtimes, third-party mods, workshop junctions and update infrastructure"
+  ],
+  "pending_candidates": [
+    {"path": "D:/SOFTWARE/CodexData/temp/kanami_assets", "bytes": 8287679},
+    {"path": "D:/SOFTWARE/CodexData/temp/kanami_void_test", "bytes": 25539822},
+    {"path": "D:/SOFTWARE/CodexData/temp/kanami_engine/DoNotStarveTogether/KanamiSmoke", "bytes": 17414816},
+    {"path": "D:/SOFTWARE/CodexData/temp/kanami_engine/DoNotStarveTogether/KanamiVisual", "bytes": 17708045},
+    {"path": "D:/SOFTWARE/CodexData/temp/kanami_engine/DoNotStarveTogether/KanamiVoid", "bytes": 17773997},
+    {"path": "E:/steam/steamapps/common/Don't Starve Together/mods/klbq_kanami_void_test", "bytes": 7256},
+    {"path": "D:/SOFTWARE/项目/饥荒/tests/gameplay/__pycache__", "bytes": 84052},
+    {"path": "D:/SOFTWARE/项目/饥荒/tools/__pycache__", "bytes": 9960},
+    {"path": "D:/SOFTWARE/CodexData/temp/kanami_client/*.png", "files": 64, "bytes": 68852073}
+  ]
+}

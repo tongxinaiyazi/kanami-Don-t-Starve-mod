@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Atlas>
+  <Texture filename="klbq_resources_items.tex" />
+  <Elements>
+    <Element name="klbq_resource_bablo_crystal.tex" u1="0.0361328125" u2="0.1591796875" v1="0.8212890625" v2="0.9443359375" />
+    <Element name="klbq_resource_base_string.tex" u1="0.2314453125" u2="0.3544921875" v1="0.8212890625" v2="0.9443359375" />
+    <Element name="klbq_resource_ideal_coin.tex" u1="0.4267578125" u2="0.5498046875" v1="0.8212890625" v2="0.9443359375" />
+    <Element name="klbq_resource_memory_sequence.tex" u1="0.6220703125" u2="0.7451171875" v1="0.8212890625" v2="0.9443359375" />
+    <Element name="klbq_resource_redirect_sequence.tex" u1="0.8173828125" u2="0.9404296875" v1="0.8212890625" v2="0.9443359375" />
+    <Element name="klbq_resource_stringsea_beacon.tex" u1="0.0361328125" u2="0.1591796875" v1="0.5869140625" v2="0.7099609375" />
+    <Element name="klbq_resource_initial_sequence.tex" u1="0.2314453125" u2="0.3544921875" v1="0.5869140625" v2="0.7099609375" />
+    <Element name="klbq_resource_resonance_sequence.tex" u1="0.4267578125" u2="0.5498046875" v1="0.5869140625" v2="0.7099609375" />
+    <Element name="klbq_resource_topology_ring.tex" u1="0.6220703125" u2="0.7451171875" v1="0.5869140625" v2="0.7099609375" />
+    <Element name="klbq_resource_tracing_plate.tex" u1="0.8173828125" u2="0.9404296875" v1="0.5869140625" v2="0.7099609375" />
+    <Element name="klbq_resource_card_fragment.tex" u1="0.0361328125" u2="0.1591796875" v1="0.3525390625" v2="0.4755859375" />
+    <Element name="klbq_resource_dice.tex" u1="0.2314453125" u2="0.3544921875" v1="0.3525390625" v2="0.4755859375" />
+    <Element name="klbq_resource_terminal_michelle.tex" u1="0.4267578125" u2="0.5498046875" v1="0.3525390625" v2="0.4755859375" />
+    <Element name="klbq_resource_terminal_xinghui.tex" u1="0.6220703125" u2="0.7451171875" v1="0.3525390625" v2="0.4755859375" />
+    <Element name="klbq_resource_terminal_ming.tex" u1="0.8173828125" u2="0.9404296875" v1="0.3525390625" v2="0.4755859375" />
+    <Element name="klbq_resource_terminal_qiandai.tex" u1="0.0361328125" u2="0.1591796875" v1="0.1181640625" v2="0.2412109375" />
+    <Element name="klbq_resource_terminal_xi.tex" u1="0.2314453125" u2="0.3544921875" v1="0.1181640625" v2="0.2412109375" />
+    <Element name="klbq_resource_terminal_kanami.tex" u1="0.4267578125" u2="0.5498046875" v1="0.1181640625" v2="0.2412109375" />
+    <Element name="klbq_resource_terminal_flavia.tex" u1="0.6220703125" u2="0.7451171875" v1="0.1181640625" v2="0.2412109375" />
+    <Element name="klbq_resource_terminal_eika.tex" u1="0.8173828125" u2="0.9404296875" v1="0.1181640625" v2="0.2412109375" />
+  </Elements>
+</Atlas>

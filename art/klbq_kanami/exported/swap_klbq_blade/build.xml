@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="swap_klbq_blade">
+  <Symbol name="swap_object">
+    <Frame framenum="0" duration="30" x="0" y="-90" w="60" h="235" image="swap_object_0" />
+  </Symbol>
+</Build>

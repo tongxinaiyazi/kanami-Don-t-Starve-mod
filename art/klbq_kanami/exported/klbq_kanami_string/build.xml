@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="klbq_kanami_string">
+  <Symbol name="arm_lower">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="arm_lower_0" />
+    <Frame framenum="1" duration="1" x="0" y="0" w="4" h="4" image="arm_lower_1" />
+    <Frame framenum="2" duration="1" x="0" y="0" w="4" h="4" image="arm_lower_2" />
+    <Frame framenum="3" duration="1" x="0" y="0" w="4" h="4" image="arm_lower_3" />
+    <Frame framenum="4" duration="1" x="0" y="0" w="4" h="4" image="arm_lower_4" />
+    <Frame framenum="5" duration="1" x="0" y="0" w="4" h="4" image="arm_lower_5" />
+    <Frame framenum="6" duration="1" x="0" y="0" w="4" h="4" image="arm_lower_6" />
+  </Symbol>
+  <Symbol name="hair">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="hair_0" />
+    <Frame framenum="1" duration="1" x="0" y="0" w="4" h="4" image="hair_1" />
+    <Frame framenum="2" duration="1" x="0" y="0" w="4" h="4" image="hair_2" />
+    <Frame framenum="3" duration="1" x="0" y="0" w="4" h="4" image="hair_3" />
+  </Symbol>
+  <Symbol name="hand">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="hand_0" />
+    <Frame framenum="1" duration="1" x="0" y="0" w="4" h="4" image="hand_1" />
+    <Frame framenum="2" duration="1" x="0" y="0" w="4" h="4" image="hand_2" />
+    <Frame framenum="3" duration="1" x="0" y="0" w="4" h="4" image="hand_3" />
+    <Frame framenum="4" duration="1" x="0" y="0" w="4" h="4" image="hand_4" />
+    <Frame framenum="5" duration="1" x="0" y="0" w="4" h="4" image="hand_5" />
+    <Frame framenum="6" duration="1" x="0" y="0" w="4" h="4" image="hand_6" />
+    <Frame framenum="7" duration="1" x="0" y="0" w="4" h="4" image="hand_7" />
+    <Frame framenum="8" duration="1" x="0" y="0" w="4" h="4" image="hand_8" />
+    <Frame framenum="9" duration="1" x="0" y="0" w="4" h="4" image="hand_9" />
+    <Frame framenum="10" duration="1" x="0" y="0" w="4" h="4" image="hand_10" />
+    <Frame framenum="11" duration="1" x="0" y="0" w="4" h="4" image="hand_11" />
+    <Frame framenum="12" duration="1" x="0" y="0" w="4" h="4" image="hand_12" />
+    <Frame framenum="13" duration="1" x="0" y="0" w="4" h="4" image="hand_13" />
+    <Frame framenum="14" duration="1" x="0" y="0" w="4" h="4" image="hand_14" />
+    <Frame framenum="15" duration="1" x="0" y="0" w="4" h="4" image="hand_15" />
+    <Frame framenum="16" duration="1" x="0" y="0" w="4" h="4" image="hand_16" />
+    <Frame framenum="17" duration="1" x="0" y="0" w="4" h="4" image="hand_17" />
+    <Frame framenum="18" duration="1" x="0" y="0" w="4" h="4" image="hand_18" />
+    <Frame framenum="19" duration="1" x="0" y="0" w="4" h="4" image="hand_19" />
+  </Symbol>
+  <Symbol name="torso">
+    <Frame framenum="0" duration="1" x="0" y="-130" w="230" h="340" image="torso_0" />
+    <Frame framenum="1" duration="1" x="0" y="-130" w="230" h="340" image="torso_1" />
+    <Frame framenum="2" duration="1" x="0" y="-130" w="230" h="340" image="torso_2" />
+    <Frame framenum="3" duration="1" x="0" y="-130" w="230" h="340" image="torso_3" />
+    <Frame framenum="4" duration="1" x="0" y="-130" w="230" h="340" image="torso_4" />
+    <Frame framenum="5" duration="1" x="0" y="-130" w="230" h="340" image="torso_5" />
+    <Frame framenum="6" duration="1" x="0" y="-130" w="230" h="340" image="torso_6" />
+    <Frame framenum="7" duration="1" x="0" y="-130" w="230" h="340" image="torso_7" />
+    <Frame framenum="8" duration="1" x="0" y="-130" w="230" h="340" image="torso_8" />
+    <Frame framenum="9" duration="1" x="0" y="-130" w="230" h="340" image="torso_9" />
+    <Frame framenum="10" duration="1" x="0" y="-130" w="230" h="340" image="torso_10" />
+  </Symbol>
+  <Symbol name="hair_hat">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="hair_hat_0" />
+    <Frame framenum="1" duration="1" x="0" y="0" w="4" h="4" image="hair_hat_1" />
+    <Frame framenum="2" duration="1" x="0" y="0" w="4" h="4" image="hair_hat_2" />
+    <Frame framenum="3" duration="1" x="0" y="0" w="4" h="4" image="hair_hat_3" />
+  </Symbol>
+  <Symbol name="leg">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="leg_0" />
+    <Frame framenum="1" duration="1" x="0" y="0" w="4" h="4" image="leg_1" />
+    <Frame framenum="2" duration="1" x="0" y="0" w="4" h="4" image="leg_2" />
+    <Frame framenum="3" duration="1" x="0" y="0" w="4" h="4" image="leg_3" />
+    <Frame framenum="4" duration="1" x="0" y="0" w="4" h="4" image="leg_4" />
+    <Frame framenum="5" duration="1" x="0" y="0" w="4" h="4" image="leg_5" />
+    <Frame framenum="6" duration="1" x="0" y="0" w="4" h="4" image="leg_6" />
+    <Frame framenum="7" duration="1" x="0" y="0" w="4" h="4" image="leg_7" />
+    <Frame framenum="8" duration="1" x="0" y="0" w="4" h="4" image="leg_8" />
+    <Frame framenum="9" duration="1" x="0" y="0" w="4" h="4" image="leg_9" />
+    <Frame framenum="10" duration="1" x="0" y="0" w="4" h="4" image="leg_10" />
+  </Symbol>
+  <Symbol name="headbase_hat">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="headbase_hat_0" />
+    <Frame framenum="1" duration="1" x="0" y="0" w="4" h="4" image="headbase_hat_1" />
+    <Frame framenum="2" duration="1" x="0" y="0" w="4" h="4" image="headbase_hat_2" />
+    <Frame framenum="3" duration="1" x="0" y="0" w="4" h="4" image="headbase_hat_3" />
+    <Frame framenum="4" duration="1" x="0" y="0" w="4" h="4" image="headbase_hat_4" />
+  </Symbol>
+  <Symbol name="arm_upper_skin">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="arm_upper_skin_0" />
+    <Frame framenum="1" duration="1" x="0" y="0" w="4" h="4" image="arm_upper_skin_1" />
+    <Frame framenum="2" duration="1" x="0" y="0" w="4" h="4" image="arm_upper_skin_2" />
+  </Symbol>
+  <Symbol name="arm_upper">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="arm_upper_0" />
+    <Frame framenum="1" duration="1" x="0" y="0" w="4" h="4" image="arm_upper_1" />
+    <Frame framenum="2" duration="1" x="0" y="0" w="4" h="4" image="arm_upper_2" />
+    <Frame framenum="3" duration="1" x="0" y="0" w="4" h="4" image="arm_upper_3" />
+    <Frame framenum="4" duration="1" x="0" y="0" w="4" h="4" image="arm_upper_4" />
+    <Frame framenum="5" duration="1" x="0" y="0" w="4" h="4" image="arm_upper_5" />
+    <Frame framenum="6" duration="1" x="0" y="0" w="4" h="4" image="arm_upper_6" />
+  </Symbol>
+  <Symbol name="headbase">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="headbase_0" />
+    <Frame framenum="1" duration="1" x="0" y="0" w="4" h="4" image="headbase_1" />
+    <Frame framenum="2" duration="1" x="0" y="0" w="4" h="4" image="headbase_2" />
+    <Frame framenum="3" duration="1" x="0" y="0" w="4" h="4" image="headbase_3" />
+    <Frame framenum="4" duration="1" x="0" y="0" w="4" h="4" image="headbase_4" />
+  </Symbol>
+  <Symbol name="cheeks">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="cheeks_0" />
+    <Frame framenum="1" duration="1" x="0" y="0" w="4" h="4" image="cheeks_1" />
+  </Symbol>
+  <Symbol name="face">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="face_0" />
+    <Frame framenum="1" duration="1" x="0" y="0" w="4" h="4" image="face_1" />
+    <Frame framenum="2" duration="1" x="0" y="0" w="4" h="4" image="face_2" />
+    <Frame framenum="3" duration="1" x="0" y="0" w="4" h="4" image="face_3" />
+    <Frame framenum="4" duration="1" x="0" y="0" w="4" h="4" image="face_4" />
+    <Frame framenum="5" duration="1" x="0" y="0" w="4" h="4" image="face_5" />
+    <Frame framenum="6" duration="1" x="0" y="0" w="4" h="4" image="face_6" />
+    <Frame framenum="7" duration="1" x="0" y="0" w="4" h="4" image="face_7" />
+    <Frame framenum="8" duration="1" x="0" y="0" w="4" h="4" image="face_8" />
+    <Frame framenum="9" duration="1" x="0" y="0" w="4" h="4" image="face_9" />
+    <Frame framenum="10" duration="1" x="0" y="0" w="4" h="4" image="face_10" />
+    <Frame framenum="11" duration="1" x="0" y="0" w="4" h="4" image="face_11" />
+    <Frame framenum="12" duration="1" x="0" y="0" w="4" h="4" image="face_12" />
+    <Frame framenum="13" duration="1" x="0" y="0" w="4" h="4" image="face_13" />
+    <Frame framenum="14" duration="1" x="0" y="0" w="4" h="4" image="face_14" />
+    <Frame framenum="15" duration="1" x="0" y="0" w="4" h="4" image="face_15" />
+    <Frame framenum="16" duration="1" x="0" y="0" w="4" h="4" image="face_16" />
+    <Frame framenum="17" duration="1" x="0" y="0" w="4" h="4" image="face_17" />
+    <Frame framenum="18" duration="1" x="0" y="0" w="4" h="4" image="face_18" />
+    <Frame framenum="19" duration="1" x="0" y="0" w="4" h="4" image="face_19" />
+    <Frame framenum="20" duration="1" x="0" y="0" w="4" h="4" image="face_20" />
+    <Frame framenum="21" duration="1" x="0" y="0" w="4" h="4" image="face_21" />
+    <Frame framenum="22" duration="1" x="0" y="0" w="4" h="4" image="face_22" />
+    <Frame framenum="23" duration="1" x="0" y="0" w="4" h="4" image="face_23" />
+    <Frame framenum="24" duration="1" x="0" y="0" w="4" h="4" image="face_24" />
+    <Frame framenum="25" duration="1" x="0" y="0" w="4" h="4" image="face_25" />
+    <Frame framenum="26" duration="1" x="0" y="0" w="4" h="4" image="face_26" />
+    <Frame framenum="27" duration="1" x="0" y="0" w="4" h="4" image="face_27" />
+    <Frame framenum="28" duration="1" x="0" y="0" w="4" h="4" image="face_28" />
+    <Frame framenum="29" duration="1" x="0" y="0" w="4" h="4" image="face_29" />
+    <Frame framenum="30" duration="1" x="0" y="0" w="4" h="4" image="face_30" />
+    <Frame framenum="31" duration="1" x="0" y="0" w="4" h="4" image="face_31" />
+    <Frame framenum="32" duration="1" x="0" y="0" w="4" h="4" image="face_32" />
+  </Symbol>
+  <Symbol name="foot">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="foot_0" />
+    <Frame framenum="1" duration="1" x="0" y="0" w="4" h="4" image="foot_1" />
+    <Frame framenum="2" duration="1" x="0" y="0" w="4" h="4" image="foot_2" />
+    <Frame framenum="3" duration="1" x="0" y="0" w="4" h="4" image="foot_3" />
+    <Frame framenum="4" duration="1" x="0" y="0" w="4" h="4" image="foot_4" />
+    <Frame framenum="5" duration="1" x="0" y="0" w="4" h="4" image="foot_5" />
+    <Frame framenum="6" duration="1" x="0" y="0" w="4" h="4" image="foot_6" />
+    <Frame framenum="7" duration="1" x="0" y="0" w="4" h="4" image="foot_7" />
+  </Symbol>
+  <Symbol name="torso_pelvis">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="torso_pelvis_0" />
+    <Frame framenum="1" duration="1" x="0" y="0" w="4" h="4" image="torso_pelvis_1" />
+    <Frame framenum="2" duration="1" x="0" y="0" w="4" h="4" image="torso_pelvis_2" />
+    <Frame framenum="3" duration="1" x="0" y="0" w="4" h="4" image="torso_pelvis_3" />
+    <Frame framenum="4" duration="1" x="0" y="0" w="4" h="4" image="torso_pelvis_4" />
+    <Frame framenum="5" duration="1" x="0" y="0" w="4" h="4" image="torso_pelvis_5" />
+    <Frame framenum="6" duration="1" x="0" y="0" w="4" h="4" image="torso_pelvis_6" />
+    <Frame framenum="7" duration="1" x="0" y="0" w="4" h="4" image="torso_pelvis_7" />
+    <Frame framenum="8" duration="1" x="0" y="0" w="4" h="4" image="torso_pelvis_8" />
+    <Frame framenum="9" duration="1" x="0" y="0" w="4" h="4" image="torso_pelvis_9" />
+    <Frame framenum="10" duration="1" x="0" y="0" w="4" h="4" image="torso_pelvis_10" />
+  </Symbol>
+  <Symbol name="SWAP_ICON">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="SWAP_ICON_0" />
+  </Symbol>
+  <Symbol name="hairpigtails">
+    <Frame framenum="0" duration="1" x="0" y="0" w="4" h="4" image="hairpigtails_0" />
+    <Frame framenum="1" duration="1" x="0" y="0" w="4" h="4" image="hairpigtails_1" />
+    <Frame framenum="2" duration="1" x="0" y="0" w="4" h="4" image="hairpigtails_2" />
+    <Frame framenum="3" duration="1" x="0" y="0" w="4" h="4" image="hairpigtails_3" />
+    <Frame framenum="4" duration="1" x="0" y="0" w="4" h="4" image="hairpigtails_4" />
+    <Frame framenum="5" duration="1" x="0" y="0" w="4" h="4" image="hairpigtails_5" />
+    <Frame framenum="6" duration="1" x="0" y="0" w="4" h="4" image="hairpigtails_6" />
+    <Frame framenum="7" duration="1" x="0" y="0" w="4" h="4" image="hairpigtails_7" />
+  </Symbol>
+</Build>

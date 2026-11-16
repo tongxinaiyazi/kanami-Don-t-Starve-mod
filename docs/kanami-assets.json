@@ -1,0 +1,97 @@
+{
+  "character": "klbq_kanami",
+  "character_build": "klbq_kanami",
+  "string_build": "klbq_kanami_string",
+  "character_bank": "wilson",
+  "actions_zip": "klbq_kanami_actions",
+  "action_bank": "wilson",
+  "actions": [
+    "kanami_shoot",
+    "kanami_string_enter",
+    "kanami_string_idle",
+    "kanami_string_exit",
+    "kanami_cast",
+    "kanami_revive",
+    "kanami_crossbow_shoot",
+    "kanami_run_pre",
+    "kanami_run_loop",
+    "kanami_run_pst",
+    "kanami_eat_pre",
+    "kanami_eat",
+    "kanami_eat_lag",
+    "kanami_quick_eat_pre",
+    "kanami_quick_eat",
+    "kanami_quick_eat_lag"
+  ],
+  "ghost_build": "ghost_klbq_kanami_build",
+  "rifle": "klbq_finale",
+  "rifle_swap_build": "swap_klbq_finale",
+  "rifle_swap_symbol": "swap_object",
+  "ammo": [
+    "klbq_ammo_heart",
+    "klbq_ammo_fate",
+    "klbq_ammo_doom"
+  ],
+  "item_atlas": "images/klbq_kanami_items.xml",
+  "skill_icons": [
+    "klbq_skill_string",
+    "klbq_skill_z",
+    "klbq_skill_x",
+    "klbq_skill_revive",
+    "klbq_skill_echo"
+  ],
+  "fx_build": "klbq_kanami_fx",
+  "fx_bank": "klbq_kanami_fx",
+  "fx_anims": [
+    "domain",
+    "domain_cast",
+    "tracer",
+    "revive",
+    "sweep"
+  ],
+  "backpack": "klbq_singularity",
+  "food": "klbq_omurice",
+  "crystal": "klbq_crystal",
+  "melee": "klbq_blade",
+  "melee_swap_build": "swap_klbq_blade",
+  "new_art_prompts": [
+    "singularity-prompt.txt",
+    "omurice-prompt.txt",
+    "crystal-prompt.txt",
+    "blade-prompt.txt",
+    "profile-faces-prompt.txt",
+    "blade-original-prompt.txt",
+    "crossbow-prompt.txt",
+    "requiem-prompt.txt"
+  ],
+  "crossbow": "klbq_crossbow",
+  "crossbow_swap_build": "swap_klbq_crossbow",
+  "requiem": "klbq_requiem",
+  "requiem_swap_build": "swap_klbq_requiem",
+  "paper_views": [
+    "front",
+    "back"
+  ],
+  "paper_horizontal_view": "front",
+  "version": "1.0.1",
+  "inventory_region_pixels": 64,
+  "domain_radius": 12,
+  "visible_hud": [
+    "z",
+    "x",
+    "echo",
+    "revive"
+  ],
+  "held_swap_frame_range": [
+    0,
+    29
+  ],
+  "domain_ring_bank": "reticuleaoe",
+  "domain_ring_native_radius": 4,
+  "domain_ring_anim_scale": 1.5,
+  "ground_fx_scaling": "Unit Transform; AnimState scale=1.5*radius/4; verified against 12-unit markers in native client",
+  "crossbow_burst_pose": "Native idle standing body and carried hand anchor; four frames; weapon-only 2px recoil; native front/back GUI verified",
+  "limb_registration": "Shoulder/elbow/wrist and ankle coordinates; folded knees; native idle/run/eat alpha overlap checked",
+  "body_registration": "art/klbq_kanami/rig/registration.json",
+  "body_registered_frames": 78
+}

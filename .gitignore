@@ -1,0 +1,53 @@
+# Other projects in the shared DST workspace.
+/mods/*
+!/mods/klbq_kanami/
+!/mods/klbq_resources/
+/art/*
+!/art/klbq_kanami/
+/tests/lilith*/
+/tools/*lilith*
+/docs/lilith-integration.md
+/docs/reports/lilith/
+/docs/superpowers/**/*lilith*
+
+# Version release records are tracked, generated archives stay local.
+/dist/*
+!/dist/manifest*.json
+!/dist/package-check*.json
+/mods/klbq_resources/release/
+
+# Local history, game reference files, generated previews and diagnostics.
+/art/klbq_kanami/history/
+**/references/
+/art/klbq_kanami/drafts/
+/art/klbq_kanami/ghost-native.png
+/art/klbq_kanami/paper-turnaround-v1.png
+/art/klbq_kanami/rig-preview.png
+/docs/reports/*.png
+!/docs/reports/body-v2-latest.png
+!/docs/reports/joint-rebind-latest.png
+*.log
+
+# Dependencies, interpreter caches, task ownership and local settings.
+/tools/python-deps/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.kanami-*-owned
+.lilith-*-owned
+.DS_Store
+Thumbs.db
+
+# Credentials and private keys.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+id_rsa
+id_ed25519
+cluster_token.txt

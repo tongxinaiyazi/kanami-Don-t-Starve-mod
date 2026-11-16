@@ -1,0 +1,9 @@
+{
+  "version": "0.2.0",
+  "target_mod": "Void Realm 2.3.2",
+  "checks": 8,
+  "failures": 0,
+  "lua_error": false,
+  "exit_code": 0,
+  "log": "void-combat-020.log"
+}

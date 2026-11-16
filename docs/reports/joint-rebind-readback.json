@@ -1,0 +1,46 @@
+{
+  "checked": 45330,
+  "counts": {
+    "neck": 3798,
+    "shoulder": 7494,
+    "elbow": 7467,
+    "wrist": 7581,
+    "hip": 7596,
+    "ankle": 7596,
+    "waist": 3798
+  },
+  "issues": [],
+  "source": "art\\klbq_kanami\\exported\\klbq_kanami",
+  "actions": "mods\\klbq_kanami\\anim\\klbq_kanami_actions.zip",
+  "version": "1.1.0",
+  "game_version": "762172",
+  "animations": 153,
+  "animation_frames": 2996,
+  "gameplay_tests": 439,
+  "body_tests": 47,
+  "lua_syntax_files": 44,
+  "runtime_sha256": {
+    "klbq_kanami.zip": "3fb60dab81961d601cf986a43f45db14e5f8ba8619a67fea5b90dfdc735f65ae",
+    "klbq_kanami_actions.zip": "51dffd3c4b4459fd6ba0c888ba49b16b09593141cf4c1594c0510a6331830e10",
+    "klbq_kanami_fx.zip": "8680d89a4061d1a89855a2407bc26c54459e9b3cb7b0ca8a8ee7149367e934c2",
+    "klbq_kanami_string.zip": "2c33f7ccf0ca46990a2cbeff70fe54105d7390a11c56bd663c4a1c1acee8de3f"
+  },
+  "game_markers": [
+    "[00:01:11]: KANAMI_PROFILE_REVIEW_SETUP\t7\t",
+    "[00:01:18]: KANAMI_PROFILE_REVIEW_SPEECH\ttalk\ttrue\t",
+    "[00:01:27]: KANAMI_PROFILE_REVIEW_WORKED\tchop\t",
+    "[00:01:36]: KANAMI_PROFILE_REVIEW_WORKED\tmine\t",
+    "[00:01:48]: KANAMI_PROFILE_REVIEW_WORKED\tdig\t"
+  ],
+  "final_run_lua_error": false,
+  "profile_eye_scale": 0.15,
+  "profile_eye_head_anchor": [
+    20,
+    -45
+  ],
+  "mouth_policy": "subtle closed line at rest, visible mouth during speech and other open expressions",
+  "working_leg_path": 38,
+  "minimum_working_bent_hip_ankle_span": 30,
+  "visual_scope": "actual front/profile idle, native speech sequence, chop/mine/dig from native input",
+  "screenshot_scope": "nearby scenery hidden locally in isolated QA client, native day lighting retained"
+}

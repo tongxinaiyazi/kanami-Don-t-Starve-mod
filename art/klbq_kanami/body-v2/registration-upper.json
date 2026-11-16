@@ -1,0 +1,2207 @@
+{
+  "frames": {
+    "torso/0": {
+      "image": "sprites/torso_0.png",
+      "canvas": [
+        108,
+        124
+      ],
+      "centre": [
+        -0.19949999451637268,
+        -36.89899826049805
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "front upright; neck/collar, shoulders and waist registered as anatomical joints",
+      "source_art": "joint-art/torso-lap-source.png",
+      "source_crop": [
+        40,
+        40,
+        355,
+        380
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder_left": {
+          "source_sheet": [
+            99,
+            147
+          ],
+          "target_canvas": [
+            34,
+            33
+          ]
+        },
+        "shoulder_right": {
+          "source_sheet": [
+            307,
+            147
+          ],
+          "target_canvas": [
+            74,
+            33
+          ]
+        },
+        "waist": {
+          "source_sheet": [
+            201,
+            326
+          ],
+          "target_canvas": [
+            54,
+            80
+          ]
+        }
+      },
+      "neck_anchor": [
+        -0.6958472227071724,
+        -79.55262954541425
+      ],
+      "neck_source": [
+        201,
+        95
+      ],
+      "waist_edges": [
+        [
+          -11.353346148362526,
+          -18.898998260498047
+        ],
+        [
+          11.146653851637467,
+          -18.898998260498047
+        ]
+      ]
+    },
+    "torso/1": {
+      "image": "sprites/torso_1.png",
+      "canvas": [
+        116,
+        124
+      ],
+      "centre": [
+        -3.0994999408721924,
+        -36.374000549316406
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "front sway one; neck/collar, shoulders and waist registered as anatomical joints",
+      "source_art": "joint-art/torso-lap-source.png",
+      "source_crop": [
+        40,
+        40,
+        355,
+        380
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder_left": {
+          "source_sheet": [
+            99,
+            147
+          ],
+          "target_canvas": [
+            34,
+            29
+          ]
+        },
+        "shoulder_right": {
+          "source_sheet": [
+            307,
+            147
+          ],
+          "target_canvas": [
+            75,
+            32
+          ]
+        },
+        "waist": {
+          "source_sheet": [
+            201,
+            326
+          ],
+          "target_canvas": [
+            61,
+            80
+          ]
+        }
+      },
+      "neck_anchor": [
+        -8.996524006192345,
+        -82.29111485958714
+      ],
+      "neck_source": [
+        201,
+        95
+      ],
+      "waist_edges": [
+        [
+          -11.532192248564499,
+          -19.210539010854887
+        ],
+        [
+          11.530307751435487,
+          -17.523039010854887
+        ]
+      ]
+    },
+    "torso/2": {
+      "image": "sprites/torso_2.png",
+      "canvas": [
+        116,
+        124
+      ],
+      "centre": [
+        3.700500011444092,
+        -37.29899978637695
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "front sway opposite; neck/collar, shoulders and waist registered as anatomical joints",
+      "source_art": "joint-art/torso-lap-source.png",
+      "source_crop": [
+        40,
+        40,
+        355,
+        380
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder_left": {
+          "source_sheet": [
+            99,
+            147
+          ],
+          "target_canvas": [
+            41,
+            32
+          ]
+        },
+        "shoulder_right": {
+          "source_sheet": [
+            307,
+            147
+          ],
+          "target_canvas": [
+            85,
+            24
+          ]
+        },
+        "waist": {
+          "source_sheet": [
+            201,
+            326
+          ],
+          "target_canvas": [
+            53,
+            80
+          ]
+        }
+      },
+      "neck_anchor": [
+        11.059545993395105,
+        -86.30587559213544
+      ],
+      "neck_source": [
+        201,
+        95
+      ],
+      "waist_edges": [
+        [
+          -13.568730757786675,
+          -17.068230555607755
+        ],
+        [
+          11.181269242213332,
+          -21.568230555607727
+        ]
+      ]
+    },
+    "torso/3": {
+      "image": "sprites/torso_3.png",
+      "canvas": [
+        108,
+        128
+      ],
+      "centre": [
+        0.6754999756813049,
+        -42.999000549316406
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "right profile upright; neck/collar, shoulders and waist registered as anatomical joints",
+      "source_art": "joint-art/torso-lap-source.png",
+      "source_crop": [
+        450,
+        40,
+        700,
+        390
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder_left": {
+          "source_sheet": [
+            489,
+            143
+          ],
+          "target_canvas": [
+            38,
+            30
+          ]
+        },
+        "shoulder_right": {
+          "source_sheet": [
+            593,
+            145
+          ],
+          "target_canvas": [
+            62,
+            30
+          ]
+        },
+        "waist": {
+          "source_sheet": [
+            607,
+            326
+          ],
+          "target_canvas": [
+            55,
+            85
+          ]
+        }
+      },
+      "neck_anchor": [
+        0.2634974219464681,
+        -91.32545298600505
+      ],
+      "neck_source": [
+        545,
+        97
+      ],
+      "waist_edges": [
+        [
+          -11.076681339492133,
+          -21.677123554211065
+        ],
+        [
+          8.863093080597253,
+          -22.18042212837578
+        ]
+      ]
+    },
+    "torso/4": {
+      "image": "sprites/torso_4.png",
+      "canvas": [
+        120,
+        128
+      ],
+      "centre": [
+        6.92549991607666,
+        -42.749000549316406
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "right profile sway one; neck/collar, shoulders and waist registered as anatomical joints",
+      "source_art": "joint-art/torso-lap-source.png",
+      "source_crop": [
+        450,
+        40,
+        700,
+        390
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder_left": {
+          "source_sheet": [
+            489,
+            143
+          ],
+          "target_canvas": [
+            52,
+            30
+          ]
+        },
+        "shoulder_right": {
+          "source_sheet": [
+            593,
+            145
+          ],
+          "target_canvas": [
+            76,
+            30
+          ]
+        },
+        "waist": {
+          "source_sheet": [
+            607,
+            326
+          ],
+          "target_canvas": [
+            54,
+            84
+          ]
+        }
+      },
+      "neck_anchor": [
+        18.42071166325691,
+        -90.81497203261073
+      ],
+      "neck_source": [
+        545,
+        97
+      ],
+      "waist_edges": [
+        [
+          -11.91446603412551,
+          -22.432975863212988
+        ],
+        [
+          8.162571633463344,
+          -22.927123554211065
+        ]
+      ]
+    },
+    "torso/5": {
+      "image": "sprites/torso_5.png",
+      "canvas": [
+        116,
+        128
+      ],
+      "centre": [
+        -4.32450008392334,
+        -42.374000549316406
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "right profile sway opposite; neck/collar, shoulders and waist registered as anatomical joints",
+      "source_art": "joint-art/torso-lap-source.png",
+      "source_crop": [
+        450,
+        40,
+        700,
+        390
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder_left": {
+          "source_sheet": [
+            489,
+            143
+          ],
+          "target_canvas": [
+            35,
+            30
+          ]
+        },
+        "shoulder_right": {
+          "source_sheet": [
+            593,
+            145
+          ],
+          "target_canvas": [
+            59,
+            30
+          ]
+        },
+        "waist": {
+          "source_sheet": [
+            607,
+            326
+          ],
+          "target_canvas": [
+            63,
+            85
+          ]
+        }
+      },
+      "neck_anchor": [
+        -14.601793124995908,
+        -90.70045298600505
+      ],
+      "neck_source": [
+        545,
+        97
+      ],
+      "waist_edges": [
+        [
+          -12.01230600007571,
+          -21.052123554211065
+        ],
+        [
+          7.826808705180724,
+          -21.55542212837578
+        ]
+      ]
+    },
+    "torso/6": {
+      "image": "sprites/torso_6.png",
+      "canvas": [
+        108,
+        124
+      ],
+      "centre": [
+        -0.1745000034570694,
+        -42.17399978637695
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "back upright; neck/collar, shoulders and waist registered as anatomical joints",
+      "source_art": "joint-art/torso-lap-source.png",
+      "source_crop": [
+        760,
+        40,
+        1050,
+        380
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder_left": {
+          "source_sheet": [
+            798,
+            147
+          ],
+          "target_canvas": [
+            34,
+            33
+          ]
+        },
+        "shoulder_right": {
+          "source_sheet": [
+            1015,
+            147
+          ],
+          "target_canvas": [
+            74,
+            33
+          ]
+        },
+        "waist": {
+          "source_sheet": [
+            907,
+            323
+          ],
+          "target_canvas": [
+            54,
+            80
+          ]
+        }
+      },
+      "neck_anchor": [
+        -0.05615061091413054,
+        -84.52627251364969
+      ],
+      "neck_source": [
+        907,
+        97
+      ],
+      "waist_edges": [
+        [
+          -9.944085256913283,
+          -24.173999786376967
+        ],
+        [
+          9.779417047234176,
+          -24.173999786376967
+        ]
+      ]
+    },
+    "torso/7": {
+      "image": "sprites/torso_7.png",
+      "canvas": [
+        124,
+        124
+      ],
+      "centre": [
+        -9.349499702453613,
+        -42.04899978637695
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "back sway one; neck/collar, shoulders and waist registered as anatomical joints",
+      "source_art": "joint-art/torso-lap-source.png",
+      "source_crop": [
+        760,
+        40,
+        1050,
+        380
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder_left": {
+          "source_sheet": [
+            798,
+            147
+          ],
+          "target_canvas": [
+            34,
+            33
+          ]
+        },
+        "shoulder_right": {
+          "source_sheet": [
+            1015,
+            147
+          ],
+          "target_canvas": [
+            74,
+            33
+          ]
+        },
+        "waist": {
+          "source_sheet": [
+            907,
+            323
+          ],
+          "target_canvas": [
+            67,
+            80
+          ]
+        }
+      },
+      "neck_anchor": [
+        -20.924332128092487,
+        -84.40127251364969
+      ],
+      "neck_source": [
+        907,
+        97
+      ],
+      "waist_edges": [
+        [
+          -14.119084955909834,
+          -24.048999786376967
+        ],
+        [
+          5.604417348237632,
+          -24.048999786376967
+        ]
+      ]
+    },
+    "torso/8": {
+      "image": "sprites/torso_8.png",
+      "canvas": [
+        120,
+        124
+      ],
+      "centre": [
+        1.6505000591278076,
+        -41.94900131225586
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "back sway opposite; neck/collar, shoulders and waist registered as anatomical joints",
+      "source_art": "joint-art/torso-lap-source.png",
+      "source_crop": [
+        760,
+        40,
+        1050,
+        380
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder_left": {
+          "source_sheet": [
+            798,
+            147
+          ],
+          "target_canvas": [
+            48,
+            33
+          ]
+        },
+        "shoulder_right": {
+          "source_sheet": [
+            1015,
+            147
+          ],
+          "target_canvas": [
+            88,
+            33
+          ]
+        },
+        "waist": {
+          "source_sheet": [
+            907,
+            323
+          ],
+          "target_canvas": [
+            56,
+            80
+          ]
+        }
+      },
+      "neck_anchor": [
+        13.177940360761667,
+        -84.3012740395286
+      ],
+      "neck_source": [
+        907,
+        97
+      ],
+      "waist_edges": [
+        [
+          -12.119085194328413,
+          -23.949001312255874
+        ],
+        [
+          7.604417109819053,
+          -23.949001312255874
+        ]
+      ]
+    },
+    "torso/9": {
+      "image": "sprites/torso_9.png",
+      "canvas": [
+        124,
+        112
+      ],
+      "centre": [
+        10.825499534606934,
+        -6.749499797821045
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Deep forward bend: right collar and shoulder sockets, left curved waist hem; belt belongs to pelvis",
+      "source_art": "joint-art/bent-neck-source.png",
+      "source_crop": [
+        410,
+        0,
+        1250,
+        1150
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "waist_upper": {
+          "source_sheet": [
+            493,
+            171
+          ],
+          "target_canvas": [
+            35,
+            28
+          ]
+        },
+        "waist_lower": {
+          "source_sheet": [
+            493,
+            1018
+          ],
+          "target_canvas": [
+            35,
+            82
+          ]
+        },
+        "neck": {
+          "source_sheet": [
+            1143,
+            574
+          ],
+          "target_canvas": [
+            97,
+            54
+          ]
+        }
+      },
+      "neck_anchor": [
+        45.825499534606934,
+        -8.749499797821045
+      ],
+      "neck_source": [
+        1143,
+        574
+      ],
+      "shoulder_anchors": [
+        [
+          24.5547303038377,
+          -14.847728841504633
+        ],
+        [
+          38.86242261153002,
+          -20.514789054019396
+        ]
+      ],
+      "waist_anchor": [
+        22.6470379961454,
+        -8.864257767124464
+      ],
+      "waist_edges": [
+        [
+          22.6470379961454,
+          -18.682439585306284
+        ],
+        [
+          22.6470379961454,
+          1.0814329058389305
+        ]
+      ]
+    },
+    "torso/10": {
+      "image": "sprites/torso_10.png",
+      "canvas": [
+        116,
+        108
+      ],
+      "centre": [
+        -3.499500036239624,
+        -43.32400131225586
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Skeleton death pose: original rib cage and spine, no living costume",
+      "source_art": "upper-art/supplement-source.png",
+      "source_crop": [
+        605,
+        0,
+        1075,
+        510
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "clavicle_left": {
+          "source_sheet": [
+            699,
+            84
+          ],
+          "target_canvas": [
+            35,
+            32
+          ]
+        },
+        "clavicle_right": {
+          "source_sheet": [
+            976,
+            84
+          ],
+          "target_canvas": [
+            75,
+            32
+          ]
+        },
+        "spine_base": {
+          "source_sheet": [
+            841,
+            433
+          ],
+          "target_canvas": [
+            59,
+            75
+          ]
+        }
+      }
+    },
+    "arm_upper/0": {
+      "image": "sprites/arm_upper_0.png",
+      "canvas": [
+        84,
+        104
+      ],
+      "centre": [
+        -0.9994999766349792,
+        18.600500106811523
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Bare upper arm with black pink ruffle, open shoulder and elbow overlap edges; neutral",
+      "source_art": "joint-art/torso-lap-source.png",
+      "source_crop": [
+        845,
+        440,
+        990,
+        655
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder": {
+          "source_sheet": [
+            914,
+            451
+          ],
+          "target_canvas": [
+            42.99949997663498,
+            33.39949989318848
+          ]
+        },
+        "elbow": {
+          "source_sheet": [
+            911,
+            646
+          ],
+          "target_canvas": [
+            41.96949997663498,
+            69.54949989318848
+          ]
+        },
+        "outer_midpoint": {
+          "source_sheet": [
+            958,
+            550
+          ],
+          "target_canvas": [
+            47.68449997663498,
+            51.47449989318848
+          ]
+        }
+      }
+    },
+    "arm_upper/1": {
+      "image": "sprites/arm_upper_1.png",
+      "canvas": [
+        88,
+        104
+      ],
+      "centre": [
+        -2.57450008392334,
+        19.175500869750977
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Bare upper arm with black pink ruffle, open shoulder and elbow overlap edges; splayed",
+      "source_art": "joint-art/torso-lap-source.png",
+      "source_crop": [
+        845,
+        440,
+        990,
+        655
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder": {
+          "source_sheet": [
+            914,
+            451
+          ],
+          "target_canvas": [
+            46.57450008392334,
+            32.82449913024902
+          ]
+        },
+        "elbow": {
+          "source_sheet": [
+            911,
+            646
+          ],
+          "target_canvas": [
+            47.38450008392334,
+            68.71449913024902
+          ]
+        },
+        "outer_midpoint": {
+          "source_sheet": [
+            958,
+            550
+          ],
+          "target_canvas": [
+            52.179500083923344,
+            50.769499130249024
+          ]
+        }
+      }
+    },
+    "arm_upper/2": {
+      "image": "sprites/arm_upper_2.png",
+      "canvas": [
+        80,
+        100
+      ],
+      "centre": [
+        -0.2994999885559082,
+        16.850500106811523
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Bare upper arm with black pink ruffle, open shoulder and elbow overlap edges; foreshortened",
+      "source_art": "joint-art/torso-lap-source.png",
+      "source_crop": [
+        845,
+        440,
+        990,
+        655
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder": {
+          "source_sheet": [
+            914,
+            451
+          ],
+          "target_canvas": [
+            40.29949998855591,
+            33.14949989318848
+          ]
+        },
+        "elbow": {
+          "source_sheet": [
+            911,
+            646
+          ],
+          "target_canvas": [
+            40.44949998855591,
+            67.62949989318847
+          ]
+        },
+        "outer_midpoint": {
+          "source_sheet": [
+            958,
+            550
+          ],
+          "target_canvas": [
+            45.57449998855591,
+            50.38949989318847
+          ]
+        }
+      }
+    },
+    "arm_upper/3": {
+      "image": "sprites/arm_upper_3.png",
+      "canvas": [
+        84,
+        104
+      ],
+      "centre": [
+        -1.9744999408721924,
+        18.500499725341797
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Bare upper arm with black pink ruffle, open shoulder and elbow overlap edges; rear",
+      "source_art": "joint-art/torso-lap-source.png",
+      "source_crop": [
+        845,
+        440,
+        990,
+        655
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder": {
+          "source_sheet": [
+            914,
+            451
+          ],
+          "target_canvas": [
+            43.97449994087219,
+            33.4995002746582
+          ]
+        },
+        "elbow": {
+          "source_sheet": [
+            911,
+            646
+          ],
+          "target_canvas": [
+            40.48449994087219,
+            79.3395002746582
+          ]
+        },
+        "outer_midpoint": {
+          "source_sheet": [
+            958,
+            550
+          ],
+          "target_canvas": [
+            47.42949994087219,
+            56.419500274658205
+          ]
+        }
+      }
+    },
+    "arm_upper/4": {
+      "image": "sprites/arm_upper_4.png",
+      "canvas": [
+        84,
+        88
+      ],
+      "centre": [
+        0.3504999876022339,
+        8.475500106811523
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Upper arm points at camera: foreshortened skin and ruffle; transverse width matches exposed arm",
+      "source_art": "upper-art/supplement-source.png",
+      "source_crop": [
+        1110,
+        585,
+        1500,
+        990
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder_center": {
+          "source_sheet": [
+            1289,
+            792
+          ],
+          "target_canvas": [
+            42,
+            43
+          ]
+        },
+        "elbow_projected": {
+          "source_sheet": [
+            1289,
+            908
+          ],
+          "target_canvas": [
+            42,
+            57
+          ]
+        },
+        "radius": {
+          "source_sheet": [
+            1400,
+            792
+          ],
+          "target_canvas": [
+            49,
+            43
+          ]
+        }
+      }
+    },
+    "arm_upper/5": {
+      "image": "sprites/arm_upper_5.png",
+      "canvas": [
+        84,
+        104
+      ],
+      "centre": [
+        -0.9994999766349792,
+        18.600500106811523
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Skeleton humerus; neutral skeleton",
+      "source_art": "upper-art/supplement-source.png",
+      "source_crop": [
+        190,
+        525,
+        375,
+        1020
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder": {
+          "source_sheet": [
+            280,
+            590
+          ],
+          "target_canvas": [
+            42,
+            32
+          ]
+        },
+        "elbow": {
+          "source_sheet": [
+            291,
+            942
+          ],
+          "target_canvas": [
+            42,
+            71
+          ]
+        },
+        "outer_midpoint": {
+          "source_sheet": [
+            330,
+            762
+          ],
+          "target_canvas": [
+            52,
+            51
+          ]
+        }
+      }
+    },
+    "arm_upper/6": {
+      "image": "sprites/arm_upper_6.png",
+      "canvas": [
+        88,
+        104
+      ],
+      "centre": [
+        -2.57450008392334,
+        19.175500869750977
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Skeleton humerus; splayed skeleton",
+      "source_art": "upper-art/supplement-source.png",
+      "source_crop": [
+        190,
+        525,
+        375,
+        1020
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "shoulder": {
+          "source_sheet": [
+            280,
+            590
+          ],
+          "target_canvas": [
+            49,
+            32
+          ]
+        },
+        "elbow": {
+          "source_sheet": [
+            291,
+            942
+          ],
+          "target_canvas": [
+            42,
+            72
+          ]
+        },
+        "outer_midpoint": {
+          "source_sheet": [
+            330,
+            762
+          ],
+          "target_canvas": [
+            56,
+            51
+          ]
+        }
+      }
+    },
+    "arm_lower/0": {
+      "image": "sprites/arm_lower_0.png",
+      "canvas": [
+        64,
+        92
+      ],
+      "centre": [
+        -0.7994999885559082,
+        16.000499725341797
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Bare forearm with open elbow/wrist overlaps; wrist garment belongs exclusively to hand; neutral vertical",
+      "source_art": "joint-art/forearm-overlap-source.png",
+      "source_crop": [
+        0,
+        250,
+        825,
+        1730
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "elbow": {
+          "source_sheet": [
+            354,
+            280
+          ],
+          "target_canvas": [
+            32.79949998855591,
+            29.999500274658203
+          ]
+        },
+        "wrist": {
+          "source_sheet": [
+            358,
+            1640
+          ],
+          "target_canvas": [
+            32.64949998855591,
+            59.4095002746582
+          ]
+        },
+        "outer_midpoint": {
+          "source_sheet": [
+            535,
+            950
+          ],
+          "target_canvas": [
+            37.02444406143585,
+            44.726431305291726
+          ]
+        }
+      }
+    },
+    "arm_lower/1": {
+      "image": "sprites/arm_lower_1.png",
+      "canvas": [
+        68,
+        108
+      ],
+      "centre": [
+        -1.2244999408721924,
+        22.500499725341797
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Bare forearm with open elbow/wrist overlaps; wrist garment belongs exclusively to hand; extended vertical",
+      "source_art": "joint-art/forearm-overlap-source.png",
+      "source_crop": [
+        0,
+        250,
+        825,
+        1730
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "elbow": {
+          "source_sheet": [
+            354,
+            280
+          ],
+          "target_canvas": [
+            35.22449994087219,
+            31.499500274658203
+          ]
+        },
+        "wrist": {
+          "source_sheet": [
+            358,
+            1640
+          ],
+          "target_canvas": [
+            36.58449994087219,
+            73.23950027465821
+          ]
+        },
+        "outer_midpoint": {
+          "source_sheet": [
+            535,
+            950
+          ],
+          "target_canvas": [
+            40.20221925348657,
+            52.22946917103684
+          ]
+        }
+      }
+    },
+    "arm_lower/2": {
+      "image": "sprites/arm_lower_2.png",
+      "canvas": [
+        104,
+        76
+      ],
+      "centre": [
+        -17.54949951171875,
+        7.075500011444092
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Bare forearm with open elbow/wrist overlaps; wrist garment belongs exclusively to hand; horizontal leftward",
+      "source_art": "joint-art/forearm-overlap-source.png",
+      "source_crop": [
+        0,
+        250,
+        825,
+        1730
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "elbow": {
+          "source_sheet": [
+            354,
+            280
+          ],
+          "target_canvas": [
+            69.54949951171875,
+            30.924499988555908
+          ]
+        },
+        "wrist": {
+          "source_sheet": [
+            358,
+            1640
+          ],
+          "target_canvas": [
+            31.959499511718747,
+            47.9144999885559
+          ]
+        },
+        "outer_midpoint": {
+          "source_sheet": [
+            535,
+            950
+          ],
+          "target_canvas": [
+            52.52552329300606,
+            43.337851014959085
+          ]
+        }
+      }
+    },
+    "arm_lower/3": {
+      "image": "sprites/arm_lower_3.png",
+      "canvas": [
+        64,
+        88
+      ],
+      "centre": [
+        -0.7994999885559082,
+        16.40049934387207
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Skeleton radius and ulna; neutral skeleton",
+      "source_art": "upper-art/supplement-source.png",
+      "source_crop": [
+        698,
+        520,
+        867,
+        1020
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "elbow": {
+          "source_sheet": [
+            779,
+            588
+          ],
+          "target_canvas": [
+            32,
+            29
+          ]
+        },
+        "wrist": {
+          "source_sheet": [
+            785,
+            956
+          ],
+          "target_canvas": [
+            32,
+            60
+          ]
+        },
+        "outer_midpoint": {
+          "source_sheet": [
+            823,
+            766
+          ],
+          "target_canvas": [
+            36,
+            45
+          ]
+        }
+      }
+    },
+    "arm_lower/4": {
+      "image": "sprites/arm_lower_4.png",
+      "canvas": [
+        68,
+        104
+      ],
+      "centre": [
+        -1.1994999647140503,
+        23.675500869750977
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Skeleton radius and ulna; extended skeleton",
+      "source_art": "upper-art/supplement-source.png",
+      "source_crop": [
+        698,
+        520,
+        867,
+        1020
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "elbow": {
+          "source_sheet": [
+            779,
+            588
+          ],
+          "target_canvas": [
+            34,
+            32
+          ]
+        },
+        "wrist": {
+          "source_sheet": [
+            785,
+            956
+          ],
+          "target_canvas": [
+            36,
+            74
+          ]
+        },
+        "outer_midpoint": {
+          "source_sheet": [
+            823,
+            766
+          ],
+          "target_canvas": [
+            40,
+            52
+          ]
+        }
+      }
+    },
+    "arm_lower/5": {
+      "image": "sprites/arm_lower_5.png",
+      "canvas": [
+        64,
+        96
+      ],
+      "centre": [
+        -0.5494999885559082,
+        14.600500106811523
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Bare forearm with open elbow/wrist overlaps; wrist garment belongs exclusively to hand; rear vertical",
+      "source_art": "joint-art/forearm-overlap-source.png",
+      "source_crop": [
+        0,
+        250,
+        825,
+        1730
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "elbow": {
+          "source_sheet": [
+            354,
+            280
+          ],
+          "target_canvas": [
+            32.54949998855591,
+            33.39949989318848
+          ]
+        },
+        "wrist": {
+          "source_sheet": [
+            358,
+            1640
+          ],
+          "target_canvas": [
+            32.39949998855591,
+            62.80949989318847
+          ]
+        },
+        "outer_midpoint": {
+          "source_sheet": [
+            535,
+            950
+          ],
+          "target_canvas": [
+            36.77444406143585,
+            48.126430923822
+          ]
+        }
+      }
+    },
+    "arm_lower/6": {
+      "image": "sprites/arm_lower_6.png",
+      "canvas": [
+        104,
+        76
+      ],
+      "centre": [
+        -17.72450065612793,
+        7.475500106811523
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Skeleton radius and ulna; horizontal skeleton",
+      "source_art": "upper-art/supplement-source.png",
+      "source_crop": [
+        698,
+        520,
+        867,
+        1020
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "elbow": {
+          "source_sheet": [
+            779,
+            588
+          ],
+          "target_canvas": [
+            72,
+            31
+          ]
+        },
+        "wrist": {
+          "source_sheet": [
+            785,
+            956
+          ],
+          "target_canvas": [
+            31,
+            43
+          ]
+        },
+        "outer_midpoint": {
+          "source_sheet": [
+            823,
+            766
+          ],
+          "target_canvas": [
+            52,
+            45
+          ]
+        }
+      }
+    },
+    "torso_pelvis/0": {
+      "image": "sprites/torso_pelvis_0.png",
+      "canvas": [
+        112,
+        88
+      ],
+      "centre": [
+        0.0005000000237487257,
+        -10.649499893188477
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "front skirt; clothing only, continuous dark shorts panel, independently animated thighs contain all skin",
+      "source_art": "joint-art/pelvis-clothing-source.png",
+      "source_crop": [
+        1070,
+        125,
+        1435,
+        365
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "waist_left": {
+          "source_sheet": [
+            1183,
+            165
+          ],
+          "target_canvas": [
+            36.0,
+            30
+          ]
+        },
+        "waist_right": {
+          "source_sheet": [
+            1318,
+            165
+          ],
+          "target_canvas": [
+            76.0,
+            30
+          ]
+        },
+        "hem_center": {
+          "source_sheet": [
+            1249,
+            321
+          ],
+          "target_canvas": [
+            56.0,
+            63
+          ]
+        }
+      }
+    },
+    "torso_pelvis/1": {
+      "image": "sprites/torso_pelvis_1.png",
+      "canvas": [
+        112,
+        92
+      ],
+      "centre": [
+        0.5005000233650208,
+        -11.249500274658203
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "front skirt; clothing only, continuous dark shorts panel, independently animated thighs contain all skin",
+      "source_art": "joint-art/pelvis-clothing-source.png",
+      "source_crop": [
+        1070,
+        125,
+        1435,
+        365
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "waist_left": {
+          "source_sheet": [
+            1183,
+            165
+          ],
+          "target_canvas": [
+            38.0,
+            30
+          ]
+        },
+        "waist_right": {
+          "source_sheet": [
+            1318,
+            165
+          ],
+          "target_canvas": [
+            78.0,
+            30
+          ]
+        },
+        "hem_center": {
+          "source_sheet": [
+            1249,
+            321
+          ],
+          "target_canvas": [
+            56.0,
+            63
+          ]
+        }
+      }
+    },
+    "torso_pelvis/2": {
+      "image": "sprites/torso_pelvis_2.png",
+      "canvas": [
+        108,
+        88
+      ],
+      "centre": [
+        0.25049999356269836,
+        -10.474499702453613
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "front skirt; clothing only, continuous dark shorts panel, independently animated thighs contain all skin",
+      "source_art": "joint-art/pelvis-clothing-source.png",
+      "source_crop": [
+        1070,
+        125,
+        1435,
+        365
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "waist_left": {
+          "source_sheet": [
+            1183,
+            165
+          ],
+          "target_canvas": [
+            32.0,
+            30
+          ]
+        },
+        "waist_right": {
+          "source_sheet": [
+            1318,
+            165
+          ],
+          "target_canvas": [
+            72.0,
+            30
+          ]
+        },
+        "hem_center": {
+          "source_sheet": [
+            1249,
+            321
+          ],
+          "target_canvas": [
+            54.0,
+            63
+          ]
+        }
+      }
+    },
+    "torso_pelvis/3": {
+      "image": "sprites/torso_pelvis_3.png",
+      "canvas": [
+        108,
+        88
+      ],
+      "centre": [
+        0.0005000000237487257,
+        -10.024499893188477
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "profile skirt; clothing only, continuous dark shorts panel, independently animated thighs contain all skin",
+      "source_art": "joint-art/pelvis-clothing-source.png",
+      "source_crop": [
+        45,
+        465,
+        340,
+        700
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "waist_left": {
+          "source_sheet": [
+            148,
+            510
+          ],
+          "target_canvas": [
+            34.0,
+            30
+          ]
+        },
+        "waist_right": {
+          "source_sheet": [
+            257,
+            510
+          ],
+          "target_canvas": [
+            74.0,
+            30
+          ]
+        },
+        "hem_center": {
+          "source_sheet": [
+            205,
+            650
+          ],
+          "target_canvas": [
+            54.0,
+            63
+          ]
+        }
+      }
+    },
+    "torso_pelvis/4": {
+      "image": "sprites/torso_pelvis_4.png",
+      "canvas": [
+        108,
+        88
+      ],
+      "centre": [
+        -1.3244999647140503,
+        -10.799500465393066
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "profile skirt; clothing only, continuous dark shorts panel, independently animated thighs contain all skin",
+      "source_art": "joint-art/pelvis-clothing-source.png",
+      "source_crop": [
+        45,
+        465,
+        340,
+        700
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "waist_left": {
+          "source_sheet": [
+            148,
+            510
+          ],
+          "target_canvas": [
+            32.0,
+            30
+          ]
+        },
+        "waist_right": {
+          "source_sheet": [
+            257,
+            510
+          ],
+          "target_canvas": [
+            72.0,
+            30
+          ]
+        },
+        "hem_center": {
+          "source_sheet": [
+            205,
+            650
+          ],
+          "target_canvas": [
+            54.0,
+            63
+          ]
+        }
+      }
+    },
+    "torso_pelvis/5": {
+      "image": "sprites/torso_pelvis_5.png",
+      "canvas": [
+        108,
+        84
+      ],
+      "centre": [
+        -0.49950000643730164,
+        -10.049500465393066
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "profile skirt; clothing only, continuous dark shorts panel, independently animated thighs contain all skin",
+      "source_art": "joint-art/pelvis-clothing-source.png",
+      "source_crop": [
+        45,
+        465,
+        340,
+        700
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "waist_left": {
+          "source_sheet": [
+            148,
+            510
+          ],
+          "target_canvas": [
+            36.0,
+            30
+          ]
+        },
+        "waist_right": {
+          "source_sheet": [
+            257,
+            510
+          ],
+          "target_canvas": [
+            76.0,
+            30
+          ]
+        },
+        "hem_center": {
+          "source_sheet": [
+            205,
+            650
+          ],
+          "target_canvas": [
+            54.0,
+            63
+          ]
+        }
+      }
+    },
+    "torso_pelvis/6": {
+      "image": "sprites/torso_pelvis_6.png",
+      "canvas": [
+        112,
+        92
+      ],
+      "centre": [
+        0.0005000000237487257,
+        -11.424500465393066
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "back skirt; clothing only, continuous dark shorts panel, independently animated thighs contain all skin",
+      "source_art": "joint-art/pelvis-clothing-source.png",
+      "source_crop": [
+        402,
+        465,
+        750,
+        700
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "waist_left": {
+          "source_sheet": [
+            508,
+            505
+          ],
+          "target_canvas": [
+            36.0,
+            30
+          ]
+        },
+        "waist_right": {
+          "source_sheet": [
+            633,
+            505
+          ],
+          "target_canvas": [
+            76.0,
+            30
+          ]
+        },
+        "hem_center": {
+          "source_sheet": [
+            572,
+            650
+          ],
+          "target_canvas": [
+            56.0,
+            63
+          ]
+        }
+      }
+    },
+    "torso_pelvis/7": {
+      "image": "sprites/torso_pelvis_7.png",
+      "canvas": [
+        112,
+        92
+      ],
+      "centre": [
+        -0.24950000643730164,
+        -11.999500274658203
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "back skirt; clothing only, continuous dark shorts panel, independently animated thighs contain all skin",
+      "source_art": "joint-art/pelvis-clothing-source.png",
+      "source_crop": [
+        402,
+        465,
+        750,
+        700
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "waist_left": {
+          "source_sheet": [
+            508,
+            505
+          ],
+          "target_canvas": [
+            38.0,
+            30
+          ]
+        },
+        "waist_right": {
+          "source_sheet": [
+            633,
+            505
+          ],
+          "target_canvas": [
+            78.0,
+            30
+          ]
+        },
+        "hem_center": {
+          "source_sheet": [
+            572,
+            650
+          ],
+          "target_canvas": [
+            56.0,
+            63
+          ]
+        }
+      }
+    },
+    "torso_pelvis/8": {
+      "image": "sprites/torso_pelvis_8.png",
+      "canvas": [
+        116,
+        92
+      ],
+      "centre": [
+        -2.424499988555908,
+        -11.749500274658203
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "back skirt; clothing only, continuous dark shorts panel, independently animated thighs contain all skin",
+      "source_art": "joint-art/pelvis-clothing-source.png",
+      "source_crop": [
+        402,
+        465,
+        750,
+        700
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "waist_left": {
+          "source_sheet": [
+            508,
+            505
+          ],
+          "target_canvas": [
+            36.0,
+            30
+          ]
+        },
+        "waist_right": {
+          "source_sheet": [
+            633,
+            505
+          ],
+          "target_canvas": [
+            76.0,
+            30
+          ]
+        },
+        "hem_center": {
+          "source_sheet": [
+            572,
+            650
+          ],
+          "target_canvas": [
+            58.0,
+            63
+          ]
+        }
+      }
+    },
+    "torso_pelvis/9": {
+      "image": "sprites/torso_pelvis_9.png",
+      "canvas": [
+        116,
+        112
+      ],
+      "centre": [
+        -1.7244999408721924,
+        -7.999499797821045
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Forward-bending pelvis: radial skirt rotated to native right-side waist opening, closed dark shorts, no thigh skin",
+      "source_art": "upper-art/skirt-topdown-closed-source.png",
+      "source_crop": [
+        40,
+        100,
+        1260,
+        1070
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "waist_upper": {
+          "source_sheet": [
+            411,
+            410
+          ],
+          "target_canvas": [
+            69.72449994087219,
+            35.999499797821045
+          ]
+        },
+        "waist_lower": {
+          "source_sheet": [
+            901,
+            410
+          ],
+          "target_canvas": [
+            69.72449994087219,
+            75.99949979782104
+          ]
+        },
+        "front_hem": {
+          "source_sheet": [
+            653,
+            1008
+          ],
+          "target_canvas": [
+            21.724499940872192,
+            55.999499797821045
+          ]
+        }
+      },
+      "waist_anchor": [
+        22.040133779264224,
+        -8.306327213159506
+      ],
+      "waist_edges": [
+        [
+          22.040133779264224,
+          -16.469592519281953
+        ],
+        [
+          22.04013377926421,
+          -0.14306190703705823
+        ]
+      ]
+    },
+    "torso_pelvis/10": {
+      "image": "sprites/torso_pelvis_10.png",
+      "canvas": [
+        112,
+        92
+      ],
+      "centre": [
+        0.9505000114440918,
+        -11.524499893188477
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Skeleton death pelvis: dedicated original bone cutout",
+      "source_art": "upper-art/supplement-source.png",
+      "source_crop": [
+        1080,
+        125,
+        1525,
+        500
+      ],
+      "registration_method": "three anatomical anchors with open overlap edges; joint-connected animation export; 20 pixel local padding",
+      "anchors": {
+        "iliac_left": {
+          "source_sheet": [
+            1174,
+            209
+          ],
+          "target_canvas": [
+            35,
+            32
+          ]
+        },
+        "iliac_right": {
+          "source_sheet": [
+            1413,
+            209
+          ],
+          "target_canvas": [
+            77,
+            32
+          ]
+        },
+        "pubic_center": {
+          "source_sheet": [
+            1300,
+            435
+          ],
+          "target_canvas": [
+            56,
+            63
+          ]
+        }
+      }
+    },
+    "arm_upper_skin/0": {
+      "image": "sprites/arm_upper_skin_0.png",
+      "canvas": [
+        24,
+        60
+      ],
+      "centre": [
+        -2.32450008392334,
+        19.850500106811523
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Redundant native under-sleeve overlay intentionally absent; complete skin/bone in arm_upper",
+      "intentional_empty": true,
+      "reason": "Original arm_upper includes shoulder-to-elbow skin and ruffle or skeleton humerus, avoiding a double drawn overlay",
+      "covered_by": "arm_upper"
+    },
+    "arm_upper_skin/1": {
+      "image": "sprites/arm_upper_skin_1.png",
+      "canvas": [
+        20,
+        32
+      ],
+      "centre": [
+        -0.5494999885559082,
+        9.400500297546387
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Redundant native under-sleeve overlay intentionally absent; complete skin/bone in arm_upper",
+      "intentional_empty": true,
+      "reason": "Original arm_upper includes shoulder-to-elbow skin and ruffle or skeleton humerus, avoiding a double drawn overlay",
+      "covered_by": "arm_upper"
+    },
+    "arm_upper_skin/2": {
+      "image": "sprites/arm_upper_skin_2.png",
+      "canvas": [
+        24,
+        60
+      ],
+      "centre": [
+        -2.32450008392334,
+        19.850500106811523
+      ],
+      "duration": 1,
+      "original": true,
+      "semantic": "Redundant native under-sleeve overlay intentionally absent; complete skin/bone in arm_upper",
+      "intentional_empty": true,
+      "reason": "Original arm_upper includes shoulder-to-elbow skin and ruffle or skeleton humerus, avoiding a double drawn overlay",
+      "covered_by": "arm_upper"
+    }
+  }
+}

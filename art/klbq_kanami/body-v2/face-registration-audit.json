@@ -1,0 +1,450 @@
+{
+  "0": {
+    "local_eye_anchor": [
+      -13.403888868319598,
+      24.489503170190154
+    ],
+    "samples": 416,
+    "median_residual": 0.7119885023829631,
+    "max_residual": 6.261850413925955,
+    "worst_pose": [
+      "player_actions_eat",
+      "quick_eat_pre",
+      2
+    ]
+  },
+  "1": {
+    "local_eye_anchor": [
+      -13.200336233888908,
+      24.913404779878526
+    ],
+    "samples": 47,
+    "median_residual": 0.33941833235953733,
+    "max_residual": 5.582069356517052,
+    "worst_pose": [
+      "player_idles",
+      "idle_hot_pst",
+      31
+    ]
+  },
+  "2": {
+    "local_eye_anchor": [
+      -13.490869051983132,
+      22.59085266421744
+    ],
+    "samples": 76,
+    "median_residual": 2.8987455962802744,
+    "max_residual": 16.723795352961602,
+    "worst_pose": [
+      "player_actions_eat",
+      "quick_eat_pre",
+      5
+    ]
+  },
+  "3": {
+    "local_eye_anchor": [
+      -12.255594935328002,
+      16.32756019771324
+    ],
+    "samples": 12,
+    "median_residual": 5.464330006854638,
+    "max_residual": 6.4923778280649485,
+    "worst_pose": [
+      "player_idles",
+      "idle_hot_pst",
+      34
+    ]
+  },
+  "12": {
+    "local_eye_anchor": [
+      -10.999305679375556,
+      22.985056175022464
+    ],
+    "samples": 61,
+    "median_residual": 5.901051465578602,
+    "max_residual": 6.645810773674203,
+    "worst_pose": [
+      "player_idles",
+      "idle_inaction_sanity",
+      37
+    ]
+  },
+  "9": {
+    "local_eye_anchor": [
+      -13.327318588921878,
+      14.97911434034189
+    ],
+    "samples": 32,
+    "median_residual": 5.00352376464965,
+    "max_residual": 10.293911625525613,
+    "worst_pose": [
+      "player_actions_eat",
+      "eat",
+      83
+    ]
+  },
+  "10": {
+    "local_eye_anchor": [
+      -11.879283018173455,
+      12.309377272029216
+    ],
+    "samples": 186,
+    "median_residual": 7.56226037302898,
+    "max_residual": 13.077268572316969,
+    "worst_pose": [
+      "player_actions_eat",
+      "eat",
+      78
+    ]
+  },
+  "4": {
+    "local_eye_anchor": [
+      -23.60440925470232,
+      17.540531051636286
+    ],
+    "samples": 355,
+    "median_residual": 0.6487833555159763,
+    "max_residual": 6.540360155395537,
+    "worst_pose": [
+      "player_idles",
+      "idle_inaction",
+      19
+    ]
+  },
+  "6": {
+    "local_eye_anchor": [
+      -23.722979062680185,
+      18.006062173168065
+    ],
+    "samples": 73,
+    "median_residual": 0.15298922031509657,
+    "max_residual": 1.859942319396516,
+    "worst_pose": [
+      "player_idles",
+      "idle_inaction_sanity",
+      53
+    ]
+  },
+  "5": {
+    "local_eye_anchor": [
+      -23.290373799407984,
+      17.099678791976448
+    ],
+    "samples": 1,
+    "median_residual": 0.0,
+    "max_residual": 0.0,
+    "worst_pose": [
+      "player_idles",
+      "idle_loop",
+      34
+    ]
+  },
+  "8": {
+    "local_eye_anchor": [
+      -8.746400768421548,
+      26.55286846668265
+    ],
+    "samples": 54,
+    "median_residual": 0.06291026275054577,
+    "max_residual": 0.09647467642097185,
+    "worst_pose": [
+      "player_actions_eat",
+      "eat",
+      64
+    ]
+  },
+  "17": {
+    "local_eye_anchor": [
+      -12.515803886580903,
+      16.934494117155246
+    ],
+    "samples": 37,
+    "median_residual": 5.644210752377642,
+    "max_residual": 11.731527345123677,
+    "worst_pose": [
+      "player_actions_eat",
+      "quick_drink_pre",
+      6
+    ]
+  },
+  "30": {
+    "local_eye_anchor": [
+      -13.160034303638055,
+      24.6244495579517
+    ],
+    "samples": 4,
+    "median_residual": 0.6444681405018695,
+    "max_residual": 1.4505720746755104,
+    "worst_pose": [
+      "player_actions_eat",
+      "refuseeat",
+      4
+    ]
+  },
+  "27": {
+    "local_eye_anchor": [
+      -11.740812367865914,
+      23.032656695135532
+    ],
+    "samples": 12,
+    "median_residual": 2.140613012707413,
+    "max_residual": 3.6230859273854032,
+    "worst_pose": [
+      "player_actions_eat",
+      "refuseeat",
+      7
+    ]
+  },
+  "26": {
+    "local_eye_anchor": [
+      -14.887112609031075,
+      50.579593691993374
+    ],
+    "samples": 64,
+    "median_residual": 1.3520917032983513,
+    "max_residual": 7.709953199744645,
+    "worst_pose": [
+      "player_actions_eat",
+      "refuseeat",
+      10
+    ]
+  },
+  "11": {
+    "local_eye_anchor": [
+      -13.494396661909276,
+      24.74784875797832
+    ],
+    "samples": 1071,
+    "median_residual": 0.4986504547538697,
+    "max_residual": 18.38795144593694,
+    "worst_pose": [
+      "player_hotspring",
+      "hotspring_pre",
+      17
+    ]
+  },
+  "13": {
+    "local_eye_anchor": [
+      -13.68338718870855,
+      28.107732019378627
+    ],
+    "samples": 89,
+    "median_residual": 3.868594780208592,
+    "max_residual": 14.94897737500603,
+    "worst_pose": [
+      "player_ancient_architect",
+      "architect_death_pst",
+      9
+    ]
+  },
+  "15": {
+    "local_eye_anchor": [
+      -13.595147593110575,
+      25.38084116253656
+    ],
+    "samples": 1904,
+    "median_residual": 0.2910180891507751,
+    "max_residual": 29.642346466598212,
+    "worst_pose": [
+      "player_actions_feast_eat",
+      "feast_eat_pre",
+      15
+    ]
+  },
+  "7": {
+    "local_eye_anchor": [
+      -23.85300045576945,
+      17.98718370090956
+    ],
+    "samples": 450,
+    "median_residual": 0.1906153471180459,
+    "max_residual": 3.8989538941762145,
+    "worst_pose": [
+      "player_encumbered_jump",
+      "heavy_jumpout",
+      15
+    ]
+  },
+  "32": {
+    "local_eye_anchor": [
+      -13.602150382051628,
+      25.680161049885164
+    ],
+    "samples": 74,
+    "median_residual": 0.9305402542686689,
+    "max_residual": 5.07138233934306,
+    "worst_pose": [
+      "player_actions_uniqueitem",
+      "hornblow",
+      3
+    ]
+  },
+  "16": {
+    "local_eye_anchor": [
+      -13.926136710653457,
+      25.004966753856618
+    ],
+    "samples": 294,
+    "median_residual": 0.5323718290222639,
+    "max_residual": 7.686167047581717,
+    "worst_pose": [
+      "player_encumbered",
+      "heavy_refuseeat",
+      7
+    ]
+  },
+  "19": {
+    "local_eye_anchor": [
+      -13.69107817405072,
+      25.1743333078956
+    ],
+    "samples": 86,
+    "median_residual": 0.24244152797281593,
+    "max_residual": 4.60518120340779,
+    "worst_pose": [
+      "player_boat_sink",
+      "sink",
+      28
+    ]
+  },
+  "24": {
+    "local_eye_anchor": [
+      -13.353115745460046,
+      27.35461633223701
+    ],
+    "samples": 159,
+    "median_residual": 3.8272886651669733,
+    "max_residual": 16.30592878292449,
+    "worst_pose": [
+      "player_boat_sink",
+      "xx",
+      3
+    ]
+  },
+  "22": {
+    "local_eye_anchor": [
+      -14.989969641896888,
+      32.320055291222666
+    ],
+    "samples": 63,
+    "median_residual": 7.299360467491351,
+    "max_residual": 9.685828762768994,
+    "worst_pose": [
+      "player_mount_bow",
+      "bow_pre",
+      16
+    ]
+  },
+  "20": {
+    "local_eye_anchor": [
+      -13.670356614742504,
+      22.25839530502593
+    ],
+    "samples": 571,
+    "median_residual": 2.8903300202846633,
+    "max_residual": 12.74290803990685,
+    "worst_pose": [
+      "player_idles_groggy",
+      "idle_groggy01_loop",
+      20
+    ]
+  },
+  "21": {
+    "local_eye_anchor": [
+      -13.485716121408885,
+      25.255368698854927
+    ],
+    "samples": 345,
+    "median_residual": 0.10259099950190768,
+    "max_residual": 2.287848490198036,
+    "worst_pose": [
+      "player_emotes",
+      "emote_angry",
+      49
+    ]
+  },
+  "28": {
+    "local_eye_anchor": [
+      -13.863533812368098,
+      23.674020544139374
+    ],
+    "samples": 362,
+    "median_residual": 1.7826830612094577,
+    "max_residual": 14.693308138040047,
+    "worst_pose": [
+      "player_emotes",
+      "emote_pants",
+      8
+    ]
+  },
+  "25": {
+    "local_eye_anchor": [
+      -13.849509846094382,
+      63.10331945647614
+    ],
+    "samples": 271,
+    "median_residual": 1.6196933554275794,
+    "max_residual": 11.007334128965418,
+    "worst_pose": [
+      "player_mighty_gym",
+      "mighty_gym_success_big",
+      9
+    ]
+  },
+  "23": {
+    "local_eye_anchor": [
+      -6.332783509219389,
+      23.619979569559785
+    ],
+    "samples": 152,
+    "median_residual": 3.03412823609109,
+    "max_residual": 8.154980222984177,
+    "worst_pose": [
+      "player_emotes",
+      "emote_yawn",
+      54
+    ]
+  },
+  "29": {
+    "local_eye_anchor": [
+      -13.523843026132377,
+      24.56726867090632
+    ],
+    "samples": 154,
+    "median_residual": 1.740879632255884,
+    "max_residual": 13.779661085230922,
+    "worst_pose": [
+      "player_sit_sad",
+      "emoteXL_sad",
+      49
+    ]
+  },
+  "18": {
+    "local_eye_anchor": [
+      -13.978561148390583,
+      25.232069594281565
+    ],
+    "samples": 26,
+    "median_residual": 0.6038108746132176,
+    "max_residual": 9.943465689133618,
+    "worst_pose": [
+      "player_sit_kiss",
+      "emoteXL_kiss",
+      37
+    ]
+  },
+  "31": {
+    "local_eye_anchor": [
+      -13.45000069775328,
+      25.200003481072706
+    ],
+    "samples": 59,
+    "median_residual": 3.280634962558242e-05,
+    "max_residual": 8.781790164508957e-05,
+    "worst_pose": [
+      "player_suspended",
+      "suspended_pre",
+      15
+    ]
+  }
+}

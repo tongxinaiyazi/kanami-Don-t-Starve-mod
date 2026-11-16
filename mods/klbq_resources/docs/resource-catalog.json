@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "status": "implemented_0.1.0",
+  "title": "香奈美附属模组：卡拉彼丘资源",
+  "mod_directory": "klbq_resources",
+  "research_date": "2026-10-29",
+  "reference_region": "国服端游",
+  "dst_version_observed": "760178",
+  "scope": "20 项物品已实现；本 JSON 是设计比对数据，运行目录为 scripts/klbq_resources/catalog.lua；不定义来源或用途。",
+  "excluded": [
+    "战令币",
+    "活动凭录",
+    "历史活动物品",
+    "赛季专用代币",
+    "活动限定版本资源",
+    "抽卡与兑换逻辑",
+    "制作与掉落",
+    "钱包与商店界面"
+  ],
+  "common_design": {
+    "prefab_prefix": "klbq_resource_",
+    "proposed_stack_max": 40,
+    "physical_inventory_items": true,
+    "default_world_generation": false,
+    "default_distribution": false,
+    "active_use_action": false,
+    "gameplay_effects": false,
+    "artwork_status": "已用内置 imagegen 重绘并经 Klei 工具编译独立库存与地面资源；原作参考图不进入运行包。",
+    "reference_id_meaning": "BWIKI PC 道具资料编号；不是已从官方客户端提取并验证的接口标识。",
+    "quality_meaning": "原作参考品质，来自 BWIKI；仅为设计记录，不增加 DST 稀有度机制。"
+  },
+  "items": [
+    {
+      "name": "巴布洛晶核",
+      "alias": [
+        "晶核"
+      ],
+      "prefab": "klbq_resource_bablo_crystal",
+      "category": "通用货币",
+      "pc_reference_id": 3,
+      "reference_quality": "完美",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S04"
+      ],
+      "visual_anchor": "黑色框架包住竖直金黄色晶体柱，双柱高低错落。",
+      "redraw_spec": "保留长方柱轮廓和黑金分区；用不规则深色墨线收边，金色亮面集中在柱芯，避免画成球或宝石碎块。",
+      "inspect_text": "金色的光，被收在整齐的棱柱里。"
+    },
+    {
+      "name": "基弦",
+      "alias": [],
+      "prefab": "klbq_resource_base_string",
+      "category": "通用货币",
+      "pc_reference_id": 6,
+      "reference_quality": "卓越",
+      "source_ids": [
+        "S01",
+        "S02"
+      ],
+      "visual_anchor": "银灰分段圆框内是粉紫色发光圆盘，中央有白色圆形纹样。",
+      "redraw_spec": "保持完整圆形和粉紫主体，减少细刻线；用略歪的手绘圆环区别于拓扑晶环的空心环。",
+      "inspect_text": "一圈圈细纹，围住一抹粉紫。"
+    },
+    {
+      "name": "理想币",
+      "alias": [],
+      "prefab": "klbq_resource_ideal_coin",
+      "category": "通用货币",
+      "pc_reference_id": 2,
+      "reference_quality": "卓越",
+      "source_ids": [
+        "S01",
+        "S02"
+      ],
+      "visual_anchor": "蓝白色矩形票据叠放，票面有黑色几何标记和齿边。",
+      "redraw_spec": "沿用票据而非圆硬币造型；三张错叠，保留蓝色边条与中央几何符号，小尺寸省略微小数字。",
+      "inspect_text": "这些蓝白色票据，还保留着清晰的折线。"
+    },
+    {
+      "name": "记忆序列",
+      "alias": [],
+      "prefab": "klbq_resource_memory_sequence",
+      "category": "卡池凭证",
+      "pc_reference_id": 40001,
+      "reference_quality": "完美",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S04",
+        "S07"
+      ],
+      "visual_anchor": "青蓝色长条模块，灰白端盖上有圆形标记，末端伸出短接头。",
+      "redraw_spec": "保留蓝色模块和灰白端盖，轮廓呈斜放长条；不改成金色球体，也不与原初序列仅靠名称区分。",
+      "inspect_text": "蓝色的序列，被封存在小小的模块里。"
+    },
+    {
+      "name": "重定向序列",
+      "alias": [],
+      "prefab": "klbq_resource_redirect_sequence",
+      "category": "卡池凭证",
+      "pc_reference_id": 40004,
+      "reference_quality": "完美",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03"
+      ],
+      "visual_anchor": "黑金色矩形卡片，顶部有橙金色 UP 盾牌标记。",
+      "redraw_spec": "保持卡片外形与上凸盾牌，UP 为原图识别元素；地面版本简化为清晰向上箭头，不能伪装成装备。",
+      "inspect_text": "卡片上的箭头，指向同一个方向。"
+    },
+    {
+      "name": "弦海信标",
+      "alias": [
+        "武器红皮卡池黄球"
+      ],
+      "prefab": "klbq_resource_stringsea_beacon",
+      "category": "卡池凭证",
+      "pc_reference_id": 40005,
+      "reference_quality": "完美",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S05"
+      ],
+      "visual_anchor": "透明方形棱盒包着金黄色球芯，外壳有细框和金色边角。",
+      "redraw_spec": "金色球芯必须占主体，透明方壳保留；以球与方壳的双重轮廓识别，和柱状巴布洛晶核明确区分。",
+      "inspect_text": "透明的棱盒里，悬着一轮小小的金光。"
+    },
+    {
+      "name": "原初序列",
+      "alias": [],
+      "prefab": "klbq_resource_initial_sequence",
+      "category": "卡池凭证",
+      "pc_reference_id": 40006,
+      "reference_quality": "完美",
+      "source_ids": [
+        "S01",
+        "S02"
+      ],
+      "visual_anchor": "淡紫色长条模块，灰白端盖上有圆形标记，与蓝色记忆序列属同一造型家族。",
+      "redraw_spec": "保留淡紫色主体；增加不同的端盖缺口和一条纵向深线，保证灰度与小尺寸下也能和记忆序列区分。",
+      "inspect_text": "淡紫色的模块，安静得像尚未写下的第一行。"
+    },
+    {
+      "name": "共振序列",
+      "alias": [],
+      "prefab": "klbq_resource_resonance_sequence",
+      "category": "卡池凭证",
+      "pc_reference_id": 40007,
+      "reference_quality": "完美",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S04",
+        "S06"
+      ],
+      "visual_anchor": "橙白相间的分叉模块，主体是两条并排的开放叉形结构。",
+      "redraw_spec": "保留双叉与中空结构，橙白分区清楚；不能套用记忆序列贴图换色。",
+      "inspect_text": "两道橙白色的分叉，像在等待同一声回响。"
+    },
+    {
+      "name": "拓扑晶环",
+      "alias": [],
+      "prefab": "klbq_resource_topology_ring",
+      "category": "外观材料",
+      "pc_reference_id": 5,
+      "reference_quality": "完美",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03"
+      ],
+      "visual_anchor": "亮蓝色空心环，环体有分段金属结构和浅蓝内侧。",
+      "redraw_spec": "空心孔保持足够大，分段外轮廓略不规则；不填满成圆盘，不增加实际照明。",
+      "inspect_text": "蓝色的环，中央留着一片完整的空白。"
+    },
+    {
+      "name": "拓印基板",
+      "alias": [],
+      "prefab": "klbq_resource_tracing_plate",
+      "category": "外观材料",
+      "pc_reference_id": 40009,
+      "reference_quality": "完美",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S06"
+      ],
+      "visual_anchor": "灰白蓝色底座上叠着两片青蓝圆盘，带弧形旋纹和透明片。",
+      "redraw_spec": "保留上下两盘的斜向重叠与底座，使其轮廓区别于单圈拓扑晶环；省略密集微刻字。",
+      "inspect_text": "两片蓝色纹样，叠在同一块小小的基板上。"
+    },
+    {
+      "name": "卡牌碎片",
+      "alias": [],
+      "prefab": "klbq_resource_card_fragment",
+      "category": "常驻模式资源",
+      "pc_reference_id": 12,
+      "reference_quality": "完美",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S11"
+      ],
+      "visual_anchor": "倾斜的半透明浅蓝矩形片，有深色边框、分割纹和缺角。",
+      "redraw_spec": "突出卡片缺角与碎面，避免与完整蓝白理想币票据混淆；材质保持硬片而非纸张。",
+      "inspect_text": "碎开的卡片，还能看出原先整齐的边。"
+    },
+    {
+      "name": "骰子",
+      "alias": [],
+      "prefab": "klbq_resource_dice",
+      "category": "常驻模式资源",
+      "pc_reference_id": 400001,
+      "reference_quality": "精致",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S07"
+      ],
+      "visual_anchor": "深灰色圆角立方体，三个可见面有橙黄色亮点与连线。",
+      "redraw_spec": "保留圆角方体和橙黄点，深灰三面用不同明度区分；本轮只呈静态物品，不设计掷骰动作。",
+      "inspect_text": "深灰的方块上，几颗橙色小点亮着。"
+    },
+    {
+      "name": "米雪儿序列因子终端",
+      "alias": [],
+      "prefab": "klbq_resource_terminal_michelle",
+      "category": "角色序列终端",
+      "pc_reference_id": 700001,
+      "reference_quality": "传说",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S09"
+      ],
+      "visual_anchor": "蓝色猫耳框架、金色下沿、中央彩色人形剪影屏幕和浅蓝弧形底带。",
+      "redraw_spec": "保留双猫耳和蓝色机身；中央屏幕缩小为清晰人物剪影，不直接复制原图人物细节。",
+      "inspect_text": "猫耳形的蓝色终端，守着一幅小小的剪影。"
+    },
+    {
+      "name": "星绘序列因子终端",
+      "alias": [],
+      "prefab": "klbq_resource_terminal_xinghui",
+      "category": "角色序列终端",
+      "pc_reference_id": 700002,
+      "reference_quality": "传说",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S08"
+      ],
+      "visual_anchor": "银紫色终端，上方蝴蝶结与星形装饰，中央屏幕，下方浅蓝弧形底带。",
+      "redraw_spec": "保留银紫外壳、蝴蝶结与星形顶饰；顶饰在小图标中仍须与其他终端区分。",
+      "inspect_text": "蝴蝶结下的星光，落在银紫色的边框上。"
+    },
+    {
+      "name": "明序列因子终端",
+      "alias": [],
+      "prefab": "klbq_resource_terminal_ming",
+      "category": "角色序列终端",
+      "pc_reference_id": 700003,
+      "reference_quality": "传说",
+      "source_ids": [
+        "S01",
+        "S02"
+      ],
+      "visual_anchor": "红黑终端、金色棱角顶饰、中央屏幕和浅蓝弧形底带。",
+      "redraw_spec": "保留红黑大色块与尖锐金色顶饰；与艾卡的红色终端用明显不同的顶部轮廓区分。",
+      "inspect_text": "红黑色的外壳，棱角分明。"
+    },
+    {
+      "name": "千代序列因子终端",
+      "alias": [],
+      "prefab": "klbq_resource_terminal_qiandai",
+      "category": "角色序列终端",
+      "pc_reference_id": 700004,
+      "reference_quality": "传说",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S06"
+      ],
+      "visual_anchor": "橙金黑色终端，顶端有红橙枫叶，中央屏幕与浅蓝弧形底带。",
+      "redraw_spec": "枫叶必须保留在顶部外轮廓；减少金色细线，主体维持橙金与黑色的明暗对比。",
+      "inspect_text": "一枚枫叶，停在金橙色的边框上。"
+    },
+    {
+      "name": "汐序列因子终端",
+      "alias": [],
+      "prefab": "klbq_resource_terminal_xi",
+      "category": "角色序列终端",
+      "pc_reference_id": 700005,
+      "reference_quality": "传说",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S11"
+      ],
+      "visual_anchor": "橙色机身、青蓝顶端和侧面装饰、中央屏幕与浅蓝弧形底带。",
+      "redraw_spec": "保留橙色外壳和青蓝顶饰组合；侧面的齿状装饰保持两到三个大齿即可。",
+      "inspect_text": "青蓝色的小装饰，嵌在橙色的终端边缘。"
+    },
+    {
+      "name": "香奈美序列因子终端",
+      "alias": [],
+      "prefab": "klbq_resource_terminal_kanami",
+      "category": "角色序列终端",
+      "pc_reference_id": 700006,
+      "reference_quality": "传说",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S04"
+      ],
+      "visual_anchor": "粉色终端、银灰顶部枝状或舞台形装饰、粉银配色、中央屏幕与浅蓝弧形底带。",
+      "redraw_spec": "粉色机身与银灰顶冠是主要识别点；保留原作终端轮廓，不改成主模组的精粹弦能晶体或背包。",
+      "inspect_text": "粉色边框里的小屏幕，像一座安静等待开场的舞台。"
+    },
+    {
+      "name": "芙拉薇娅序列因子终端",
+      "alias": [],
+      "prefab": "klbq_resource_terminal_flavia",
+      "category": "角色序列终端",
+      "pc_reference_id": 700007,
+      "reference_quality": "传说",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S10"
+      ],
+      "visual_anchor": "深紫终端、黑色蝴蝶顶饰、侧面花形装饰、中央屏幕与浅蓝弧形底带。",
+      "redraw_spec": "蝴蝶轮廓与深紫主体同时保留；顶端做大形，不把黑色装饰埋进暗色背景。",
+      "inspect_text": "黑色的蝶翼，栖在深紫色终端的顶端。"
+    },
+    {
+      "name": "艾卡序列因子终端",
+      "alias": [],
+      "prefab": "klbq_resource_terminal_eika",
+      "category": "角色序列终端",
+      "pc_reference_id": 700008,
+      "reference_quality": "传说",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S07"
+      ],
+      "visual_anchor": "红黑色终端、带小圆形金属件的黑色顶饰、中央屏幕与浅蓝弧形底带。",
+      "redraw_spec": "保留圆形顶部金属件与红色机身；不能复用明终端的尖锐金冠剪影。",
+      "inspect_text": "红色的终端顶上，扣着一枚小小的金属圆件。"
+    }
+  ],
+  "implementation_date": "2026-10-30"
+}

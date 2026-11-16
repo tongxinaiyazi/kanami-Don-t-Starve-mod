@@ -1,0 +1,887 @@
+{
+  "source": "hand-poses-source.png",
+  "source_sha256": "120fd84dcd9b7d49832115ec3de6ba6f6e8189a9ad37dbb9019c10297aeb0bc8",
+  "method": "explicit wrist/rim anchors; source alpha preserved; no bbox centering or native pixels",
+  "frames": {
+    "hand/0": {
+      "image": "sprites/hand_0.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "closed relaxed glove, front",
+      "original": true,
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_crop": [
+        75,
+        99,
+        180,
+        209
+      ],
+      "source_wrist_atlas": [
+        139,
+        117
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.2125,
+      "rotation_degrees": -14,
+      "visible_bbox": [
+        54,
+        45,
+        73,
+        67
+      ]
+    },
+    "hand/1": {
+      "image": "sprites/hand_1.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "side grip with curled fingers",
+      "original": true,
+      "source_cell": [
+        1,
+        0
+      ],
+      "source_crop": [
+        74,
+        101,
+        211,
+        216
+      ],
+      "source_wrist_atlas": [
+        378,
+        118
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.24649999999999997,
+      "rotation_degrees": 16,
+      "visible_bbox": [
+        50,
+        44,
+        83,
+        73
+      ]
+    },
+    "hand/2": {
+      "image": "sprites/hand_2.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "angled relaxed fist",
+      "original": true,
+      "source_cell": [
+        2,
+        0
+      ],
+      "source_crop": [
+        84,
+        100,
+        198,
+        213
+      ],
+      "source_wrist_atlas": [
+        628,
+        121
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.2125,
+      "rotation_degrees": 30,
+      "visible_bbox": [
+        57,
+        45,
+        75,
+        68
+      ]
+    },
+    "hand/3": {
+      "image": "sprites/hand_3.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "front knuckles and thumb",
+      "original": true,
+      "source_cell": [
+        3,
+        0
+      ],
+      "source_crop": [
+        58,
+        95,
+        178,
+        211
+      ],
+      "source_wrist_atlas": [
+        876,
+        117
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.2125,
+      "rotation_degrees": 17,
+      "visible_bbox": [
+        51,
+        44,
+        75,
+        68
+      ]
+    },
+    "hand/4": {
+      "image": "sprites/hand_4.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "large oblique carrying grip",
+      "original": true,
+      "source_cell": [
+        4,
+        0
+      ],
+      "source_crop": [
+        57,
+        95,
+        207,
+        223
+      ],
+      "source_wrist_atlas": [
+        1117,
+        122
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.23800000000000002,
+      "rotation_degrees": 36,
+      "visible_bbox": [
+        52,
+        43,
+        84,
+        73
+      ]
+    },
+    "hand/5": {
+      "image": "sprites/hand_5.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "side horizontal fist rotated at wrist into native pose",
+      "original": true,
+      "source_cell": [
+        5,
+        0
+      ],
+      "source_crop": [
+        47,
+        113,
+        194,
+        196
+      ],
+      "source_wrist_atlas": [
+        1350,
+        145
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.1955,
+      "rotation_degrees": 75,
+      "visible_bbox": [
+        58,
+        44,
+        75,
+        71
+      ]
+    },
+    "hand/6": {
+      "image": "sprites/hand_6.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "down-left grasping hand",
+      "original": true,
+      "source_cell": [
+        0,
+        1
+      ],
+      "source_crop": [
+        75,
+        79,
+        211,
+        227
+      ],
+      "source_wrist_atlas": [
+        180,
+        357
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.23800000000000002,
+      "rotation_degrees": -5,
+      "visible_bbox": [
+        41,
+        44,
+        71,
+        78
+      ]
+    },
+    "hand/7": {
+      "image": "sprites/hand_7.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "cupped upturned palm",
+      "original": true,
+      "source_cell": [
+        1,
+        1
+      ],
+      "source_crop": [
+        71,
+        81,
+        201,
+        218
+      ],
+      "source_wrist_atlas": [
+        360,
+        363
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.21000000000000002,
+      "rotation_degrees": 0,
+      "visible_bbox": [
+        58,
+        43,
+        84,
+        71
+      ]
+    },
+    "hand/8": {
+      "image": "sprites/hand_8.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "spread fingers oblique down-right",
+      "original": true,
+      "source_cell": [
+        2,
+        1
+      ],
+      "source_crop": [
+        63,
+        77,
+        206,
+        239
+      ],
+      "source_wrist_atlas": [
+        609,
+        356
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.2025,
+      "rotation_degrees": -6,
+      "visible_bbox": [
+        58,
+        44,
+        88,
+        74
+      ]
+    },
+    "hand/9": {
+      "image": "sprites/hand_9.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "open oblique palm",
+      "original": true,
+      "source_cell": [
+        3,
+        1
+      ],
+      "source_crop": [
+        45,
+        80,
+        196,
+        230
+      ],
+      "source_wrist_atlas": [
+        847,
+        360
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.21749999999999997,
+      "rotation_degrees": -12,
+      "visible_bbox": [
+        58,
+        43,
+        92,
+        72
+      ]
+    },
+    "hand/10": {
+      "image": "sprites/hand_10.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "spread front fingers",
+      "original": true,
+      "source_cell": [
+        4,
+        1
+      ],
+      "source_crop": [
+        51,
+        79,
+        201,
+        240
+      ],
+      "source_wrist_atlas": [
+        1165,
+        355
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.21749999999999997,
+      "rotation_degrees": -15,
+      "visible_bbox": [
+        50,
+        44,
+        81,
+        78
+      ]
+    },
+    "hand/11": {
+      "image": "sprites/hand_11.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "gloved replacement of alternate closed-hand slot",
+      "original": true,
+      "source_cell": [
+        5,
+        1
+      ],
+      "source_crop": [
+        72,
+        87,
+        172,
+        200
+      ],
+      "source_wrist_atlas": [
+        1421,
+        365
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.2125,
+      "rotation_degrees": -23,
+      "visible_bbox": [
+        54,
+        45,
+        72,
+        67
+      ]
+    },
+    "hand/12": {
+      "image": "sprites/hand_12.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "gloved replacement of alternate grip slot",
+      "original": true,
+      "source_cell": [
+        0,
+        2
+      ],
+      "source_crop": [
+        75,
+        80,
+        197,
+        206
+      ],
+      "source_wrist_atlas": [
+        158,
+        611
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.24649999999999997,
+      "rotation_degrees": -34,
+      "visible_bbox": [
+        52,
+        44,
+        79,
+        75
+      ]
+    },
+    "hand/13": {
+      "image": "sprites/hand_13.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "open frontal palm",
+      "original": true,
+      "source_cell": [
+        1,
+        2
+      ],
+      "source_crop": [
+        55,
+        58,
+        194,
+        235
+      ],
+      "source_wrist_atlas": [
+        387,
+        590
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.255,
+      "rotation_degrees": -6,
+      "visible_bbox": [
+        48,
+        44,
+        82,
+        87
+      ]
+    },
+    "hand/14": {
+      "image": "sprites/hand_14.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "closed frontal carrying fist",
+      "original": true,
+      "source_cell": [
+        2,
+        2
+      ],
+      "source_crop": [
+        73,
+        81,
+        194,
+        214
+      ],
+      "source_wrist_atlas": [
+        652,
+        616
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.272,
+      "rotation_degrees": -20,
+      "visible_bbox": [
+        52,
+        42,
+        84,
+        77
+      ]
+    },
+    "hand/15": {
+      "image": "sprites/hand_15.png",
+      "canvas": [
+        128,
+        224
+      ],
+      "centre": [
+        0.0,
+        80.0
+      ],
+      "duration": 1,
+      "semantic": "cup prop; rim anchor, not a wrist",
+      "original": true,
+      "source_cell": [
+        3,
+        2
+      ],
+      "source_crop": [
+        65,
+        53,
+        191,
+        238
+      ],
+      "source_wrist_atlas": [
+        896,
+        584
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        32
+      ],
+      "scale": 0.8,
+      "rotation_degrees": 0,
+      "visible_bbox": [
+        16,
+        19,
+        112,
+        163
+      ]
+    },
+    "hand/16": {
+      "image": "sprites/hand_16.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "gloved replacement of alternate oblique open-hand slot",
+      "original": true,
+      "source_cell": [
+        4,
+        2
+      ],
+      "source_crop": [
+        43,
+        68,
+        215,
+        226
+      ],
+      "source_wrist_atlas": [
+        1095,
+        608
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.21000000000000002,
+      "rotation_degrees": 3,
+      "visible_bbox": [
+        59,
+        43,
+        93,
+        76
+      ]
+    },
+    "hand/17": {
+      "image": "sprites/hand_17.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "gloved replacement of alternate frontal open-hand slot",
+      "original": true,
+      "source_cell": [
+        5,
+        2
+      ],
+      "source_crop": [
+        49,
+        49,
+        202,
+        231
+      ],
+      "source_wrist_atlas": [
+        1406,
+        583
+      ],
+      "native_wrist_local": [
+        0,
+        0
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.255,
+      "rotation_degrees": -6,
+      "visible_bbox": [
+        48,
+        43,
+        85,
+        88
+      ]
+    },
+    "hand/18": {
+      "image": "sprites/hand_18.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "curled grasp; native palm pivot and separate wrist anchor",
+      "original": true,
+      "source_cell": [
+        0,
+        3
+      ],
+      "source_crop": [
+        67,
+        61,
+        198,
+        188
+      ],
+      "source_wrist_atlas": [
+        100,
+        929
+      ],
+      "native_wrist_local": [
+        -19.374500036239624,
+        24.67549991607666
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.3655,
+      "rotation_degrees": 7,
+      "visible_bbox": [
+        34,
+        40,
+        81,
+        82
+      ]
+    },
+    "hand/19": {
+      "image": "sprites/hand_19.png",
+      "canvas": [
+        128,
+        128
+      ],
+      "centre": [
+        0.0,
+        16.0
+      ],
+      "duration": 1,
+      "semantic": "side curled grasp; native palm pivot and separate wrist anchor",
+      "original": true,
+      "source_cell": [
+        1,
+        3
+      ],
+      "source_crop": [
+        50,
+        63,
+        223,
+        193
+      ],
+      "source_wrist_atlas": [
+        333,
+        928
+      ],
+      "native_wrist_local": [
+        -19.174499988555908,
+        12.725499987602234
+      ],
+      "canvas_origin": [
+        64,
+        48
+      ],
+      "scale": 0.357,
+      "rotation_degrees": 2,
+      "visible_bbox": [
+        36,
+        28,
+        97,
+        71
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Anims>
+  <anim name="idle" root="klbq_imprint_tool" framerate="30">
+    <frame x="0" y="0" w="100" h="125">
+      <element name="terminal" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+      <element name="imprint_chop" frame="0" layername="imprint_chop" z_index="1" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="-21.718749999999996" m_ty="-41.875" />
+      <element name="imprint_mine" frame="0" layername="imprint_mine" z_index="2" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="-16.71875" m_ty="-40.78125" />
+      <element name="imprint_dig" frame="0" layername="imprint_dig" z_index="3" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="-11.796875" m_ty="-39.6875" />
+      <element name="imprint_tough" frame="0" layername="imprint_tough" z_index="4" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="-7.109375" m_ty="-38.671875" />
+    </frame>
+  </anim>
+</Anims>

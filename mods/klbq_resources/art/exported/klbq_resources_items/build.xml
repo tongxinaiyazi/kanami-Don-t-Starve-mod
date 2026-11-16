@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="klbq_resources_items">
+  <Symbol name="klbq_resource_bablo_crystal">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_bablo_crystal" />
+  </Symbol>
+  <Symbol name="klbq_resource_base_string">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_base_string" />
+  </Symbol>
+  <Symbol name="klbq_resource_ideal_coin">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_ideal_coin" />
+  </Symbol>
+  <Symbol name="klbq_resource_memory_sequence">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_memory_sequence" />
+  </Symbol>
+  <Symbol name="klbq_resource_redirect_sequence">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_redirect_sequence" />
+  </Symbol>
+  <Symbol name="klbq_resource_stringsea_beacon">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_stringsea_beacon" />
+  </Symbol>
+  <Symbol name="klbq_resource_initial_sequence">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_initial_sequence" />
+  </Symbol>
+  <Symbol name="klbq_resource_resonance_sequence">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_resonance_sequence" />
+  </Symbol>
+  <Symbol name="klbq_resource_topology_ring">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_topology_ring" />
+  </Symbol>
+  <Symbol name="klbq_resource_tracing_plate">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_tracing_plate" />
+  </Symbol>
+  <Symbol name="klbq_resource_card_fragment">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_card_fragment" />
+  </Symbol>
+  <Symbol name="klbq_resource_dice">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_dice" />
+  </Symbol>
+  <Symbol name="klbq_resource_terminal_michelle">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_terminal_michelle" />
+  </Symbol>
+  <Symbol name="klbq_resource_terminal_xinghui">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_terminal_xinghui" />
+  </Symbol>
+  <Symbol name="klbq_resource_terminal_ming">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_terminal_ming" />
+  </Symbol>
+  <Symbol name="klbq_resource_terminal_qiandai">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_terminal_qiandai" />
+  </Symbol>
+  <Symbol name="klbq_resource_terminal_xi">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_terminal_xi" />
+  </Symbol>
+  <Symbol name="klbq_resource_terminal_kanami">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_terminal_kanami" />
+  </Symbol>
+  <Symbol name="klbq_resource_terminal_flavia">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_terminal_flavia" />
+  </Symbol>
+  <Symbol name="klbq_resource_terminal_eika">
+    <Frame framenum="0" duration="1" x="0" y="-40" w="80" h="80" image="klbq_resource_terminal_eika" />
+  </Symbol>
+</Build>

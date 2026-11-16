@@ -1,0 +1,10 @@
+{
+  "version": "0.2.6",
+  "game_version": "760178",
+  "build_id": "26230496",
+  "lua51_parse_files": 35,
+  "errors": 0,
+  "unit_tests": 378,
+  "unit_failed": 0,
+  "unit_log": "unit-026.log"
+}

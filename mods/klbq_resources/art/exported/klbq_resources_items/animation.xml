@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Anims>
+  <anim name="klbq_resource_bablo_crystal" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_bablo_crystal" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_base_string" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_base_string" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_ideal_coin" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_ideal_coin" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_memory_sequence" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_memory_sequence" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_redirect_sequence" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_redirect_sequence" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_stringsea_beacon" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_stringsea_beacon" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_initial_sequence" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_initial_sequence" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_resonance_sequence" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_resonance_sequence" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_topology_ring" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_topology_ring" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_tracing_plate" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_tracing_plate" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_card_fragment" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_card_fragment" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_dice" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_dice" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_terminal_michelle" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_terminal_michelle" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_terminal_xinghui" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_terminal_xinghui" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_terminal_ming" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_terminal_ming" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_terminal_qiandai" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_terminal_qiandai" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_terminal_xi" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_terminal_xi" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_terminal_kanami" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_terminal_kanami" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_terminal_flavia" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_terminal_flavia" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+  <anim name="klbq_resource_terminal_eika" root="klbq_resources_items" framerate="30">
+    <frame x="-45" y="-85" w="90" h="90">
+      <element name="klbq_resource_terminal_eika" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+</Anims>

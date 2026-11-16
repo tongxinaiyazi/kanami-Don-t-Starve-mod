@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-15",
+  "version": "2.1.0",
+  "game_version": "762172",
+  "runtime_files": 91,
+  "source_publish_zip_match": true,
+  "engineering_runtime_matches": true,
+  "metadata_and_load_log_version": "2.1.0",
+  "changed_runtime_files_from_2_0_2": [
+    "README.md",
+    "modinfo.lua",
+    "modmain.lua"
+  ],
+  "unchanged_runtime_files": 88,
+  "gameplay_behavior_unchanged_from_2_0_2": true,
+  "fresh_tests": {
+    "registration_and_lua51_syntax": 3,
+    "bag_light_mouse_save": 39,
+    "total": 42,
+    "all_passed": true
+  },
+  "inherited_validation": {
+    "version": "2.0.2",
+    "gameplay_passed": 452,
+    "native_engine_passed": 10,
+    "rerun_this_release": false
+  },
+  "publish_directory": "D:\\SOFTWARE\\DSTWorkshop\\klbq_kanami",
+  "release_materials": "D:\\SOFTWARE\\项目\\饥荒\\发布资料\\klbq_kanami_v2_1_0",
+  "original_introduction_prefix_preserved": true,
+  "publish_materials_match": true,
+  "installed_development_version": "2.0.2",
+  "installed_development_unchanged": true,
+  "workshop_download_unchanged": true,
+  "workshop_uploaded": false,
+  "packages": [
+    {
+      "file": "klbq_kanami-2.1.0-dst.zip",
+      "bytes": 4226097,
+      "sha256": "f7fafaa0e0d3d881cb55c0fd703860e610caab168426343c85812a8e5b510495",
+      "entries": 91
+    },
+    {
+      "file": "klbq_kanami-2.1.0-source-art.zip",
+      "bytes": 81762691,
+      "sha256": "e509a8934eb5f20f805daccb239392fa3930eb972594339c129b8c841643847d",
+      "entries": 1234
+    }
+  ]
+}

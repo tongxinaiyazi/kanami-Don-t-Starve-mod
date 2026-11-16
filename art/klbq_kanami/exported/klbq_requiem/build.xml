@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="klbq_requiem">
+  <Symbol name="klbq_requiem">
+    <Frame framenum="0" duration="1" x="0" y="-50.0" w="240" h="100" image="klbq_requiem_0" />
+  </Symbol>
+</Build>

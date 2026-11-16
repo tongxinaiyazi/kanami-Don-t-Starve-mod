@@ -1,0 +1,1383 @@
+--- /dev/null
++++ modinfo.lua
+@@ -0,0 +1,14 @@
++name = "卡拉彼丘资源"
++description = "20 种独立资源物品，支持拾取、收纳与每组 40 个堆叠。没有配方、掉落或使用效果。"
++author = "klbq_resources"
++version = "0.1.0"
++
++api_version = 10
++dst_compatible = true
++dont_starve_compatible = false
++reign_of_giants_compatible = false
++client_only_mod = false
++all_clients_require_mod = true
++
++icon_atlas = "modicon.xml"
++icon = "modicon.tex"
+--- /dev/null
++++ modmain.lua
+@@ -0,0 +1 @@
++require("klbq_resources/register").Install(env)
+--- /dev/null
++++ scripts/klbq_resources/api.lua
+@@ -0,0 +1,32 @@
++local catalog = require("klbq_resources/catalog")
++
++local function GetDefinition(key_or_prefab)
++    if type(key_or_prefab) ~= "string" then
++        return nil
++    end
++    return catalog.by_key[key_or_prefab] or catalog.by_prefab[key_or_prefab]
++end
++
++local function GetPrefab(key_or_prefab)
++    local definition = GetDefinition(key_or_prefab)
++    return definition ~= nil and definition.prefab or nil
++end
++
++local function IsResource(value)
++    local kind = type(value)
++    if kind == "table" or kind == "userdata" then
++        local ok, prefab = pcall(function() return value.prefab end)
++        if not ok then
++            return false
++        end
++        value = prefab
++    end
++    return type(value) == "string" and catalog.by_prefab[value] ~= nil
++end
++
++return {
++    API_VERSION = catalog.API_VERSION,
++    GetDefinition = GetDefinition,
++    GetPrefab = GetPrefab,
++    IsResource = IsResource,
++}
+--- /dev/null
++++ scripts/klbq_resources/catalog.lua
+@@ -0,0 +1,164 @@
++-- Stable resource identities. This module is independent of the game environment.
++local catalog = {
++    VERSION = "0.1.0",
++    API_VERSION = 1,
++    STACK_SIZE = 40,
++    PREFIX = "klbq_resource_",
++    ATLAS = "images/klbq_resources_items.xml",
++    TEXTURE = "images/klbq_resources_items.tex",
++    ANIM = "anim/klbq_resources_items.zip",
++    BANK = "klbq_resources_items",
++    BUILD = "klbq_resources_items",
++    PREFAB_FILE = "klbq_resources",
++    items = {
++        {
++            key = "bablo_crystal",
++            prefab = "klbq_resource_bablo_crystal",
++            name = "巴布洛晶核",
++            inspect = "金色的光，被收在整齐的棱柱里。",
++            category = "currency",
++        },
++        {
++            key = "base_string",
++            prefab = "klbq_resource_base_string",
++            name = "基弦",
++            inspect = "一圈圈细纹，围住一抹粉紫。",
++            category = "currency",
++        },
++        {
++            key = "ideal_coin",
++            prefab = "klbq_resource_ideal_coin",
++            name = "理想币",
++            inspect = "这些蓝白色票据，还保留着清晰的折线。",
++            category = "currency",
++        },
++        {
++            key = "memory_sequence",
++            prefab = "klbq_resource_memory_sequence",
++            name = "记忆序列",
++            inspect = "蓝色的序列，被封存在小小的模块里。",
++            category = "sequence",
++        },
++        {
++            key = "redirect_sequence",
++            prefab = "klbq_resource_redirect_sequence",
++            name = "重定向序列",
++            inspect = "卡片上的箭头，指向同一个方向。",
++            category = "sequence",
++        },
++        {
++            key = "stringsea_beacon",
++            prefab = "klbq_resource_stringsea_beacon",
++            name = "弦海信标",
++            inspect = "透明的棱盒里，悬着一轮小小的金光。",
++            category = "sequence",
++        },
++        {
++            key = "initial_sequence",
++            prefab = "klbq_resource_initial_sequence",
++            name = "原初序列",
++            inspect = "淡紫色的模块，安静得像尚未写下的第一行。",
++            category = "sequence",
++        },
++        {
++            key = "resonance_sequence",
++            prefab = "klbq_resource_resonance_sequence",
++            name = "共振序列",
++            inspect = "两道橙白色的分叉，像在等待同一声回响。",
++            category = "sequence",
++        },
++        {
++            key = "topology_ring",
++            prefab = "klbq_resource_topology_ring",
++            name = "拓扑晶环",
++            inspect = "蓝色的环，中央留着一片完整的空白。",
++            category = "appearance",
++        },
++        {
++            key = "tracing_plate",
++            prefab = "klbq_resource_tracing_plate",
++            name = "拓印基板",
++            inspect = "两片蓝色纹样，叠在同一块小小的基板上。",
++            category = "appearance",
++        },
++        {
++            key = "card_fragment",
++            prefab = "klbq_resource_card_fragment",
++            name = "卡牌碎片",
++            inspect = "碎开的卡片，还能看出原先整齐的边。",
++            category = "mode",
++        },
++        {
++            key = "dice",
++            prefab = "klbq_resource_dice",
++            name = "骰子",
++            inspect = "深灰的方块上，几颗橙色小点亮着。",
++            category = "mode",
++        },
++        {
++            key = "terminal_michelle",
++            prefab = "klbq_resource_terminal_michelle",
++            name = "米雪儿序列因子终端",
++            inspect = "猫耳形的蓝色终端，守着一幅小小的剪影。",
++            category = "terminal",
++        },
++        {
++            key = "terminal_xinghui",
++            prefab = "klbq_resource_terminal_xinghui",
++            name = "星绘序列因子终端",
++            inspect = "蝴蝶结下的星光，落在银紫色的边框上。",
++            category = "terminal",
++        },
++        {
++            key = "terminal_ming",
++            prefab = "klbq_resource_terminal_ming",
++            name = "明序列因子终端",
++            inspect = "红黑色的外壳，棱角分明。",
++            category = "terminal",
++        },
++        {
++            key = "terminal_qiandai",
++            prefab = "klbq_resource_terminal_qiandai",
++            name = "千代序列因子终端",
++            inspect = "一枚枫叶，停在金橙色的边框上。",
++            category = "terminal",
++        },
++        {
++            key = "terminal_xi",
++            prefab = "klbq_resource_terminal_xi",
++            name = "汐序列因子终端",
++            inspect = "青蓝色的小装饰，嵌在橙色的终端边缘。",
++            category = "terminal",
++        },
++        {
++            key = "terminal_kanami",
++            prefab = "klbq_resource_terminal_kanami",
++            name = "香奈美序列因子终端",
++            inspect = "粉色边框里的小屏幕，像一座安静等待开场的舞台。",
++            category = "terminal",
++        },
++        {
++            key = "terminal_flavia",
++            prefab = "klbq_resource_terminal_flavia",
++            name = "芙拉薇娅序列因子终端",
++            inspect = "黑色的蝶翼，栖在深紫色终端的顶端。",
++            category = "terminal",
++        },
++        {
++            key = "terminal_eika",
++            prefab = "klbq_resource_terminal_eika",
++            name = "艾卡序列因子终端",
++            inspect = "红色的终端顶上，扣着一枚小小的金属圆件。",
++            category = "terminal",
++        },
++    },
++    by_key = {},
++    by_prefab = {},
++}
++
++for _, definition in ipairs(catalog.items) do
++    catalog.by_key[definition.key] = definition
++    catalog.by_prefab[definition.prefab] = definition
++end
++
++return catalog
+--- /dev/null
++++ scripts/klbq_resources/register.lua
+@@ -0,0 +1,78 @@
++local catalog = require("klbq_resources/catalog")
++
++local function RequireTable(value, label)
++    assert(type(value) == "table", "klbq_resources: " .. label .. " must be a table")
++    return value
++end
++
++local function OptionalTable(value, label)
++    return value == nil and {} or RequireTable(value, label)
++end
++
++local function Install(mod_env)
++    local env = RequireTable(mod_env, "mod environment")
++    local global = RequireTable(env.GLOBAL, "GLOBAL")
++    local owner = rawget(global, "KLBQ_RESOURCES_OWNER")
++    if owner ~= nil then
++        RequireTable(owner, "KLBQ_RESOURCES_OWNER")
++        assert(owner.version == catalog.VERSION,
++            "klbq_resources: version conflict; installed " .. tostring(owner.version)
++            .. " owned by " .. tostring(owner.owner) .. ", requested " .. catalog.VERSION)
++        return false
++    end
++
++    -- Validate and prepare every local input before changing a host or claiming ownership.
++    -- The native Asset constructor is a callable Class table, not a function.
++    -- Construct all assets below before any host mutation; invalid constructors fail there.
++    assert(type(env.RegisterInventoryItemAtlas) == "function",
++        "klbq_resources: RegisterInventoryItemAtlas must be a function")
++    local prefabs = OptionalTable(env.PrefabFiles, "PrefabFiles")
++    local assets = OptionalTable(env.Assets, "Assets")
++    local strings = RequireTable(global.STRINGS, "STRINGS")
++    local names = OptionalTable(strings.NAMES, "STRINGS.NAMES")
++    local characters = OptionalTable(strings.CHARACTERS, "STRINGS.CHARACTERS")
++    local generic = OptionalTable(characters.GENERIC, "STRINGS.CHARACTERS.GENERIC")
++    local describe = OptionalTable(generic.DESCRIBE, "STRINGS.CHARACTERS.GENERIC.DESCRIBE")
++    local additions = {
++        env.Asset("ANIM", catalog.ANIM),
++        env.Asset("ATLAS", catalog.ATLAS),
++        env.Asset("IMAGE", catalog.TEXTURE),
++    }
++    assert(#additions == 3, "klbq_resources: Asset did not return all required assets")
++
++    local has_prefab = false
++    for _, prefab in ipairs(prefabs) do
++        if prefab == catalog.PREFAB_FILE then
++            has_prefab = true
++            break
++        end
++    end
++
++    for _, definition in ipairs(catalog.items) do
++        env.RegisterInventoryItemAtlas(catalog.ATLAS, definition.prefab .. ".tex")
++    end
++    if not has_prefab then
++        prefabs[#prefabs + 1] = catalog.PREFAB_FILE
++    end
++    for _, asset in ipairs(additions) do
++        assets[#assets + 1] = asset
++    end
++    for _, definition in ipairs(catalog.items) do
++        local key = string.upper(definition.prefab)
++        names[key] = definition.name
++        describe[key] = definition.inspect
++    end
++    env.PrefabFiles = prefabs
++    env.Assets = assets
++    strings.NAMES = names
++    strings.CHARACTERS = characters
++    characters.GENERIC = generic
++    generic.DESCRIBE = describe
++    rawset(global, "KLBQ_RESOURCES_OWNER", {
++        version = catalog.VERSION,
++        owner = type(env.modname) == "string" and env.modname or "klbq_resources",
++    })
++    return true
++end
++
++return { Install = Install }
+--- /dev/null
++++ scripts/prefabs/klbq_resources.lua
+@@ -0,0 +1,47 @@
++local catalog = require("klbq_resources/catalog")
++
++local assets = {
++    Asset("ANIM", catalog.ANIM),
++    Asset("ATLAS", catalog.ATLAS),
++    Asset("IMAGE", catalog.TEXTURE),
++}
++
++local function MakeResource(definition)
++    local function fn()
++        local inst = CreateEntity()
++        inst.entity:AddTransform()
++        inst.entity:AddAnimState()
++        inst.entity:AddNetwork()
++
++        MakeInventoryPhysics(inst)
++        inst.AnimState:SetBank(catalog.BANK)
++        inst.AnimState:SetBuild(catalog.BUILD)
++        inst.AnimState:PlayAnimation(definition.prefab)
++        inst.AnimState:SetRayTestOnBB(true)
++
++        inst:AddTag("klbq_resource")
++        inst:AddTag("klbq_resource_" .. definition.category)
++        MakeInventoryFloatable(inst, "small", 0.05, 0.65)
++
++        inst.entity:SetPristine()
++        if not TheWorld.ismastersim then
++            return inst
++        end
++
++        inst:AddComponent("inspectable")
++        inst:AddComponent("inventoryitem")
++        inst.components.inventoryitem.atlasname = catalog.ATLAS
++        inst.components.inventoryitem:ChangeImageName(definition.prefab)
++        inst:AddComponent("stackable")
++        inst.components.stackable.maxsize = catalog.STACK_SIZE
++        return inst
++    end
++
++    return Prefab(definition.prefab, fn, assets)
++end
++
++local prefabs = {}
++for _, definition in ipairs(catalog.items) do
++    prefabs[#prefabs + 1] = MakeResource(definition)
++end
++return unpack(prefabs)
+--- /dev/null
++++ tools/build_assets.py
+@@ -0,0 +1,134 @@
++"""Compile the generated resource atlas with the locally installed Klei tools.
++
++Image handling here is mechanical sprite slicing, sizing and texture packing.
++The painted source was produced with image_gen; reference artwork is not used.
++"""
++from __future__ import annotations
++import argparse, json, shutil, subprocess, zipfile
++from pathlib import Path
++from xml.etree import ElementTree as ET
++from PIL import Image, ImageOps
++
++MOD=Path(__file__).resolve().parents[1]
++TOOLS=Path("E:/steam/steamapps/common/Don't Starve Mod Tools/mod_tools")
++DEFAULT_STAGE=Path("D:/SOFTWARE/CodexData/temp/klbq_resources_assets")
++RESAMPLE=Image.Resampling.LANCZOS
++
++def xml_write(node,path):
++    path.parent.mkdir(parents=True,exist_ok=True)
++    ET.indent(node)
++    ET.ElementTree(node).write(path,encoding="utf-8",xml_declaration=True)
++
++def fitted(image,size,pad=0):
++    box=image.getchannel("A").point(lambda v:255 if v>24 else 0).getbbox()
++    if box is None:
++        raise ValueError("Empty source sprite")
++    image=image.crop(box)
++    image=ImageOps.contain(image,(size[0]-2*pad,size[1]-2*pad),RESAMPLE)
++    canvas=Image.new("RGBA",size)
++    canvas.alpha_composite(image,((size[0]-image.width)//2,(size[1]-image.height)//2))
++    return canvas
++
++def run(command,cwd,log):
++    result=subprocess.run([str(x) for x in command],cwd=cwd,capture_output=True,text=True,errors="replace")
++    log.parent.mkdir(parents=True,exist_ok=True)
++    log.write_text(result.stdout+result.stderr,encoding="utf-8")
++    if result.returncode:
++        raise RuntimeError("Klei tool failed: "+str(command[0])+"\n"+result.stdout[-2000:]+result.stderr[-2000:])
++
++def texture(image,path,entries,stage):
++    folder=stage/"textures"
++    folder.mkdir(parents=True,exist_ok=True)
++    png=folder/(path.stem+".png")
++    tex=folder/(path.stem+".tex")
++    image.save(png)
++    run([TOOLS/"tools/bin/TextureConverter.exe","--swizzle","--format","bc3","--platform","opengl",
++         "--premultiply","--mipmap","-i",png,"-o",tex],stage,MOD/"art/build-logs"/(path.stem+".log"))
++    path.parent.mkdir(parents=True,exist_ok=True)
++    shutil.copy2(tex,path.with_suffix(".tex"))
++    atlas=ET.Element("Atlas")
++    ET.SubElement(atlas,"Texture",filename=path.with_suffix(".tex").name)
++    elements=ET.SubElement(atlas,"Elements")
++    for name,(x,y,w,h) in entries.items():
++        ET.SubElement(elements,"Element",name=name,
++                      u1=str((x+.5)/image.width),u2=str((x+w-.5)/image.width),
++                      v1=str(1-(y+h-.5)/image.height),v2=str(1-(y+.5)/image.height))
++    xml_write(atlas,path.with_suffix(".xml"))
++
++def build(stage):
++    if not TOOLS.is_dir():
++        raise FileNotFoundError("Installed Don't Starve Mod Tools not found: "+str(TOOLS))
++    if stage.exists() and not (stage/".klbq-resources-owned").is_file():
++        raise RuntimeError("Refusing an unowned build directory: "+str(stage))
++    stage.mkdir(parents=True,exist_ok=True)
++    (stage/".klbq-resources-owned").write_text("klbq_resources asset build\n",encoding="utf-8")
++    items=json.loads((MOD/"docs/resource-catalog.json").read_text(encoding="utf-8"))["items"]
++    source=Image.open(MOD/"art/resource-icons.png").convert("RGBA")
++    layout=json.loads((MOD/"art/asset-layout.json").read_text(encoding="utf-8"))
++    if list(source.size)!=layout["source_size"]:
++        raise ValueError("Source size changed; inspect and update art/asset-layout.json first")
++    xs,ys=layout["x_edges"],layout["y_edges"]
++    art=MOD/"art/items"
++    art.mkdir(parents=True,exist_ok=True)
++    inventory=Image.new("RGBA",(512,512));entries={}
++    build_xml=ET.Element("Build",name="klbq_resources_items")
++    anims=ET.Element("Anims")
++    exported=MOD/"art/exported/klbq_resources_items"
++    exported.mkdir(parents=True,exist_ok=True)
++    frames={}
++    for index,item in enumerate(items):
++        row,col=divmod(index,4)
++        region=(xs[col],ys[row],xs[col+1],ys[row+1])
++        cutout=source.crop(region)
++        sprite=fitted(cutout,(256,256),8)
++        name=item["prefab"]
++        sprite.save(art/(name+".png"))
++        frames[name]=sprite
++        icon=fitted(sprite,(64,64),5)
++        x,y=18+(index%5)*100,28+(index//5)*120
++        inventory.alpha_composite(icon,(x,y))
++        entries[name+".tex"]=(x,y,64,64)
++
++        ground=fitted(sprite,(80,80),2)
++        ground.save(exported/(name+".png"))
++        symbol=ET.SubElement(build_xml,"Symbol",name=name)
++        ET.SubElement(symbol,"Frame",framenum="0",duration="1",x="0",y="-40",w="80",h="80",image=name)
++        animation=ET.SubElement(anims,"anim",name=name,root="klbq_resources_items",framerate="30")
++        frame=ET.SubElement(animation,"frame",x="-45",y="-85",w="90",h="90")
++        ET.SubElement(frame,"element",name=name,frame="0",layername="object",z_index="0",
++                      m_a="1",m_b="0",m_c="0",m_d="1",m_tx="0",m_ty="0")
++    xml_write(build_xml,exported/"build.xml")
++    xml_write(anims,exported/"animation.xml")
++    archive=stage/"klbq_resources_items.zip"
++    with zipfile.ZipFile(archive,"w",zipfile.ZIP_DEFLATED) as output:
++        for path in sorted(exported.iterdir()):
++            if path.suffix in (".xml",".png"):
++                output.write(path,path.name)
++    compiled=stage/"compiled"
++    compiled.mkdir(exist_ok=True)
++    run([TOOLS/"buildtools/windows/Python27/python.exe","-B",TOOLS/"tools/scripts/buildanimation.py",
++         archive,"--outputdir="+str(compiled),"--force","--scale=1","--textureformat=bc3","--platform=opengl"],
++        stage,MOD/"art/build-logs/animation.log")
++    target=MOD/"anim/klbq_resources_items.zip"
++    target.parent.mkdir(exist_ok=True)
++    shutil.copy2(compiled/"anim/klbq_resources_items.zip",target)
++    texture(inventory,MOD/"images/klbq_resources_items",entries,stage)
++    inventory.save(MOD/"art/inventory-atlas.png")
++    icon=fitted(frames["klbq_resource_stringsea_beacon"],(128,128),10)
++    texture(icon,MOD/"modicon",{"modicon.tex":(0,0,128,128)},stage)
++    icon.save(MOD/"art/modicon.png")
++    # Grid preview of exactly the cropped runtime sprites; labels stay in docs.
++    preview=Image.new("RGBA",(960,1200))
++    for index,item in enumerate(items):
++        row,col=divmod(index,4)
++        preview.alpha_composite(fitted(frames[item["prefab"]],(220,220),8),(col*240+10,row*240+10))
++    preview.save(MOD/"art/runtime-preview.png")
++    print(json.dumps({"items":len(items),"inventory_size":[512,512],
++                      "compiled_animation_bytes":target.stat().st_size,
++                      "stage":str(stage)},ensure_ascii=False))
++
++if __name__=="__main__":
++    parser=argparse.ArgumentParser()
++    parser.add_argument("--stage",type=Path,default=DEFAULT_STAGE)
++    args=parser.parse_args()
++    build(args.stage.resolve())
+--- /dev/null
++++ tools/package_mod.py
+@@ -0,0 +1,46 @@
++"""Build an allowlisted, deterministic runtime ZIP without development data."""
++from pathlib import Path
++import hashlib, json, re, zipfile
++
++MOD=Path(__file__).resolve().parents[1]
++FILES=["modinfo.lua","modmain.lua","modicon.xml","modicon.tex",
++       "scripts/klbq_resources/catalog.lua","scripts/klbq_resources/api.lua",
++       "scripts/klbq_resources/register.lua","scripts/prefabs/klbq_resources.lua",
++       "images/klbq_resources_items.xml","images/klbq_resources_items.tex",
++       "anim/klbq_resources_items.zip"]
++
++def main():
++    text=(MOD/"modinfo.lua").read_text(encoding="utf-8")
++    version=re.search(r'version\s*=\s*"([^"]+)"',text).group(1)
++    readme=("卡拉彼丘资源 "+version+"\n\n"
++            "DST 两端必装的独立物品包，20 种资源，每组 40。\n"
++            "没有配方、掉落、开局赠送、抽卡、商店或使用效果。\n"
++            "不包含战令币、活动凭录、历史活动与赛季专用资源。\n\n"
++            "安装：在游戏安装目录 mods 下新建 klbq_resources 文件夹，\n"
++            "把本 ZIP 内容直接解压进去，modinfo.lua 位于该文件夹根部。\n"
++            "重启游戏，在世界的服务器模组列表启用“卡拉彼丘资源”。\n"
++            "所有加入者使用同一版本；启用洞穴时两片均需启用。\n"
++            "本包可独立启用，不要求香奈美角色模组，也不修改其文件。\n\n"
++            "当前物品暂没有自然来源和主动用途。开发测试世界可通过\n"
++            'c_spawn("klbq_resource_stringsea_beacon") 等原版控制台命令查看。\n'
++            "开发接口与融合说明在项目源码 docs/融合与调用.md。\n\n"
++            "原作设定来源《卡拉彼丘》，本包为非官方同人作品。\n"
++            "运行美术经 image_gen 重新绘制；未打包原作参考图。\n"
++            "不要在仍含这些物品的正式存档中随意停用物品包。\n")
++    output=MOD/"release"
++    output.mkdir(exist_ok=True)
++    target=output/("klbq_resources-"+version+".zip")
++    payload={name:(MOD/name).read_bytes() for name in FILES}
++    payload["README.txt"]=readme.encode("utf-8")
++    with zipfile.ZipFile(target,"w",compression=zipfile.ZIP_DEFLATED) as z:
++        for name,data in sorted(payload.items()):
++            info=zipfile.ZipInfo(name,(2026,10,30,0,0,0))
++            info.compress_type=zipfile.ZIP_DEFLATED
++            info.external_attr=0o100644<<16
++            z.writestr(info,data)
++    manifest={"version":version,"archive":target.name,"sha256":hashlib.sha256(target.read_bytes()).hexdigest(),
++              "bytes":target.stat().st_size,"files":sorted(payload)}
++    (output/"manifest.json").write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
++    print(json.dumps(manifest,ensure_ascii=False))
++
++if __name__=="__main__":main()
+--- /dev/null
++++ tools/run_engine.py
+@@ -0,0 +1,116 @@
++"""Run the actual DST server in a task-owned miniature host and offline save.
++
++Original binaries/data are read/copied for local tests only. Installed mods and
++normal user storage are never changed. This host is not a redistributable game.
++"""
++from __future__ import annotations
++import argparse, json, os, re, shutil, subprocess, time, uuid
++from pathlib import Path
++
++MOD=Path(__file__).resolve().parents[1]
++GAME=Path("E:/steam/steamapps/common/Don't Starve Together")
++STAGE=Path("D:/SOFTWARE/CodexData/temp/klbq_resources_engine")
++REPORT=MOD/"docs/reports"
++RUNTIME_FILES=["modinfo.lua","modmain.lua","modicon.xml","modicon.tex"]
++
++def runtime_copy(destination):
++    destination.mkdir(parents=True,exist_ok=True)
++    for name in RUNTIME_FILES: shutil.copy2(MOD/name,destination/name)
++    for folder in ["scripts","images","anim"]:
++        shutil.copytree(MOD/folder,destination/folder,dirs_exist_ok=True)
++
++def prepare(phase):
++    if STAGE.exists() and not (STAGE/".klbq-resources-owned").is_file():
++        raise RuntimeError("Refusing an unowned test directory")
++    STAGE.mkdir(parents=True,exist_ok=True)
++    (STAGE/".klbq-resources-owned").write_text("isolated klbq_resources engine test\n")
++    host=STAGE/"game"
++    binary=host/"bin64"
++    binary.mkdir(parents=True,exist_ok=True)
++    for source in (GAME/"bin64").iterdir():
++        if source.suffix.lower()==".dll" or source.name=="dontstarve_dedicated_server_nullrenderer_x64.exe":
++            shutil.copy2(source,binary/source.name)
++    # Junction target is checked before creation and never modified.
++    data=host/"data"
++    if not data.exists():
++        quote=lambda path: "'"+str(path).replace("'", "''")+"'"
++        command="New-Item -ItemType Junction -Path "+quote(data)+" -Target "+quote(GAME/"data")+" | Out-Null"
++        subprocess.run(["powershell.exe","-NoProfile","-NonInteractive","-Command",command],check=True,
++                       creationflags=subprocess.CREATE_NO_WINDOW)
++    if data.resolve()!=(GAME/"data").resolve():
++        raise RuntimeError("Unexpected test data junction target")
++    mods=host/"mods"
++    runtime_copy(mods/"klbq_resources")
++    shutil.copytree(MOD/"tests/engine_mod",mods/"klbq_resources_test",dirs_exist_ok=True)
++    (mods/"modsettings.lua").write_text("-- isolated resource test only\n",encoding="utf-8")
++    last_cluster=STAGE/"last-cluster.json"
++    if phase == "reload":
++        name=json.loads(last_cluster.read_text(encoding="utf-8"))["cluster"]
++        if not re.fullmatch(r"ResourcesSmoke-[0-9a-f]{12}",name):
++            raise RuntimeError("Invalid task-owned cluster name")
++    else:
++        name="ResourcesSmoke-"+uuid.uuid4().hex[:12]
++        last_cluster.write_text(json.dumps({"cluster":name}),encoding="utf-8")
++    cluster=STAGE/"storage/DoNotStarveTogether"/name
++    shard=cluster/"Master"
++    shard.mkdir(parents=True,exist_ok=True)
++    (cluster/"cluster.ini").write_text("[GAMEPLAY]\ngame_mode=endless\nmax_players=2\npvp=false\npause_when_empty=false\n\n[NETWORK]\ncluster_name=Resource isolated regression\noffline_cluster=true\nlan_only_cluster=true\n\n[MISC]\nconsole_enabled=true\n\n[SHARD]\nshard_enabled=false\n",encoding="utf-8")
++    (shard/"server.ini").write_text("[NETWORK]\nserver_port=11041\n\n[STEAM]\nauthentication_port=8791\nmaster_server_port=27041\n\n[SHARD]\nis_master=true\n",encoding="utf-8")
++    (shard/"worldgenoverride.lua").write_text('return {override_enabled=true,preset="SURVIVAL_TOGETHER",overrides={world_size="small",season_start="autumn",start_location="default"}}\n',encoding="utf-8")
++    return binary,shard
++
++def phase_run(binary,shard,phase,timeout):
++    (shard/"modoverrides.lua").write_text('return {["klbq_resources"]={enabled=true},["klbq_resources_test"]={enabled=true,configuration_options={phase="'+phase+'"}}}\n',encoding="utf-8")
++    REPORT.mkdir(parents=True,exist_ok=True)
++    log=REPORT/("engine-"+phase+".log")
++    command=[str(binary/"dontstarve_dedicated_server_nullrenderer_x64.exe"),
++             "-persistent_storage_root",str(STAGE/"storage"),"-conf_dir","DoNotStarveTogether",
++             "-cluster",shard.parent.name,"-shard","Master","-offline","-bind_ip","127.0.0.1",
++             "-port","11041","-skip_update_server_mods"]
++    env=os.environ.copy();env["SteamAppId"]="322330"
++    with log.open("wb") as out:
++        process=subprocess.Popen(command,cwd=binary,env=env,stdin=subprocess.PIPE,stdout=out,
++                                 stderr=subprocess.STDOUT,creationflags=subprocess.CREATE_NO_WINDOW)
++        start=time.monotonic();last_update=0
++        try:
++            while process.poll() is None and time.monotonic()-start<timeout:
++                time.sleep(1)
++                text=log.read_text(encoding="utf-8",errors="replace")
++                elapsed=int(time.monotonic()-start)
++                if elapsed-last_update>=15:
++                    markers=[line for line in text.splitlines() if "[RESOURCES_TEST]" in line]
++                    print(phase,elapsed,"s",markers[-1] if markers else "world startup",flush=True)
++                    last_update=elapsed
++                if "LUA ERROR" in text or "Error loading prefab" in text:
++                    break
++            if process.poll() is None:
++                try:
++                    process.stdin.write(b"c_shutdown(false)\n");process.stdin.flush()
++                    process.wait(timeout=10)
++                except (OSError,subprocess.TimeoutExpired):
++                    process.terminate();process.wait(timeout=10)
++        finally:
++            if process.poll() is None:
++                process.kill();process.wait(timeout=10)
++    text=log.read_text(encoding="utf-8",errors="replace")
++    markers=[line for line in text.splitlines() if "[RESOURCES_TEST]" in line]
++    print("\n".join(markers),flush=True)
++    result={"phase":phase,"exit_code":process.returncode,"pass":sum("PASS" in line for line in markers),
++            "fail":sum("FAIL" in line for line in markers),"complete":any("COMPLETE" in line for line in markers),
++            "lua_error":"LUA ERROR" in text,"log":str(log)}
++    (REPORT/("engine-"+phase+"-result.json")).write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
++    if result["exit_code"]!=0 or result["lua_error"] or result["fail"] or not result["complete"]:
++        raise RuntimeError("Engine "+phase+" failed: "+json.dumps(result))
++    return result
++
++def main():
++    parser=argparse.ArgumentParser()
++    parser.add_argument("--phase",choices=["both","create","reload"],default="both")
++    parser.add_argument("--seconds",type=int,default=120)
++    args=parser.parse_args()
++    binary,shard=prepare(args.phase)
++    phases=["create","reload"] if args.phase=="both" else [args.phase]
++    results=[phase_run(binary,shard,p,args.seconds) for p in phases]
++    print(json.dumps(results),flush=True)
++
++if __name__=="__main__":main()
+--- /dev/null
++++ tests/engine_mod/modinfo.lua
+@@ -0,0 +1,12 @@
++name = "[本地测试] 卡拉彼丘资源验证"
++description = "仅供隔离离线测试世界使用，不发布。"
++author = "本地开发"
++version = "0.1.0"
++api_version = 10
++dst_compatible = true
++client_only_mod = false
++all_clients_require_mod = true
++configuration_options = {
++    {name="phase", label="测试阶段", default="create",
++     options={{description="创建",data="create"},{description="重载",data="reload"}}},
++}
+--- /dev/null
++++ tests/engine_mod/modmain.lua
+@@ -0,0 +1,125 @@
++local G = GLOBAL
++local catalog
++local phase = GetModConfigData("phase")
++local failed = 0
++
++local function check(label, fn)
++    local ok, err = G.pcall(fn)
++    print("[RESOURCES_TEST]", ok and "PASS" or "FAIL", label, ok and "" or G.tostring(err))
++    if not ok then failed = failed + 1 end
++end
++
++local function spawn(definition, quantity, x, z)
++    local inst = G.SpawnPrefab(definition.prefab)
++    G.assert(inst ~= nil, "spawn failed: " .. definition.prefab)
++    inst.Transform:SetPosition(x, 0, z)
++    inst.components.stackable:SetStackSize(quantity or 1)
++    return inst
++end
++
++AddSimPostInit(function()
++    if not G.TheWorld.ismastersim then return end
++    G.TheWorld:DoTaskInTime(3, function()
++        catalog = require("klbq_resources/catalog")
++        print("[RESOURCES_TEST] START", phase, G.APP_VERSION)
++        local api = require("klbq_resources/api")
++        if phase == "reload" then
++            local found = {}
++            for _, inst in G.pairs(G.Ents) do
++                if api.IsResource(inst) then
++                    found[inst.prefab] = (found[inst.prefab] or 0) + inst.components.stackable:StackSize()
++                end
++            end
++            for i, definition in G.ipairs(catalog.items) do
++                check("world reload " .. definition.key, function()
++                    G.assert(found[definition.prefab] == i, definition.prefab .. " count " .. G.tostring(found[definition.prefab]))
++                end)
++            end
++            check("only 20 persistent resource identities", function()
++                local count = 0
++                for _ in G.pairs(found) do count = count + 1 end
++                G.assert(count == 20)
++            end)
++            print("[RESOURCES_TEST] COMPLETE", phase, failed)
++            G.TheWorld:DoTaskInTime(1, function() G.c_shutdown(false) end)
++            return
++        end
++
++        local portal = G.c_find("multiplayer_portal")
++        local x, y, z = 0, 0, 0
++        if portal then x, y, z = portal.Transform:GetWorldPosition() end
++        local player = G.SpawnPrefab("wilson")
++        player.Transform:SetPosition(x+3,0,z+3)
++        local chest = G.SpawnPrefab("treasurechest")
++        chest.Transform:SetPosition(x+4,0,z+4)
++        local forbidden = {"edible","tradable","fuel","finiteuses","equippable","weapon","armor",
++                           "perishable","lootdropper","prototyper","combat"}
++        for i, definition in G.ipairs(catalog.items) do
++            check("native item " .. definition.key, function()
++                local item = spawn(definition, 7, x+5, z+5)
++                G.assert(item.AnimState:GetBuild() == catalog.BUILD)
++                G.assert(item.AnimState:IsCurrentAnimation(definition.prefab))
++                G.assert(item.components.stackable.maxsize == 40)
++                G.assert(item.components.inventoryitem.atlasname == catalog.ATLAS)
++                G.assert(item.components.inventoryitem.imagename == definition.prefab)
++                G.assert(item:HasTag("klbq_resource"))
++                for _, name in G.ipairs(forbidden) do G.assert(item.components[name] == nil, name) end
++                local copy = G.SpawnSaveRecord(item:GetSaveRecord())
++                G.assert(copy ~= nil and copy.prefab == item.prefab)
++                G.assert(copy.components.stackable:StackSize() == 7)
++                G.assert(copy.AnimState:IsCurrentAnimation(definition.prefab))
++                copy:Remove()
++                player.components.inventory:GiveItem(item)
++                G.assert(item.components.inventoryitem.owner == player)
++                G.assert(player.components.inventory:RemoveItem(item,true) == item)
++                G.assert(chest.components.container:GiveItem(item))
++                G.assert(item.components.inventoryitem.owner == chest)
++                G.assert(chest.components.container:RemoveItem(item,true) == item)
++                G.assert(item.components.inventoryitem.owner == nil)
++                item:Remove()
++            end)
++            -- Persist fixtures with distinct quantities for the second process.
++            spawn(definition, i, x+6+(i%5)*1.2, z+6+G.math.floor((i-1)/5)*1.2)
++        end
++
++        local definition = catalog.items[1]
++        check("same-kind merge", function()
++            local a,b=spawn(definition,7,x,z),spawn(definition,5,x,z)
++            G.assert(a.components.stackable:Put(b)==nil)
++            G.assert(a.components.stackable:StackSize()==12 and not b:IsValid())
++            a:Remove()
++        end)
++        check("overflow and split", function()
++            local a,b=spawn(definition,39,x,z),spawn(definition,6,x,z)
++            G.assert(a.components.stackable:Put(b)==b)
++            G.assert(a.components.stackable:StackSize()==40 and b.components.stackable:StackSize()==5)
++            local part=a.components.stackable:Get(9)
++            G.assert(part~=a and part.prefab==a.prefab)
++            G.assert(part.components.stackable:StackSize()==9 and a.components.stackable:StackSize()==31)
++            a:Remove();b:Remove();part:Remove()
++        end)
++        check("all different identities refuse mixing", function()
++            local a=spawn(catalog.items[1],1,x,z)
++            for i=2,#catalog.items do
++                local b=spawn(catalog.items[i],1,x,z)
++                G.assert(not a.components.stackable:CanStackWith(b))
++                b:Remove()
++            end
++            a:Remove()
++        end)
++        check("no unwanted resources or recipes", function()
++            G.assert(G.Prefabs.klbq_resource_battlepass_coin==nil)
++            G.assert(G.Prefabs.klbq_resource_activity_record==nil)
++            for _, d in G.ipairs(catalog.items) do G.assert(G.AllRecipes[d.prefab]==nil) end
++        end)
++        player:Remove()
++        chest:Remove()
++        print("[RESOURCES_TEST] COMPLETE", phase, failed)
++        if failed == 0 then
++            G.c_save()
++            G.TheWorld:DoTaskInTime(3, function() G.c_shutdown(false) end)
++        else
++            G.TheWorld:DoTaskInTime(1, function() G.c_shutdown(false) end)
++        end
++    end)
++end)
+--- /dev/null
++++ tests/test_assets.py
+@@ -0,0 +1,54 @@
++"""Validate real runtime assets and their bindings, not source-code patterns."""
++from pathlib import Path
++import json, struct, sys, unittest, zipfile
++from xml.etree import ElementTree as ET
++ROOT=Path(__file__).resolve().parents[1]
++PROJECT=ROOT.parents[1]
++sys.path.insert(0,str(PROJECT/'tools'))
++from inspect_dst_assets import read_anim,read_build
++DATA=json.loads((ROOT/'docs/resource-catalog.json').read_text(encoding='utf-8'))
++NAMES={item['prefab'] for item in DATA['items']}
++
++class CompiledAssets(unittest.TestCase):
++    def test_20_ground_clips_and_symbols_are_compiled_and_bound(self):
++        target=ROOT/'anim/klbq_resources_items.zip'
++        self.assertTrue(target.is_file(),'shared resource animation has not been built')
++        with zipfile.ZipFile(target) as z:
++            build=read_build(z.read('build.bin'));anims=read_anim(z.read('anim.bin'))
++            self.assertTrue(all(z.read(name)[:4]==b'KTEX' for name in z.namelist() if name.endswith('.tex')))
++        self.assertEqual(build['name'],'klbq_resources_items')
++        self.assertEqual({symbol['name'] for symbol in build['symbols']},NAMES)
++        self.assertEqual({clip['name'] for clip in anims},NAMES)
++        for clip in anims:
++            self.assertEqual(clip['root'],'klbq_resources_items')
++            self.assertGreater(len(clip['frames']),0)
++            for frame in clip['frames']:
++                self.assertEqual({e['symbol'] for e in frame['elements']},{clip['name']})
++                self.assertGreater(frame['box'][2],0)
++
++    def test_native_inventory_atlas_regions_cover_exactly_20_items(self):
++        target=ROOT/'images/klbq_resources_items.xml'
++        self.assertTrue(target.is_file(),'inventory atlas has not been built')
++        atlas=ET.parse(target)
++        self.assertEqual(atlas.find('Texture').get('filename'),'klbq_resources_items.tex')
++        entries=atlas.findall('Elements/Element')
++        self.assertEqual({e.get('name') for e in entries},{n+'.tex' for n in NAMES})
++        self.assertEqual(len(entries),20)
++        self.assertEqual((ROOT/'images/klbq_resources_items.tex').read_bytes()[:4],b'KTEX')
++        rects=[]
++        for e in entries:
++            x1,x2,y1,y2=[float(e.get(k)) for k in ('u1','u2','v1','v2')]
++            self.assertTrue(0<=x1<x2<=1 and 0<=y1<y2<=1)
++            self.assertAlmostEqual((x2-x1)*512+1,64)
++            self.assertAlmostEqual((y2-y1)*512+1,64)
++            rects.append((x1,x2,y1,y2))
++        for i,a in enumerate(rects):
++            for b in rects[i+1:]:
++                self.assertFalse(min(a[1],b[1])>max(a[0],b[0]) and min(a[3],b[3])>max(a[2],b[2]))
++
++    def test_mod_icon_is_compiled(self):
++        self.assertTrue((ROOT/'modicon.xml').is_file(),'mod icon has not been built')
++        self.assertEqual((ROOT/'modicon.tex').read_bytes()[:4],b'KTEX')
++        self.assertIsNotNone(ET.parse(ROOT/'modicon.xml').find("Elements/Element[@name='modicon.tex']"))
++
++if __name__=='__main__':unittest.main(verbosity=2)
+--- /dev/null
++++ tests/test_package.py
+@@ -0,0 +1,33 @@
++"""Check the deliverable archive as installed by another player."""
++from pathlib import Path
++import json, unittest, zipfile
++ROOT=Path(__file__).resolve().parents[1]
++ARCHIVE=ROOT/'release/klbq_resources-0.1.0.zip'
++EXPECTED={'modinfo.lua','modmain.lua','modicon.xml','modicon.tex','README.txt',
++          'scripts/klbq_resources/catalog.lua','scripts/klbq_resources/api.lua',
++          'scripts/klbq_resources/register.lua','scripts/prefabs/klbq_resources.lua',
++          'images/klbq_resources_items.xml','images/klbq_resources_items.tex',
++          'anim/klbq_resources_items.zip'}
++
++class RuntimePackage(unittest.TestCase):
++    def test_archive_has_only_runtime_files_at_mod_root(self):
++        self.assertTrue(ARCHIVE.is_file(),'runtime package has not been created')
++        with zipfile.ZipFile(ARCHIVE) as z:
++            self.assertEqual(set(z.namelist()),EXPECTED)
++            self.assertIsNone(z.testzip())
++            for name in z.namelist():
++                self.assertNotIn('..',Path(name).parts)
++                if name!='README.txt':
++                    self.assertEqual(z.read(name),(ROOT/name).read_bytes())
++                self.assertFalse(any(p in name for p in ['references/','tests/','art/','reports/','cache','token']))
++            self.assertEqual(z.read('images/klbq_resources_items.tex')[:4],b'KTEX')
++            self.assertIn(b'all_clients_require_mod = true',z.read('modinfo.lua'))
++            self.assertNotIn(b'klbq_kanami',z.read('modmain.lua'))
++    def test_install_readme_matches_scope(self):
++        self.assertTrue(ARCHIVE.is_file(),'runtime package has not been created')
++        with zipfile.ZipFile(ARCHIVE) as z:
++            text=z.read('README.txt').decode('utf-8')
++        for value in ['0.1.0','klbq_resources','40','两端']:
++            self.assertIn(value,text)
++
++if __name__=='__main__':unittest.main(verbosity=2)
+--- /dev/null
++++ tests/test_runtime.py
+@@ -0,0 +1,275 @@
++"""Behavior checks against the real Lua 5.1 runtime modules (engine calls stubbed)."""
++import json
++from pathlib import Path
++import sys
++import unittest
++
++sys.dont_write_bytecode = True
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(ROOT.parents[1] / 'tools' / 'python-deps'))
++from lupa.lua51 import LuaRuntime
++
++FILES = ['modinfo.lua', 'modmain.lua', 'scripts/klbq_resources/catalog.lua',
++         'scripts/klbq_resources/api.lua', 'scripts/klbq_resources/register.lua',
++         'scripts/prefabs/klbq_resources.lua']
++CATEGORIES = {'通用货币': 'currency', '卡池凭证': 'sequence', '外观材料': 'appearance',
++              '常驻模式资源': 'mode', '角色序列终端': 'terminal'}
++
++
++class RuntimeTests(unittest.TestCase):
++    def setUp(self):
++        self.lua = LuaRuntime(unpack_returned_tuples=True)
++        # Windows Lua 5.1 fopen cannot open the Unicode project path. Python reads
++        # source bytes, while Lua's native require/cache still executes each module.
++        preload = self.lua.eval('function(name,source) package.preload[name]=assert(loadstring(source,name)) end')
++        for name in ('catalog','api','register'):
++            file=ROOT / 'scripts/klbq_resources' / (name+'.lua')
++            if file.exists():
++                preload('klbq_resources/'+name,file.read_text(encoding='utf-8'))
++        self.items = json.loads((ROOT / 'docs/resource-catalog.json').read_text(encoding='utf-8-sig'))['items']
++
++    def module(self, name):
++        self.assertTrue((ROOT / 'scripts' / (name + '.lua')).exists(), 'Missing runtime module: ' + name)
++        return self.lua.eval('require')(name)
++
++    def env(self):
++        return self.lua.execute('''
++            local g = {STRINGS={NAMES={OTHER="preserve"},CHARACTERS={GENERIC={DESCRIBE={OTHER="keep"}}}}}
++            local e = {GLOBAL=g, modname="test_resources", PrefabFiles={"other"}, Assets={{type="ANIM",file="other.zip"}}, icons={}}
++            e.Asset=function(kind,path) return {type=kind,file=path} end
++            e.RegisterInventoryItemAtlas=function(atlas,image) e.icons[#e.icons+1]={atlas,image} end
++            return e
++        ''')
++
++    def test_runtime_files_exist(self):
++        for file in FILES:
++            self.assertTrue((ROOT / file).is_file(), 'Missing runtime file: ' + file)
++
++    def test_lua51_syntax(self):
++        compile_lua = self.lua.eval('function(s,n) local f,e=loadstring(s,n); assert(f,e); return true end')
++        for file in FILES:
++            self.assertTrue((ROOT / file).exists(), 'Missing runtime file: ' + file)
++            self.assertTrue(compile_lua((ROOT / file).read_text(encoding='utf-8'), file))
++
++    def test_restricted_modinfo(self):
++        self.assertTrue((ROOT / 'modinfo.lua').exists(), 'Missing runtime modinfo')
++        e = self.lua.eval('function(s) local e={}; local f=assert(loadstring(s)); setfenv(f,e); f(); return e end')((ROOT / 'modinfo.lua').read_text(encoding='utf-8'))
++        for k,v in {'api_version':10,'version':'0.1.0','dst_compatible':True,'dont_starve_compatible':False,
++                    'reign_of_giants_compatible':False,'client_only_mod':False,'all_clients_require_mod':True,
++                    'icon_atlas':'modicon.xml','icon':'modicon.tex'}.items():
++            self.assertEqual(e[k],v,k)
++        self.assertIsNone(e.configuration_options)
++        self.assertIsNone(e.mod_dependencies)
++
++    def test_exact_catalog_and_indexes(self):
++        c = self.module('klbq_resources/catalog')
++        for k,v in {'VERSION':'0.1.0','API_VERSION':1,'STACK_SIZE':40,'PREFIX':'klbq_resource_',
++                    'ATLAS':'images/klbq_resources_items.xml','TEXTURE':'images/klbq_resources_items.tex',
++                    'ANIM':'anim/klbq_resources_items.zip','BANK':'klbq_resources_items',
++                    'BUILD':'klbq_resources_items','PREFAB_FILE':'klbq_resources'}.items():
++            self.assertEqual(c[k],v,k)
++        self.assertEqual(len(c['items']),20)
++        equal = self.lua.eval('function(a,b) return rawequal(a,b) end')
++        for i,item in enumerate(self.items,1):
++            d=c['items'][i]; key=item['prefab'].removeprefix('klbq_resource_')
++            self.assertEqual(d.key,key)
++            self.assertEqual(d.prefab,item['prefab'])
++            self.assertEqual(d.name,item['name'])
++            self.assertEqual(d.inspect,item['inspect_text'])
++            self.assertEqual(d.category,CATEGORIES[item['category']])
++            self.assertTrue(equal(c.by_key[key],d))
++            self.assertTrue(equal(c.by_prefab[item['prefab']],d))
++
++    def test_api_all_twenty_identities(self):
++        api=self.module('klbq_resources/api')
++        self.assertEqual(api.API_VERSION,1)
++        for item in self.items:
++            full=item['prefab']; key=full.removeprefix('klbq_resource_')
++            for value in (key,full):
++                self.assertEqual(api.GetDefinition(value).name,item['name'])
++                self.assertEqual(api.GetPrefab(value),full)
++            self.assertTrue(api.IsResource(full))
++            self.assertTrue(api.IsResource(self.lua.table_from({'prefab':full})))
++            self.assertFalse(api.IsResource(key))
++
++    def test_api_invalid_values(self):
++        api=self.module('klbq_resources/api')
++        for value in (None,False,True,0,42,'','unknown','klbq_resource_unknown',self.lua.table(),self.lua.eval('function() end')):
++            self.assertIsNone(api.GetDefinition(value))
++            self.assertIsNone(api.GetPrefab(value))
++            self.assertFalse(api.IsResource(value))
++        self.assertFalse(api.IsResource(self.lua.table_from({'prefab':42})))
++        self.assertFalse(api.IsResource(self.lua.eval('setmetatable({}, {__index=function() error("invalid field") end})')))
++
++    def test_register_preserves_and_registers_every_identity(self):
++        r=self.module('klbq_resources/register'); e=self.env()
++        self.assertTrue(r.Install(e))
++        self.assertEqual(e.PrefabFiles[1],'other')
++        self.assertEqual(e.PrefabFiles[2],'klbq_resources')
++        self.assertEqual(len(e.PrefabFiles),2)
++        self.assertEqual(e.Assets[1].file,'other.zip')
++        self.assertEqual(len(e.Assets),4)
++        self.assertEqual({(e.Assets[i].type,e.Assets[i].file) for i in range(2,5)},
++                         {('ANIM','anim/klbq_resources_items.zip'),('ATLAS','images/klbq_resources_items.xml'),('IMAGE','images/klbq_resources_items.tex')})
++        self.assertEqual(len(e.icons),20)
++        self.assertEqual(e.GLOBAL.STRINGS.NAMES.OTHER,'preserve')
++        self.assertEqual(e.GLOBAL.STRINGS.CHARACTERS.GENERIC.DESCRIBE.OTHER,'keep')
++        for i,item in enumerate(self.items,1):
++            self.assertEqual(e.GLOBAL.STRINGS.NAMES[item['prefab'].upper()],item['name'])
++            self.assertEqual(e.GLOBAL.STRINGS.CHARACTERS.GENERIC.DESCRIBE[item['prefab'].upper()],item['inspect_text'])
++            self.assertEqual(e.icons[i][1],'images/klbq_resources_items.xml')
++            self.assertEqual(e.icons[i][2],item['prefab']+'.tex')
++        self.assertEqual(e.GLOBAL.KLBQ_RESOURCES_OWNER.version,'0.1.0')
++        self.assertEqual(e.GLOBAL.KLBQ_RESOURCES_OWNER.owner,'test_resources')
++
++    def test_repeated_same_host_and_same_version_other_host_are_noops(self):
++        r=self.module('klbq_resources/register'); e=self.env(); r.Install(e)
++        self.assertFalse(r.Install(e))
++        self.assertEqual(len(e.icons),20); self.assertEqual(len(e.Assets),4)
++        other=self.env(); other.GLOBAL=e.GLOBAL
++        self.assertFalse(r.Install(other))
++        self.assertEqual(len(other.PrefabFiles),1); self.assertEqual(len(other.Assets),1)
++        self.assertEqual(len(other.icons),0)
++
++    def test_conflicting_version_leaves_second_host_untouched(self):
++        r=self.module('klbq_resources/register'); e=self.env()
++        e.GLOBAL.KLBQ_RESOURCES_OWNER=self.lua.table_from({'version':'9.9.9','owner':'other_mod'})
++        with self.assertRaisesRegex(Exception,'[Vv]ersion.*9.9.9|9.9.9.*[Vv]ersion'):
++            r.Install(e)
++        self.assertEqual(len(e.PrefabFiles),1); self.assertEqual(len(e.Assets),1)
++        self.assertEqual(len(e.icons),0)
++        self.assertIsNone(e.GLOBAL.STRINGS.NAMES.KLBQ_RESOURCE_BABLO_CRYSTAL)
++        self.assertEqual(e.GLOBAL.KLBQ_RESOURCES_OWNER.version,'9.9.9')
++
++    def test_invalid_environment_does_not_claim_or_mutate(self):
++        r=self.module('klbq_resources/register')
++        for field in ('Asset','RegisterInventoryItemAtlas','PrefabFiles','Assets'):
++            e=self.env(); e[field]=42
++            with self.assertRaises(Exception): r.Install(e)
++            self.assertIsNone(e.GLOBAL.KLBQ_RESOURCES_OWNER)
++            self.assertIsNone(e.GLOBAL.STRINGS.NAMES.KLBQ_RESOURCE_BABLO_CRYSTAL)
++            self.assertEqual(len(e.icons),0)
++        e=self.env(); e.GLOBAL.STRINGS.CHARACTERS.GENERIC.DESCRIBE=42
++        with self.assertRaises(Exception): r.Install(e)
++        self.assertIsNone(e.GLOBAL.KLBQ_RESOURCES_OWNER)
++        self.assertEqual(len(e.PrefabFiles),1)
++
++    def test_asset_failure_does_not_claim_or_mutate(self):
++        r=self.module('klbq_resources/register'); e=self.env()
++        e.Asset=self.lua.eval('function() error("cannot construct asset") end')
++        with self.assertRaises(Exception): r.Install(e)
++        self.assertIsNone(e.GLOBAL.KLBQ_RESOURCES_OWNER)
++        self.assertEqual(len(e.PrefabFiles),1); self.assertEqual(len(e.Assets),1)
++        self.assertEqual(len(e.icons),0)
++
++    def test_existing_prefab_entry_is_not_duplicated(self):
++        r=self.module('klbq_resources/register'); e=self.env()
++        e.PrefabFiles[2]='klbq_resources'; r.Install(e)
++        self.assertEqual(len(e.PrefabFiles),2)
++
++    def test_asset_callable_class_table_is_accepted(self):
++        r=self.module('klbq_resources/register'); e=self.env()
++        e.Asset=self.lua.eval('setmetatable({}, {__call=function(_,kind,path) return {type=kind,file=path} end})')
++        self.assertTrue(r.Install(e))
++        self.assertEqual(len(e.Assets),4)
++        self.assertEqual(e.Assets[2].type,'ANIM')
++
++    def test_owner_registration_works_with_strict_globals(self):
++        r=self.module('klbq_resources/register'); e=self.env()
++        self.lua.eval('''function(g)
++            setmetatable(g, {
++                __index=function(_,key) error("read undeclared global "..key) end,
++                __newindex=function(_,key) error("write undeclared global "..key) end,
++            })
++        end''')(e.GLOBAL)
++        self.assertTrue(r.Install(e))
++        self.assertEqual(self.lua.eval('rawget')(e.GLOBAL,'KLBQ_RESOURCES_OWNER').version,'0.1.0')
++        self.assertFalse(r.Install(e))
++
++    def test_registration_creates_missing_lists_and_string_tables(self):
++        r=self.module('klbq_resources/register'); e=self.env()
++        e.PrefabFiles=None; e.Assets=None; e.GLOBAL.STRINGS=self.lua.table()
++        r.Install(e)
++        self.assertEqual(len(e.PrefabFiles),1); self.assertEqual(len(e.Assets),3)
++        self.assertEqual(e.GLOBAL.STRINGS.NAMES.KLBQ_RESOURCE_BABLO_CRYSTAL,self.items[0]['name'])
++
++    def prefab_setup(self, master):
++        self.module('klbq_resources/catalog')
++        self.lua.globals().test_master=master
++        self.lua.execute('''
++            TheWorld={ismastersim=test_master}
++            function Asset(kind,file) return {type=kind,file=file} end
++            function Prefab(name,fn,assets) return {name=name,fn=fn,assets=assets} end
++            function CreateEntity()
++                local i={components={},tags={},events={}}
++                local function event(n) i.events[#i.events+1]=n end
++                i.entity={}
++                function i.entity:AddTransform() i.Transform={}; event("transform") end
++                function i.entity:AddAnimState() i.AnimState={}; event("animstate")
++                    function i.AnimState:SetBank(v) self.bank=v end
++                    function i.AnimState:SetBuild(v) self.build=v end
++                    function i.AnimState:PlayAnimation(v) self.animation=v end
++                    function i.AnimState:SetRayTestOnBB(v) self.raytest=v; event("raytest") end
++                end
++                function i.entity:AddNetwork() i.Network={}; event("network") end
++                function i.entity:SetPristine() event("pristine") end
++                function i:AddTag(t) self.tags[t]=true end
++                function i:AddComponent(c)
++                    event("component:"..c); self.components[c]={}
++                    if c=="inventoryitem" then
++                        self.components[c].ChangeImageName=function(component,v) component.imagename=v end
++                    end
++                end
++                return i
++            end
++            function MakeInventoryPhysics(i) i.physics=true; i.events[#i.events+1]="physics" end
++            function MakeInventoryFloatable(i) i:AddComponent("floater") end
++        ''')
++        self.assertTrue((ROOT / 'scripts/prefabs/klbq_resources.lua').exists(),'Missing prefab module')
++        result=self.lua.execute((ROOT / 'scripts/prefabs/klbq_resources.lua').read_text(encoding='utf-8'))
++        self.assertIsInstance(result,tuple)
++        self.assertEqual(len(result),20)
++        return result
++
++    def test_all_master_prefabs_capture_separate_identity(self):
++        prefabs=self.prefab_setup(True)
++        for prefab,item in zip(prefabs,self.items):
++            self.assertEqual(prefab.name,item['prefab'])
++            self.assertEqual(len(prefab.assets),3)
++            inst=prefab.fn()
++            self.assertEqual(set(inst.components.keys()),{'floater','inspectable','inventoryitem','stackable'})
++            self.assertEqual(inst.components.stackable.maxsize,40)
++            self.assertEqual(inst.components.inventoryitem.atlasname,'images/klbq_resources_items.xml')
++            self.assertEqual(inst.components.inventoryitem.imagename,item['prefab'])
++            self.assert_common(inst,item)
++            events=list(inst.events.values()); pristine=events.index('pristine')
++            self.assertLess(events.index('component:floater'),pristine)
++            for c in ('inspectable','inventoryitem','stackable'):
++                self.assertGreater(events.index('component:'+c),pristine)
++
++    def test_all_client_prefabs_return_before_authoritative_components(self):
++        for prefab,item in zip(self.prefab_setup(False),self.items):
++            inst=prefab.fn()
++            self.assertEqual(set(inst.components.keys()),{'floater'})
++            self.assert_common(inst,item)
++            self.assertEqual(list(inst.events.values())[-1],'pristine')
++
++    def assert_common(self,inst,item):
++        self.assertIsNotNone(inst.Transform); self.assertIsNotNone(inst.Network)
++        self.assertTrue(inst.physics)
++        self.assertEqual(inst.AnimState.bank,'klbq_resources_items')
++        self.assertEqual(inst.AnimState.build,'klbq_resources_items')
++        self.assertEqual(inst.AnimState.animation,item['prefab'])
++        self.assertTrue(inst.AnimState.raytest)
++        self.assertEqual(set(inst.tags.keys()),{'klbq_resource','klbq_resource_'+CATEGORIES[item['category']]})
++
++    def test_modmain_delegates_to_installer(self):
++        self.module('klbq_resources/register')
++        self.assertTrue((ROOT / 'modmain.lua').exists(),'Missing runtime modmain')
++        e=self.env(); self.lua.globals().env=e
++        self.lua.execute((ROOT / 'modmain.lua').read_text(encoding='utf-8'))
++        self.assertEqual(e.GLOBAL.KLBQ_RESOURCES_OWNER.version,'0.1.0')
++
++
++if __name__ == '__main__':
++    unittest.main(verbosity=2)
+--- /dev/null
++++ README.md
+@@ -0,0 +1,22 @@
++# 香奈美附属 · 卡拉彼丘资源 0.1.0
++
++已实现的 DST 独立物品包，两端必装。保留 20 项资源及固定 Prefab ID，方便以后合并。支持拾取、普通背包/箱子收纳、每组 40 的同类堆叠、拆分与原生存档；已接入浮水组件。
++
++不添加配方、掉落、赠送、抽卡、兑换、商店、属性或角色技能。战令币、活动凭录、历史活动物品与赛季专用资源仍被排除。
++
++- [运行包](release/klbq_resources-0.1.0.zip)：解压到游戏安装目录的 `mods/klbq_resources/`，使该目录直接含 `modinfo.lua`。所有加入者同版；地面与洞穴均需启用。
++- [融合与调用](docs/融合与调用.md)：查询接口、开发查看与合并步骤。
++- [验证记录](docs/reports/verification.md)：代码、编译资源、运行 ZIP 及实际隔离专服保存重载证据。
++- [物品规格](docs/物品设计.md)、[原作核验](docs/资料核验.md)、[设计比对目录](docs/resource-catalog.json)。
++
++```lua
++local Resources = require("klbq_resources/api")
++local prefab = Resources.GetPrefab("stringsea_beacon")
++-- klbq_resource_stringsea_beacon
++```
++
++本轮只改附属模组，没有部署到游戏目录；香奈美、莉莉丝和正式存档未改。运行包可独立启用，不要求香奈美模组。合并入口是 `require("klbq_resources/register").Install(env)`。
++
++运行美术由内置 imagegen 重绘；图集、最终提示词与裁切布局保存在 `art/`。原作参考图仅位于 `docs/references/`，未进入运行包。原作设定及相关权利属于《卡拉彼丘》权利人，本包为非官方同人作品。
++
++已通过无渲染专服加载、物品操作和保存重载；未进行图形客户端、另一台远端客户端、实际海面浮水及洞穴跨分片验收。
+--- /dev/null
++++ docs/融合与调用.md
+@@ -0,0 +1,86 @@
++# 融合与调用
++
++运行版本 0.1.0；查询 API 版本 1。例子只供以后接入代码，不会在本包中自动执行或产生资源。
++
++## 查询
++
++```lua
++local Resources = require("klbq_resources/api")
++local prefab = Resources.GetPrefab("stringsea_beacon")
++-- "klbq_resource_stringsea_beacon"
++local definition = Resources.GetDefinition(prefab)
++-- definition.key / prefab / name / inspect / category
++local is_resource = Resources.IsResource(existing_item)
++```
++
++`GetDefinition`、`GetPrefab` 接受短键或完整 Prefab ID，未知/无效输入返回 `nil`。`IsResource` 接受完整 ID 或实体，未知对象返回 `false`，不只凭标签认定资源。目录条目共享，调用方只读使用。
++
++没有生成、扣除、兑换或抽卡 API。未来玩法由其自身在服务器端操作原生物品数量，不在客户端改权威状态。
++
++### 短键
++
++- 货币：`bablo_crystal`、`base_string`、`ideal_coin`。
++- 凭证：`memory_sequence`、`redirect_sequence`、`stringsea_beacon`、`initial_sequence`、`resonance_sequence`。
++- 外观材料：`topology_ring`、`tracing_plate`。
++- 模式资源：`card_fragment`、`dice`。
++- 终端：`terminal_michelle`、`terminal_xinghui`、`terminal_ming`、`terminal_qiandai`、`terminal_xi`、`terminal_kanami`、`terminal_flavia`、`terminal_eika`。
++
++运行真值是 `scripts/klbq_resources/catalog.lua`；`docs/resource-catalog.json` 是设计比对数据，单元检查校对两者。
++
++## 测试世界查看
++
++在独立测试世界的服务器控制台输入：
++
++```lua
++c_spawn("klbq_resource_bablo_crystal")
++c_spawn("klbq_resource_stringsea_beacon")
++c_spawn("klbq_resource_terminal_kanami")
++```
++
++这是开发查看方式，不是正式来源设计。默认每组 40；收纳、保存和数量使用原生组件，没有账号绑定或死亡保留。
++
++## 合并步骤
++
++本轮未修改香奈美。以后获准合并时：
++
++1. 复制 `scripts/klbq_resources/` 和 `scripts/prefabs/klbq_resources.lua` 到主模组同路径。
++2. 复制 `anim/klbq_resources_items.zip`、`images/klbq_resources_items.xml`、`images/klbq_resources_items.tex`。
++3. 在主模组入口加入：
++
++```lua
++require("klbq_resources/register").Install(env)
++```
++
++4. 保留主模组原有列表。安装函数追加 `PrefabFiles`、`Assets` 和资源字符串，不替换整张表。
++5. 保留全部 20 个 `klbq_resource_` ID、图片元素名及动画名；不替换现有 `klbq_crystal`。
++6. 继续使用 DST 两端必装；合并后关闭独立包，只保留一个运行所有者，并完整重启。
++7. 在备份的独立世界验证旧物品、地面/容器/背包、重连与洞穴切换，再迁移正式使用。
++
++同一 Lua 进程中，本版通过 `KLBQ_RESOURCES_OWNER` 保护同版重复注册；已加载目录与所有者版本冲突时明确报错。
++
++DST 共享 `require` 缓存，因此这不是支持任意不同版本副本并存或热更新的保证。融合时同步同版代码并只启用一个所有者；跨版本共存应另做版本化入口，不随意清理游戏模块缓存。
++
++## 文件职责
++
++- `catalog.lua`：稳定身份、中文名称、类别、检查文本、40 个堆叠上限和共同资源路径。
++- `api.lua`：查定义、查 Prefab、识别资源；加载时不依赖游戏对象。
++- `register.lua`：追加资源与字符串、登记图集和同版唯一所有者。
++- `prefabs/klbq_resources.lua`：统一联网物品工厂，两端共通结构先建，`SetPristine()` 后客户端返回，服务器添加原生物品/堆叠组件。
++- `art/`、`tools/`、`tests/`、`docs/`：开发资料，排除于运行 ZIP。
++
++## 构建与验证
++
++在项目根目录执行：
++
++```powershell
++py -3 -B mods/klbq_resources/tools/build_assets.py
++py -3 -B mods/klbq_resources/tools/package_mod.py
++& 'D:\SOFTWARE\CodexData\runtimes\codex-primary-runtime\dependencies\python\python.exe' -B -m unittest discover -s mods/klbq_resources/tests -p 'test_*.py' -v
++py -3 -B mods/klbq_resources/tools/run_engine.py --seconds 120
++```
++
++Lua 单元检查使用项目既有 Lua 5.1 依赖；美术由本机已安装 Klei 工具编译。构建脚本只对生成图执行机械裁切、缩放、打包和格式转换。
++
++专服测试在任务独有的 D 盘临时目录复制小型运行环境，仅通过只读数据联接读取已安装游戏素材；每轮新建离线世界，创建与重载阶段共用本轮世界，不覆盖已安装模组或正式存档。
++
++验证范围详见 [verification.md](reports/verification.md)。
+--- /dev/null
++++ docs/reports/verification.md
+@@ -0,0 +1,45 @@
++# 0.1.0 验证记录
++
++日期：2026-10-30。目标：DST 760178，Windows 本机。
++
++## 结果
++
++- Lua 5.1 运行单元检查 18/18：20 项身份与查询 API、无效输入、同版注册去重、版本冲突、受限 modinfo、可调用 Asset 表、严格全局变量环境、客户端/服务器构造分界。
++- 编译资源检查 3/3：20 个地面动画与 Symbol 绑定，库存图集 20 个原生 64×64 区域，KTEX/BILD/ANIM 格式与图标。
++- ZIP 检查 2/2：12 个允许的运行文件，文件位于模组根部，无参考图、工具、测试、存档、缓存或日志。
++- 实际无渲染专服创建阶段 24 项通过：20 个实体的生成、原生存档记录往返、背包与箱子转移、堆叠上限、图集/动画名绑定，以及同类合堆、溢出/拆分、异类拒绝混堆、无额外配方。
++- 实际保存退出并启动第二个服务器进程，重载阶段 21 项通过：20 种资源各自的独立数量恢复，且没有额外资源身份。
++- 两阶段均退出码 0、失败数 0、无 Lua 错误。工具创建新世界后重复运行，两阶段再次通过。
++- 香奈美与莉莉丝 104 个文件和任务开始时 SHA256 一致，未新增、删改这些模组的文件。
++
++## 证据
++
++- [创建阶段结果](engine-create-result.json)、[创建日志](engine-create.log)。
++- [重载阶段结果](engine-reload-result.json)、[重载日志](engine-reload.log)。
++- [核心实现 RED/GREEN](../core-report.md)。
++- [运行包文件与 SHA256 清单](../../release/manifest.json)。
++- 库存与地面运行切图已查看：`art/inventory-atlas.png`、`art/runtime-preview.png`。
++- 初次资产检查为预期 3 项失败（未构建）；初次包检查为预期 2 项失败（未打包），构建打包后均通过。
++
++## 运行隔离
++
++服务器在任务自己的 D 盘临时根下运行。只读链接游戏 data，复制本机运行所需二进制和本附属模组到临时主机；不覆盖游戏安装目录中的模组，不读写用户正式存档。只在临时离线测试世界生成资源和测试实体。
++
++临时测试世界与编译中间目录在任务结束时清理；本页关联日志、结果、源码、艺术工程、运行包保留。
++
++## 检查命令
++
++在项目根目录：
++
++```powershell
++& 'D:\SOFTWARE\CodexData\runtimes\codex-primary-runtime\dependencies\python\python.exe' -B -m unittest discover -s mods/klbq_resources/tests -p 'test_*.py' -v
++py -3 -B mods/klbq_resources/tools/build_assets.py
++py -3 -B mods/klbq_resources/tools/package_mod.py
++py -3 -B mods/klbq_resources/tools/run_engine.py --seconds 120
++```
++
++## 证据边界
++
++无渲染专服的动画名与资源绑定检查不等于实际游戏画面验收。未完成图形客户端的库存/地面画面、另一台远端客户端、实际海面浮水、洞穴跨分片、长期运行、停用模组和未来融合版本的存档迁移验证。
++
++本包没有来源、用途或经济系统。控制台生成与开发查询是测试/集成入口，不是自动资源发放。
+--- /dev/null
++++ release/manifest.json
+@@ -0,0 +1,20 @@
++{
++  "version": "0.1.0",
++  "archive": "klbq_resources-0.1.0.zip",
++  "sha256": "2e1e3a43581f1e29a30c01ff6a13ef09e611b11004d7116ba8d2b78956486b3f",
++  "bytes": 179127,
++  "files": [
++    "README.txt",
++    "anim/klbq_resources_items.zip",
++    "images/klbq_resources_items.tex",
++    "images/klbq_resources_items.xml",
++    "modicon.tex",
++    "modicon.xml",
++    "modinfo.lua",
++    "modmain.lua",
++    "scripts/klbq_resources/api.lua",
++    "scripts/klbq_resources/catalog.lua",
++    "scripts/klbq_resources/register.lua",
++    "scripts/prefabs/klbq_resources.lua"
++  ]
++}
+--- /dev/null
++++ art/asset-layout.json
+@@ -0,0 +1,22 @@
++{
++  "source_size": [
++    1122,
++    1402
++  ],
++  "x_edges": [
++    0,
++    283,
++    558,
++    837,
++    1122
++  ],
++  "y_edges": [
++    33,
++    291,
++    554,
++    804,
++    1065,
++    1350
++  ],
++  "note": "按已生成图集中的透明间隔逐格裁切；不是重新绘制。顺序与 resource-catalog.json 一致。"
++}

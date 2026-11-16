@@ -1,0 +1,39 @@
+{
+  "version": "1.0.1",
+  "revision": "neckfix-2026-11-01",
+  "runtime_files": 77,
+  "source_install_staging_zip_hashes_match": true,
+  "staging": "D:\\SOFTWARE\\DSTWorkshop\\klbq_kanami_v1_0_1_neckfix",
+  "packages": [
+    {
+      "file": "klbq_kanami-1.0.1-dst.zip",
+      "bytes": 2300105,
+      "sha256": "c3aa96b55bdf6608c96126484d4af671ee27141d61eb3e4636bf5a88577c9afa",
+      "entries": 77
+    },
+    {
+      "file": "klbq_kanami-1.0.1-source-art.zip",
+      "bytes": 50020911,
+      "sha256": "928fa31fff5ec18eaf7f06e0ad73d814d77bcfbb33c96baa74eb54d498714e0e",
+      "entries": 902
+    }
+  ],
+  "regression_tests": 391,
+  "regression_log": "docs/reports/regression-nape-1.0.1.txt",
+  "engine_sampled_poses": 25,
+  "live_actions": [
+    "four_direction_movement",
+    "funnyidle",
+    "rifle_shot_damage_and_ammo",
+    "berries_oneat",
+    "meatballs_oneat"
+  ],
+  "engine_exit_code": 0,
+  "engine_lua_error": false,
+  "limitations": [
+    "Not every native tool animation, riding, transformation or special hit state checked",
+    "No second physical client tested this revision",
+    "25 poses are engine frame samples, not continuous input video"
+  ],
+  "report": "docs/reports/neck-motion-2026-11-01.md"
+}

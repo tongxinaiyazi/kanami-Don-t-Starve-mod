@@ -1,0 +1,16 @@
+{
+  "source": "D:\\SOFTWARE\\CodexData\\temp\\kanami_body_v2_candidate\\compiled\\anim",
+  "destination": "E:\\steam\\steamapps\\common\\Don't Starve Together\\mods\\klbq_kanami_verify",
+  "files": {
+    "klbq_kanami.zip": {
+      "source_sha256": "5a0258bba69ebb5f8610af315c5335f3d595d2deaf0837607f520faf8b47cbc1",
+      "installed_sha256": "5a0258bba69ebb5f8610af315c5335f3d595d2deaf0837607f520faf8b47cbc1",
+      "bytes": 530319
+    },
+    "klbq_kanami_actions.zip": {
+      "source_sha256": "99c76c65ae7b794322bea0d876369210994e496a42e8b6c165919793abd2b518",
+      "installed_sha256": "99c76c65ae7b794322bea0d876369210994e496a42e8b6c165919793abd2b518",
+      "bytes": 2234437
+    }
+  }
+}

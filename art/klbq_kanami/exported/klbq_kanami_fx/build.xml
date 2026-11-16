@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="klbq_kanami_fx">
+  <Symbol name="domain">
+    <Frame framenum="0" duration="1" x="0" y="0" w="512" h="512" image="domain_0" />
+  </Symbol>
+  <Symbol name="tracer">
+    <Frame framenum="0" duration="1" x="0" y="0" w="512" h="512" image="tracer_0" />
+  </Symbol>
+  <Symbol name="revive">
+    <Frame framenum="0" duration="1" x="0" y="0" w="512" h="512" image="revive_0" />
+  </Symbol>
+  <Symbol name="sweep">
+    <Frame framenum="0" duration="1" x="0" y="0" w="512" h="512" image="sweep_0" />
+  </Symbol>
+</Build>

@@ -1,0 +1,30 @@
+Create ONE production game sprite-atlas image. The five supplied inputs are only supporting identity/style references, in order: black/gold crystal pillars; pink Base String disk; golden orb in clear cube; cyan Memory Sequence module; pink Kanami terminal. They are not twenty edit targets; use the complete twenty-cell descriptions below for every subject. Never copy reference bitmap pixels: create fresh hand-inked illustrations preserving each item's distinctive silhouette, material and primary colors. This is a noncommercial Strinova-inspired resource add-on for Don't Starve Together. Output ONE RGBA transparent atlas, exact 2048 x 2560 pixels preferred, consisting of FOUR equal columns and FIVE equal rows (20 equal square cells). Absolutely no labels, no words, no numbers, no borders, no grid marks, no background, no UI cards or decorative layout. Each cell holds exactly one isolated complete item, centered with at least 12 percent empty transparent padding on all four sides; keep all opaque strokes inside that cell. Similar apparent scale and line weight across items. Crisp confident dark imperfect ink outlines, irregular hand-painted facets and soft dry-brush shading suited to the existing DST fan mod. Readable at 64 pixels. Highlights are paint, with no glow clouds, no drop shadows and no particle effects.
+
+The twenty output subjects MUST be in this exact cell order (left to right, then top to bottom). Retain each identity:
+ROW 1:
+1. Bablo Crystal / 巴布洛晶核: two tall black-framed golden rectangular crystal columns of unequal height, black and luminous yellow-gold, NOT an orb.
+2. Base String / 基弦: a filled pink-purple circular disk inside a segmented silver rim, white circular center mark; NOT an empty blue ring.
+3. Ideal Coin / 理想币: three stacked white and light-blue rectangular banknote cards with black geometric motif and blue side stripes, NOT a round coin.
+4. Memory Sequence / 记忆序列: cyan blue long electronic module with pale gray end-cap bearing circular glyph and short connector tips, NOT a sphere.
+ROW 2:
+5. Redirect Sequence / 重定向序列: black/gold ticket-card-shaped device with a protruding orange shield carrying a simple upwards arrow; do not render UP letters.
+6. Stringsea Beacon / 弦海信标: golden yellow glowing-looking painted orb enclosed in a clear cube-shaped container with fine metallic corner braces. The round golden orb in a transparent cuboid is essential.
+7. Initial Sequence / 原初序列: pale lavender long module, gray end cap and short connectors; same technological family as blue memory module but a distinct outline notch and purple center.
+8. Resonance Sequence / 共振序列: orange and white branching open fork assembly, TWO parallel open U-shaped prongs, not a box and not a recolored straight module.
+ROW 3:
+9. Topology Ring / 拓扑晶环: vivid blue EMPTY ring with a large completely transparent center and segmented metal outer edge, NOT a filled disk.
+10. Tracing Plate / 拓印基板: small blue/gray white base with TWO overlapping cyan circular swirled holographic plates above it, one low and one raised.
+11. Card Fragment / 卡牌碎片: translucent hard pale-blue rectangular card shard, dark thin broken frame and a broken upper corner, pale angular cracks, NOT paper banknotes.
+12. Dice / 骰子: dark charcoal rounded cube with orange-gold circular pips and a few connecting lines, clear three-dimensional faces.
+ROW 4: terminal series. ALL must be mechanical keepsake display consoles, a central dark small screen with a SIMPLE abstract iridescent human silhouette, different chunky decorated frame, small buttons/gold lower rim and one very pale cyan curved ribbon/base underneath, crisp compact inventory shape. No detailed faces or copied character portrait.
+13. Michelle terminal: BLUE frame and prominent CAT EARS.
+14. Xinghui terminal: SILVER LAVENDER frame with BOW and STAR above.
+15. Ming terminal: RED BLACK frame with angular pointy GOLD crest at top.
+16. Qiandai terminal: ORANGE GOLD black frame with large ORANGE RED MAPLE LEAF on top.
+ROW 5:
+17. Xi terminal: ORANGE frame with TURQUOISE hexagonal top and chunky teal side ornaments.
+18. Kanami terminal: PALE PINK frame, SILVER spiky stage crown across top, subtle music/stage identity, no letters.
+19. Flavia terminal: DEEP VIOLET frame, clear BLACK BUTTERFLY atop, side flower motif.
+20. Eika terminal: CRIMSON RED black frame, black top with a distinct SMALL ROUND METAL ORNAMENT, clearly different from Ming's angular crest.
+
+All 20 identities, positions and empty transparent gutters are mandatory. This is one shared runtime atlas and all cells are usable sprites, not a concept-art poster.

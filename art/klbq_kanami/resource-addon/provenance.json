@@ -1,0 +1,14 @@
+{
+  "source": "mods/klbq_resources",
+  "version": "0.1.0",
+  "terminal_prefab": "klbq_resource_terminal_kanami",
+  "runtime_sha256": {
+    "scripts/klbq_resources/catalog.lua": "f1f03c395d7fedb7f9a57c4ab7bcc6c5ec64888e537a3f5f8f854c790ac4e5b4",
+    "scripts/klbq_resources/api.lua": "d6e673dad690b84b7d7c501499877c83ba518951fd63aff78a2b72f9c3fdbb00",
+    "scripts/klbq_resources/register.lua": "3c828ee71dd27611dbbb05b7bad4ae6c605e374121674777105e474603f57d7a",
+    "scripts/prefabs/klbq_resources.lua": "e6c822f9e942898df3077524d4010a9d992ff3e2a501f3418da4c7508a49f8cd",
+    "anim/klbq_resources_items.zip": "d210e5fa53ac2ffe1fe627a08663bc9c1b320abb21d1ea391f95d670e78d33d4",
+    "images/klbq_resources_items.xml": "32ec32ca5ff9e20b3be6a86ab9011059634747edb06a49c66b375cef94d18598",
+    "images/klbq_resources_items.tex": "970bbcd6f2222e4590c56a8f5cec650e5335bde9177f4f4800953a1afe40c3c2"
+  }
+}

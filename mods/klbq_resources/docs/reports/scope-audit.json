@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-30",
+  "checked": 104,
+  "changed_since_start": [
+    "D:\\SOFTWARE\\项目\\饥荒\\mods\\klbq_kanami\\modinfo.lua",
+    "D:\\SOFTWARE\\项目\\饥荒\\mods\\klbq_kanami\\modmain.lua",
+    "D:\\SOFTWARE\\项目\\饥荒\\mods\\klbq_kanami\\README.md"
+  ],
+  "deleted": [],
+  "observed_main_mod_version": "1.0.0",
+  "note": "早期核验的104文件均与起始一致；最终三个主模组文件出现同期变动。本任务编辑路径限定附属模组，未覆盖或回退这些文件。"
+}

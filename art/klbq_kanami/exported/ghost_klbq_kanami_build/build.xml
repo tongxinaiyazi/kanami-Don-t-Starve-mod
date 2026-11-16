@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="ghost_klbq_kanami_build">
+  <Symbol name="ghost_FX">
+    <Frame framenum="0" duration="1" x="-149.49899291992188" y="-23.54949951171875" w="184" h="136" image="ghost_FX_0" />
+    <Frame framenum="1" duration="1" x="-149.99899291992188" y="-26.274499893188477" w="216" h="140" image="ghost_FX_1" />
+    <Frame framenum="2" duration="1" x="-168.99899291992188" y="-29.949499130249023" w="284" h="140" image="ghost_FX_2" />
+    <Frame framenum="3" duration="1" x="-201.69900512695312" y="-45.9995002746582" w="280" h="148" image="ghost_FX_3" />
+    <Frame framenum="4" duration="1" x="-244.24899291992188" y="-59.2244987487793" w="272" h="176" image="ghost_FX_4" />
+    <Frame framenum="5" duration="1" x="-307.4989929199219" y="-68.87449645996094" w="188" h="184" image="ghost_FX_5" />
+    <Frame framenum="6" duration="1" x="-389.1239929199219" y="-119.9990005493164" w="52" h="28" image="ghost_FX_6" />
+    <Frame framenum="8" duration="1" x="6.500500202178955" y="-306.04901123046875" w="240" h="424" image="ghost_FX_8" />
+    <Frame framenum="9" duration="1" x="6.500500202178955" y="-305.42401123046875" w="236" h="456" image="ghost_FX_9" />
+    <Frame framenum="10" duration="1" x="8.000499725341797" y="-315.17401123046875" w="248" h="496" image="ghost_FX_10" />
+    <Frame framenum="11" duration="1" x="1.500499963760376" y="-279.6495056152344" w="268" h="576" image="ghost_FX_11" />
+    <Frame framenum="12" duration="1" x="-3.999500036239624" y="-289.12451171875" w="272" h="676" image="ghost_FX_12" />
+    <Frame framenum="13" duration="1" x="-1.499500036239624" y="-320.9744873046875" w="248" h="708" image="ghost_FX_13" />
+    <Frame framenum="14" duration="1" x="-35.7495002746582" y="-422.79901123046875" w="156" h="532" image="ghost_FX_14" />
+    <Frame framenum="15" duration="1" x="12.5" y="-148.0240020751953" w="32" h="172" image="ghost_FX_15" />
+    <Frame framenum="16" duration="1" x="9.774999618530273" y="-55.79899978637695" w="32" h="84" image="ghost_FX_16" />
+    <Frame framenum="17" duration="1" x="-1.124500036239624" y="-144.99949645996094" w="204" h="356" image="ghost_FX_17" />
+    <Frame framenum="18" duration="1" x="12.775500297546387" y="-232.74949645996094" w="220" h="552" image="ghost_FX_18" />
+    <Frame framenum="20" duration="1" x="-8.999500274658203" y="-236.99899291992188" w="424" h="292" image="ghost_FX_20" />
+    <Frame framenum="21" duration="1" x="-4.274499893188477" y="-252.99899291992188" w="484" h="284" image="ghost_FX_21" />
+    <Frame framenum="22" duration="1" x="-11.624500274658203" y="-300.0989990234375" w="452" h="344" image="ghost_FX_22" />
+    <Frame framenum="23" duration="1" x="2.6505000591278076" y="-319.52398681640625" w="384" h="356" image="ghost_FX_23" />
+    <Frame framenum="24" duration="1" x="11.750499725341797" y="-317.42401123046875" w="228" h="408" image="ghost_FX_24" />
+    <Frame framenum="25" duration="1" x="13.875499725341797" y="-351.9989929199219" w="376" h="388" image="ghost_FX_25" />
+    <Frame framenum="26" duration="1" x="10.850500106811523" y="-376.8739929199219" w="352" h="376" image="ghost_FX_26" />
+    <Frame framenum="27" duration="1" x="8.225500106811523" y="-404.14898681640625" w="380" h="408" image="ghost_FX_27" />
+    <Frame framenum="28" duration="1" x="23.225500106811523" y="-378.2239990234375" w="360" h="452" image="ghost_FX_28" />
+    <Frame framenum="29" duration="1" x="23.350500106811523" y="-318.99951171875" w="360" h="716" image="ghost_FX_29" />
+    <Frame framenum="30" duration="1" x="14.67549991607666" y="-372.0744934082031" w="344" h="812" image="ghost_FX_30" />
+    <Frame framenum="31" duration="1" x="19.25" y="-264.0989990234375" w="48" h="212" image="ghost_FX_31" />
+    <Frame framenum="32" duration="1" x="12.5" y="-148.0240020751953" w="32" h="172" image="ghost_FX_32" />
+    <Frame framenum="33" duration="1" x="9.774999618530273" y="-55.79899978637695" w="32" h="84" image="ghost_FX_33" />
+    <Frame framenum="34" duration="1" x="-149.49899291992188" y="-23.54949951171875" w="184" h="136" image="ghost_FX_34" />
+    <Frame framenum="35" duration="1" x="-149.99899291992188" y="-26.274499893188477" w="216" h="140" image="ghost_FX_35" />
+    <Frame framenum="36" duration="1" x="-168.99899291992188" y="-29.949499130249023" w="284" h="140" image="ghost_FX_36" />
+    <Frame framenum="37" duration="1" x="-201.69900512695312" y="-45.9995002746582" w="280" h="148" image="ghost_FX_37" />
+    <Frame framenum="38" duration="1" x="-244.24899291992188" y="-59.2244987487793" w="272" h="176" image="ghost_FX_38" />
+    <Frame framenum="39" duration="1" x="-307.4989929199219" y="-68.87449645996094" w="188" h="184" image="ghost_FX_39" />
+    <Frame framenum="40" duration="1" x="-389.1239929199219" y="-119.9990005493164" w="52" h="28" image="ghost_FX_40" />
+  </Symbol>
+  <Symbol name="ghost_Hat">
+    <Frame framenum="0" duration="1" x="-3.549499988555908" y="2.700500011444092" w="292" h="232" image="ghost_Hat_0" />
+  </Symbol>
+  <Symbol name="ghost_body">
+    <Frame framenum="0" duration="1" x="-5.524499893188477" y="70.35050201416016" w="360" h="352" image="ghost_body_0" />
+  </Symbol>
+  <Symbol name="ghost_tail">
+    <Frame framenum="0" duration="1" x="7.92549991607666" y="-322.4739990234375" w="232" h="392" image="ghost_tail_0" />
+    <Frame framenum="1" duration="1" x="7.125500202178955" y="-318.77398681640625" w="228" h="396" image="ghost_tail_1" />
+    <Frame framenum="2" duration="1" x="6.42549991607666" y="-314.0740051269531" w="232" h="408" image="ghost_tail_2" />
+    <Frame framenum="3" duration="1" x="0.5504999756813049" y="-317.3739929199219" w="228" h="400" image="ghost_tail_3" />
+    <Frame framenum="4" duration="1" x="-1.8244999647140503" y="-314.67401123046875" w="232" h="404" image="ghost_tail_4" />
+    <Frame framenum="5" duration="1" x="-5.57450008392334" y="-315.2489929199219" w="228" h="408" image="ghost_tail_5" />
+    <Frame framenum="6" duration="1" x="-7.274499893188477" y="-312.2239990234375" w="236" h="412" image="ghost_tail_6" />
+    <Frame framenum="7" duration="1" x="-5.999499797821045" y="-314.89898681640625" w="236" h="408" image="ghost_tail_7" />
+    <Frame framenum="8" duration="1" x="-2.32450008392334" y="-313.8240051269531" w="232" h="412" image="ghost_tail_8" />
+    <Frame framenum="9" duration="1" x="-0.07450000196695328" y="-314.7239990234375" w="232" h="408" image="ghost_tail_9" />
+    <Frame framenum="10" duration="1" x="2.42549991607666" y="-316.29901123046875" w="232" h="404" image="ghost_tail_10" />
+    <Frame framenum="11" duration="1" x="0.9754999876022339" y="-317.79901123046875" w="224" h="404" image="ghost_tail_11" />
+    <Frame framenum="12" duration="1" x="4.92549991607666" y="-316.79901123046875" w="236" h="404" image="ghost_tail_12" />
+    <Frame framenum="13" duration="1" x="4.500500202178955" y="-315.0989990234375" w="232" h="408" image="ghost_tail_13" />
+    <Frame framenum="14" duration="1" x="3.42549991607666" y="-314.5740051269531" w="232" h="408" image="ghost_tail_14" />
+    <Frame framenum="15" duration="1" x="6.750500202178955" y="-317.2239990234375" w="228" h="400" image="ghost_tail_15" />
+  </Symbol>
+  <Symbol name="ghost_eyes">
+    <Frame framenum="0" duration="1" x="0.4505000114440918" y="0.6255000233650208" w="116" h="64" image="ghost_eyes_0" />
+    <Frame framenum="1" duration="1" x="-0.19949999451637268" y="6.17549991607666" w="116" h="52" image="ghost_eyes_1" />
+    <Frame framenum="2" duration="1" x="19.15049934387207" y="-2.874500036239624" w="124" h="88" image="ghost_eyes_2" />
+    <Frame framenum="3" duration="1" x="-1.4244999885559082" y="3.8505001068115234" w="116" h="52" image="ghost_eyes_3" />
+  </Symbol>
+</Build>

@@ -1,0 +1,2 @@
+# Preserve file bytes across checkouts for release SHA256 manifests.
+* -text

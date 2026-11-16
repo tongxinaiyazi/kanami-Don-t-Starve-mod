@@ -1,0 +1,10 @@
+{
+  "format": 1,
+  "active": "body-v2",
+  "source": "body-v2/registration.json",
+  "backup": "D:\\SOFTWARE\\\u9879\u76ee\\\u9965\u8352\\art\\klbq_kanami\\history\\before-body-v2-20261112T130709807870",
+  "runtime_sha256": {
+    "klbq_kanami": "3fb60dab81961d601cf986a43f45db14e5f8ba8619a67fea5b90dfdc735f65ae",
+    "klbq_kanami_actions": "51dffd3c4b4459fd6ba0c888ba49b16b09593141cf4c1594c0510a6331830e10"
+  }
+}

@@ -1,0 +1,61 @@
+FFFF......FFF...................
+======================================================================
+FAIL: test_bolt_launches_forward_at_hand_height_in_four_directions (test_crossbow.Crossbow.test_bolt_launches_forward_at_hand_height_in_four_directions) (angle=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\SOFTWARE\项目\饥荒\tests\gameplay\test_crossbow.py", line 214, in test_bolt_launches_forward_at_hand_height_in_four_directions
+    self.assertAlmostEqual(self.lua.eval('bolts[1].y'),1.9)
+AssertionError: 0.4 != 1.9 within 7 places (1.5 difference)
+
+======================================================================
+FAIL: test_bolt_launches_forward_at_hand_height_in_four_directions (test_crossbow.Crossbow.test_bolt_launches_forward_at_hand_height_in_four_directions) (angle=90)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\SOFTWARE\项目\饥荒\tests\gameplay\test_crossbow.py", line 214, in test_bolt_launches_forward_at_hand_height_in_four_directions
+    self.assertAlmostEqual(self.lua.eval('bolts[1].y'),1.9)
+AssertionError: 0.4 != 1.9 within 7 places (1.5 difference)
+
+======================================================================
+FAIL: test_bolt_launches_forward_at_hand_height_in_four_directions (test_crossbow.Crossbow.test_bolt_launches_forward_at_hand_height_in_four_directions) (angle=180)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\SOFTWARE\项目\饥荒\tests\gameplay\test_crossbow.py", line 214, in test_bolt_launches_forward_at_hand_height_in_four_directions
+    self.assertAlmostEqual(self.lua.eval('bolts[1].y'),1.9)
+AssertionError: 0.4 != 1.9 within 7 places (1.5 difference)
+
+======================================================================
+FAIL: test_bolt_launches_forward_at_hand_height_in_four_directions (test_crossbow.Crossbow.test_bolt_launches_forward_at_hand_height_in_four_directions) (angle=270)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\SOFTWARE\项目\饥荒\tests\gameplay\test_crossbow.py", line 214, in test_bolt_launches_forward_at_hand_height_in_four_directions
+    self.assertAlmostEqual(self.lua.eval('bolts[1].y'),1.9)
+AssertionError: 0.4 != 1.9 within 7 places (1.5 difference)
+
+======================================================================
+FAIL: test_elevated_bolt_preserves_ground_hit_radius_for_small_and_large_targets (test_crossbow.Crossbow.test_elevated_bolt_preserves_ground_hit_radius_for_small_and_large_targets) (radius=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\SOFTWARE\项目\饥荒\tests\gameplay\test_crossbow.py", line 225, in test_elevated_bolt_preserves_ground_hit_radius_for_small_and_large_targets
+    self.assertAlmostEqual((hitdist+radius)**2-1.5**2,(radius+.5)**2)
+AssertionError: -2.0 != 0.25 within 7 places (2.25 difference)
+
+======================================================================
+FAIL: test_elevated_bolt_preserves_ground_hit_radius_for_small_and_large_targets (test_crossbow.Crossbow.test_elevated_bolt_preserves_ground_hit_radius_for_small_and_large_targets) (radius=0.5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\SOFTWARE\项目\饥荒\tests\gameplay\test_crossbow.py", line 225, in test_elevated_bolt_preserves_ground_hit_radius_for_small_and_large_targets
+    self.assertAlmostEqual((hitdist+radius)**2-1.5**2,(radius+.5)**2)
+AssertionError: -1.25 != 1.0 within 7 places (2.25 difference)
+
+======================================================================
+FAIL: test_elevated_bolt_preserves_ground_hit_radius_for_small_and_large_targets (test_crossbow.Crossbow.test_elevated_bolt_preserves_ground_hit_radius_for_small_and_large_targets) (radius=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\SOFTWARE\项目\饥荒\tests\gameplay\test_crossbow.py", line 225, in test_elevated_bolt_preserves_ground_hit_radius_for_small_and_large_targets
+    self.assertAlmostEqual((hitdist+radius)**2-1.5**2,(radius+.5)**2)
+AssertionError: 10.0 != 12.25 within 7 places (2.25 difference)
+
+----------------------------------------------------------------------
+Ran 27 tests in 18.298s
+
+FAILED (failures=7)

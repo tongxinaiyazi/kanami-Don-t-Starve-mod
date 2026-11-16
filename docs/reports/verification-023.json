@@ -1,0 +1,30 @@
+{
+  "version": "0.2.3",
+  "date": "2026-10-28",
+  "unit": {
+    "tests": 303,
+    "pass": 303,
+    "exit_code": 0,
+    "seconds": 37.462
+  },
+  "client_regression": {
+    "pass": 3,
+    "old_code_failure": "native ContainerWidget:Open indexes nil widget; client replica zero slots",
+    "actual_native_lua_methods": true,
+    "graphics_nodes_stubbed": true
+  },
+  "native_test": "engine-bag-happy-void-equipment-result.json",
+  "production_change": "private14slotcontainerdefinition registered before prefab instances on both ends; matched server WidgetSetup",
+  "gui_retested": false,
+  "user_saves_modified": false,
+  "T_configuration_modified": false,
+  "native": {
+    "exit_code": 0,
+    "complete": true,
+    "pass": 4,
+    "fail": 0,
+    "lua_error": false,
+    "log": "D:\\SOFTWARE\\项目\\饥荒\\docs\\reports\\engine-bag-happy-void-equipment.log"
+  },
+  "earlier_shutdown_issue": "CFileWriterThread/C0000409 before fixture player cleanup correction; recorded separately"
+}
