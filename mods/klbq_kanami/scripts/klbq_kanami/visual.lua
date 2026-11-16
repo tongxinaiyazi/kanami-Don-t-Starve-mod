@@ -9,7 +9,8 @@ local body_symbols={"torso","torso_pelvis","skirt","arm_upper","arm_upper_skin",
 local no_carry_states={eat=true,quickeat=true,refuseeat=true,mount_eat=true,float_eat=true,float_quickeat=true,winters_feast_eat=true,
     chop_start=true,chop=true,mine_start=true,mine=true,mine_recoil=true,hammer_start=true,hammer=true,
     dig_start=true,dig=true,bugnet_start=true,bugnet=true,terraform=true}
-local projection_states={chop_start=true,chop=true,mine_start=true,mine=true,mine_recoil=true,dig_start=true,dig=true}
+local work_states={chop_start=true,chop=true,mine_start=true,mine=true,mine_recoil=true,
+    dig_start=true,dig=true,hammer_start=true,hammer=true,bugnet_start=true,bugnet=true,terraform=true}
 local function UpdateCarry(inst)
     local anim=inst.AnimState
     if inst._klbq_hidecarry or inst._klbq_stringbuild then
@@ -91,18 +92,18 @@ function M.Bind(inst)
     for _,event in ipairs({"equip","unequip","equipskinneditem","unequipskinneditem","playeractivated","ms_respawnedfromghost"}) do
         inst:ListenForEvent(event,Refresh)
     end
-    -- Keep weapons hidden during food/work animations, but the imprint's
-    -- projected head is the working tool itself and must stay on swap_object.
+    -- Working tools, including the imprint projection, use swap_object.
+    -- Native tool tags are also available on predicted clients.
     -- This runs on both server and predicted client, which can each hide it.
     inst:ListenForEvent("newstate",function(_,data)
         local name=data and data.statename
         if no_carry_states[name] or inst._klbq_hidecarry or inst._klbq_workarm then
             inst._klbq_workarm=nil
             local hide=no_carry_states[name]
-            if hide and projection_states[name] then
+            if hide and work_states[name] then
                 local inventory=inst.components and inst.components.inventory or inst.replica and inst.replica.inventory
                 local item=inventory and inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-                hide=not (item and item:HasTag("klbq_imprint_tool"))
+                hide=not (item and (item:HasTag("tool") or item:HasTag("klbq_imprint_tool")))
                 inst._klbq_workarm=not hide and true or nil
             end
             inst._klbq_hidecarry=hide and true or nil

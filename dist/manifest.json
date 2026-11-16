@@ -1,11 +1,11 @@
 {
-  "version": "2.1.0",
+  "version": "2.1.1",
   "runtime_files": {
     "modicon.tex": "4cdb83a4b6ffd626aa387206b50f6bbd25f22daaed8552fccfdf2f3eadbaef0a",
     "modicon.xml": "9630d9e5c523d1be10f6996f7be351e87c8828389edf4e4744a17c11f84adcaa",
-    "modinfo.lua": "68a247c5634cabad17a4dff6442ab56f4118a8f33c97625c80237bed636aae15",
-    "modmain.lua": "59ab9d91f545a4b4338bfd9b6101ee8bc537b850d276620e58ec722d2ab27958",
-    "README.md": "ca823ae6afc0070770b38f76d5518ef5e21cdd2b5e98d24e9e3491cd918c52b6",
+    "modinfo.lua": "f0a334d9bc84a5a7b877c2f087b3a1b593bf300aeb699c445b172897b74356bd",
+    "modmain.lua": "5415dc8a9116ac0dfc505899f438f541118af8c8f6e9301380e46ca04bbd1045",
+    "README.md": "063485999fba9b5ef6abeb7f7e2e2c64369139b0261cc8aa031f2c06fb79db56",
     "anim/ghost_klbq_kanami_build.zip": "3ecf71926ff6eff3ca9a5f60ab52115fc7786d5d42a4308914c4d6cfd190cd1b",
     "anim/klbq_ammo_doom.zip": "3ee8968e15e321987956d1f4d0c4045ef9ad915c4e7084b8644a2631cbd24df0",
     "anim/klbq_ammo_fate.zip": "6ddc0cfc91b1a993430952767791e415b6c050327307bedc9ae6d4e34d7fc337",
@@ -51,13 +51,13 @@
     "images/selectscreen_portraits/klbq_kanami_silho.tex": "f14c930a27a3df1ab4ad31545b75355bd2172b39d07876bd406c6f36a02ff0c6",
     "images/selectscreen_portraits/klbq_kanami_silho.xml": "fa8c62c6b38c433fa6968c138ae7f396df1a3834d55e5e52f2ccf87619ad73b1",
     "scripts/components/klbq_imprint.lua": "921e3655181cd70ac657c7be92b90048dfa65b9d99cffcb4ad885a6c85869476",
-    "scripts/components/klbq_kanami.lua": "c489ec0521bb0e2d72142301236c16f55abb4a039da7fd013cc6ffb225ca7bbb",
+    "scripts/components/klbq_kanami.lua": "261a1336c2b14cf09a496db581a76ad7a3bd81e2696a2d64e365edc02cec048d",
     "scripts/klbq_kanami/agriculture.lua": "6737c28b8b3c00e41823a27fdf2542f4558f3b0e80215073bd2497aef847e7bd",
     "scripts/klbq_kanami/bag.lua": "49ad05b1a6039df249195084e956f0a4cfdebfc8609a162c0cb245a55ee516a5",
     "scripts/klbq_kanami/camera.lua": "8e2944e54cce930512885db84654218d8c95c16a632dd2bb94faf9e279afe238",
     "scripts/klbq_kanami/chef.lua": "45e9e05a87b1d247006d6a66734ab1a0ec88e7d8f81d4848036c60d872475d4f",
     "scripts/klbq_kanami/cleanse.lua": "bde058d201aa4a06eda1bcf1fa4def9aa09962621ac993a2bc0f154be222cce5",
-    "scripts/klbq_kanami/client.lua": "26028dbb8bf70ece182595db03190e8cd60a09346b66ab486d7aad587c1578b2",
+    "scripts/klbq_kanami/client.lua": "a973452247e51b96fe6a13f8c0836bcabce49ea944b64096f51a16a410731906",
     "scripts/klbq_kanami/compat.lua": "c103c6932b7db8af9d3701affdf75fd329d1ddac300737b6651127b74f325bbf",
     "scripts/klbq_kanami/crossbow.lua": "065202a4eb5dd70e1a1438f086e51cebe475081662472b3d641f0a234eabc87b",
     "scripts/klbq_kanami/curse.lua": "b14676ec83c96fa4dd87af1197e5a100c72a45b30d0cab2e4ccde7f6b90c9a71",
@@ -65,6 +65,7 @@
     "scripts/klbq_kanami/domain.lua": "691c65a2f66ffb0fefcedd79dddcb0bf36b85d2ffe0abcf68755e6b21b936754",
     "scripts/klbq_kanami/hermit.lua": "03c11088dfc8e48bd7e9985148a725e30790e42e3f0d62811615a5bc9b442517",
     "scripts/klbq_kanami/imprint.lua": "2aaac55d944add17e7ff51877f0caf9667b180077033c81138d964e9ac4f5639",
+    "scripts/klbq_kanami/inventoryguard.lua": "f2978b4b727df01c63f3804fe8bbd201aabffcb4fdcd9f71599b4b6c827c9724",
     "scripts/klbq_kanami/recipes.lua": "0e0617db71e33ee200a0371855a49f3ff01bf64040c15532d7849161b1b4597a",
     "scripts/klbq_kanami/recruit.lua": "ede546dc5e605a11bd63a45dbcb3fdf9fc3bd2a19afc917da30d2cdee3219a9d",
     "scripts/klbq_kanami/requiem.lua": "9eb887a6e979ea9c6b92304d03f43af5f2e0b168c67bd5d90c58fce663b392da",
@@ -74,7 +75,7 @@
     "scripts/klbq_kanami/speech.lua": "71755ec5a7eb4f70c19dcf49b985cdf47f316211d617c553b1577520e0af8094",
     "scripts/klbq_kanami/states.lua": "843b25f161d9a73e5bc7a822936f50098c070a07158afdb509867c110627adb7",
     "scripts/klbq_kanami/technology.lua": "5a52ff6c8ea2ef301f84b4b11bc6646b1f81ce10590ae9b13167ff78c7185c07",
-    "scripts/klbq_kanami/visual.lua": "a052289f6a3b1141d8222c8d0ed134e570025a681f446c82e775f25aa048d20d",
+    "scripts/klbq_kanami/visual.lua": "ad0f40e196ff8cf553ca5245d7c043cfe37f232dfbc01d0af1a4395db6b86984",
     "scripts/klbq_resources/api.lua": "d6e673dad690b84b7d7c501499877c83ba518951fd63aff78a2b72f9c3fdbb00",
     "scripts/klbq_resources/catalog.lua": "f1f03c395d7fedb7f9a57c4ab7bcc6c5ec64888e537a3f5f8f854c790ac4e5b4",
     "scripts/klbq_resources/register.lua": "3c828ee71dd27611dbbb05b7bad4ae6c605e374121674777105e474603f57d7a",
@@ -95,16 +96,16 @@
   },
   "packages": [
     {
-      "file": "klbq_kanami-2.1.0-dst.zip",
-      "bytes": 4226097,
-      "sha256": "f7fafaa0e0d3d881cb55c0fd703860e610caab168426343c85812a8e5b510495",
-      "entries": 91
+      "file": "klbq_kanami-2.1.1-dst.zip",
+      "bytes": 4227810,
+      "sha256": "7e2c66c1445ef9102027f7805e0174e93b8b89badce0f3caea08afa202d02513",
+      "entries": 92
     },
     {
-      "file": "klbq_kanami-2.1.0-source-art.zip",
-      "bytes": 81762691,
-      "sha256": "e509a8934eb5f20f805daccb239392fa3930eb972594339c129b8c841643847d",
-      "entries": 1234
+      "file": "klbq_kanami-2.1.1-source-art.zip",
+      "bytes": 81783998,
+      "sha256": "517dd920caa088a213b256f4ffe7cd327fcc0bdf4ebf4434c0cbf2b627ee28f4",
+      "entries": 1242
     }
   ],
   "publish_directory": "D:\\SOFTWARE\\DSTWorkshop\\klbq_kanami"

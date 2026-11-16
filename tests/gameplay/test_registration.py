@@ -8,7 +8,7 @@ class Registration(unittest.TestCase):
   lua.execute('info={}')
   source=(ROOT/'mods/klbq_kanami/modinfo.lua').read_text(encoding='utf-8-sig')
   lua.execute('setfenv(assert(loadstring(...)),info)()',source)
-  self.assertEqual(lua.eval('info.configuration_options[1].default'),99)
+  self.assertEqual(lua.eval('info.configuration_options[1].default'),114)
   self.assertEqual(lua.eval('#info.configuration_options[1].options'),26)
   option=next(v for _,v in lua.globals().info.configuration_options.items() if v.name=='fate_crit_fraction')
   self.assertEqual(option.default,.03)
@@ -20,7 +20,7 @@ class Registration(unittest.TestCase):
   lua.execute('''
    STRINGS={CHARACTER_TITLES={},CHARACTER_NAMES={},CHARACTER_DESCRIPTIONS={},CHARACTER_QUOTES={},CHARACTER_SURVIVABILITY={},NAMES={},CHARACTERS={GENERIC={DESCRIBE={}}},SKIN_NAMES={},RECIPE_DESC={}}
    TheNet={IsDedicated=function() return true end};TECH={SCIENCE_ONE=1,SCIENCE_TWO=2}
-   Action=function(v) return v end;ActionHandler=function() return {} end
+   Action=function(v) return v end;ActionHandler=function() return {} end;ACTIONS={DROP={fn=function()end}}
    Ingredient=function(name,num,atlas) return {name=name,num=num,atlas=atlas} end
    Vector3=function(x,y,z) return {x=x,y=y,z=z} end
    State=function(v) return v end;EventHandler=function() return {} end;TimeEvent=function()return {}end

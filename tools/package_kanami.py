@@ -48,7 +48,8 @@ for folder in ['art/klbq_kanami','tools','tests/gameplay','tests/engine_mod','te
   engineering.append((p,rel.as_posix()))
 # Only current, reviewable documentation belongs in the engineering handoff.
 # Internal continuation notes and old failed-run reports remain in the workspace.
-for name in ['docs/BUILDING.md','docs/kanami-spec.md','docs/kanami-assets.json',
+for name in ['README.md','AGENTS.md','.gitignore','.gitattributes',
+             'docs/BUILDING.md','docs/kanami-spec.md','docs/kanami-assets.json',
              'docs/superpowers/plans/2026-10-28-kanami-implementation.md',
              'docs/superpowers/plans/2026-11-02-imprint-materials.md',
              'docs/superpowers/specs/2026-11-02-kanami-terminal-design.md',

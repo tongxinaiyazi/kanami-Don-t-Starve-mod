@@ -75,6 +75,7 @@ def main():
     parser.add_argument('--happy',action='store_true',help='Test installed HappyPatch cap/rate and shadow forms in an isolated cluster')
     parser.add_argument('--weapons-only',action='store_true',help='Run native weapon checks without the resurrection timer')
     parser.add_argument('--bag-only',action='store_true',help='Target actual backpack crafting, auto equip and save/load')
+    parser.add_argument('--inventory-guard-only',action='store_true',help='Test native theft, forced drops, death drops and ordinary work tools')
     parser.add_argument('--audit-only',action='store_true',help='Run post-review native lifecycle and gameplay checks')
     parser.add_argument('--resources-only',action='store_true',help='Test terminal item, crafting and native Charlie death loot')
     parser.add_argument('--imprint-only',action='store_true',help='Test native imprint, work, save and material recipes')
@@ -145,6 +146,7 @@ def main():
     mode='audit' if args.audit_only else 'bag' if args.bag_only else 'weapon_inputs' if args.weapons_only and (args.happy or args.void) else 'weapons' if args.weapons_only else 'happy' if args.happy else 'void_probe' if args.void_probe else 'void' if args.void else 'interactive' if args.interactive else 'base'
     if args.resources_only:mode='resources'
     if args.imprint_only:mode='imprint'
+    if args.inventory_guard_only:mode='guard'
     if args.interactive:mode='interactive'
     extra=''
     if args.resource_addon:

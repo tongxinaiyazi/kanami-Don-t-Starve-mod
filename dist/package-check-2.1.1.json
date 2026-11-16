@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-16",
+  "version": "2.1.1",
+  "game_version": "762172",
+  "runtime_files": 92,
+  "source_installed_publish_zip_match": true,
+  "engineering_runtime_and_root_docs_match": true,
+  "publish_directory": "D:\\SOFTWARE\\DSTWorkshop\\klbq_kanami",
+  "local_deployments": [
+    "E:\\steam\\steamapps\\common\\Don't Starve Together\\mods\\klbq_kanami",
+    "E:\\steam\\steamapps\\workshop\\content\\322330\\3827702076"
+  ],
+  "changes_since_tested_development_snapshot": [
+    "README.md",
+    "modinfo.lua",
+    "modmain.lua"
+  ],
+  "unchanged_tested_runtime_files": 89,
+  "fresh_release_tests": {
+    "registration_and_lua51": 3,
+    "focused_gameplay": 39,
+    "all_passed": true
+  },
+  "functional_validation": {
+    "gameplay_passed": 466,
+    "seconds": 86.398,
+    "engine": {
+      "exit_code": 0,
+      "complete": true,
+      "pass": 11,
+      "fail": 0,
+      "lua_error": false,
+      "log": "D:\\SOFTWARE\\项目\\饥荒\\docs\\reports\\engine-guard-equipment.log"
+    },
+    "rerun_after_version_change": false
+  },
+  "original_description_prefix_preserved": true,
+  "workshop_uploaded": false,
+  "graphical_client_retested": false,
+  "restart_required": true,
+  "packages": [
+    {
+      "file": "klbq_kanami-2.1.1-dst.zip",
+      "bytes": 4227810,
+      "sha256": "7e2c66c1445ef9102027f7805e0174e93b8b89badce0f3caea08afa202d02513",
+      "entries": 92
+    },
+    {
+      "file": "klbq_kanami-2.1.1-source-art.zip",
+      "bytes": 81783998,
+      "sha256": "517dd920caa088a213b256f4ffe7cd327fcc0bdf4ebf4434c0cbf2b627ee28f4",
+      "entries": 1242
+    }
+  ]
+}

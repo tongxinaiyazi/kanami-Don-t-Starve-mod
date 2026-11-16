@@ -72,6 +72,10 @@ AddSimPostInit(function()
             modimport("bag.lua");RunKanamiBagChecks({player=p,check=check,eq=eq})
             return
         end
+        if mode=="guard" then
+            modimport("inventory_guard.lua");RunKanamiInventoryGuardChecks({player=p,check=check})
+            return
+        end
         if mode=="resources" then
             modimport("resources.lua");RunKanamiResourceChecks({player=p,check=check,eq=eq})
             return

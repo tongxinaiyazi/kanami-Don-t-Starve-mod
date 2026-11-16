@@ -55,11 +55,12 @@ class Visual(unittest.TestCase):
   self.m.StringBuild(self.lua.globals().inst,False)
   self.assertEqual(self.lua.eval('build'),'compatible_skin')
 
- def bind_hands(self,prefab,client=False):
+ def bind_hands(self,prefab,client=False,tool=False):
   self.lua.globals().handprefab=prefab
+  self.lua.globals().handtool=tool
   self.lua.execute('''
    EQUIPSLOTS={HANDS='hands'};events={}
-   item={prefab=handprefab,HasTag=function(_,tag)return tag==handprefab end}
+   item={prefab=handprefab,HasTag=function(_,tag)return tag==handprefab or (handtool and tag=='tool') end}
    local inventory={GetEquippedItem=function()return item end,equipslots={}}
    inst.components={inventory=inventory};inst.replica={inventory=inventory}
    inst.ListenForEvent=function(_,event,fn) events[event]=fn end
@@ -89,5 +90,30 @@ class Visual(unittest.TestCase):
   self.bind_hands('klbq_finale')
   self.lua.execute("events.newstate(inst,{statename='mine'})")
   self.assertTrue(self.lua.eval('hidden.swap_object'))
+
+ def test_regular_tools_remain_visible_during_work_on_server_and_client(self):
+  tools={'axe':('chop_start','chop'),'goldenaxe':('chop_start','chop'),
+    'pickaxe':('mine_start','mine','mine_recoil'),'goldenpickaxe':('mine_start','mine','mine_recoil'),
+    'shovel':('dig_start','dig'),'goldenshovel':('dig_start','dig'),
+    'hammer':('hammer_start','hammer'),'bugnet':('bugnet_start','bugnet'),'pitchfork':('terraform',)}
+  for client in (False,True):
+   for prefab,states in tools.items():
+    self.bind_hands(prefab,client,tool=True)
+    for state in states:
+     with self.subTest(client=client,prefab=prefab,state=state):
+      self.lua.execute('events.newstate(inst,{statename=...})',state)
+      self.m.HideEquipment(self.lua.globals().inst)
+      self.assertIsNone(self.lua.eval('hidden.swap_object'))
+      self.assertTrue(self.lua.eval('hidden.ARM_carry'))
+      self.assertIsNone(self.lua.eval('hidden.ARM_normal'))
+    self.lua.execute("events.newstate(inst,{statename='idle'})")
+    self.assertIsNone(self.lua.eval('hidden.swap_object'))
+
+ def test_tool_hides_while_eating_and_reappears_for_work(self):
+  self.bind_hands('pickaxe',tool=True)
+  self.lua.execute("events.newstate(inst,{statename='eat'})")
+  self.assertTrue(self.lua.eval('hidden.swap_object'))
+  self.lua.execute("events.newstate(inst,{statename='mine_start'})")
+  self.assertIsNone(self.lua.eval('hidden.swap_object'))
 
 if __name__=='__main__':unittest.main(verbosity=2)

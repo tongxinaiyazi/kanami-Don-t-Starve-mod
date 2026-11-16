@@ -2,7 +2,7 @@ local Camera=require("klbq_kanami/camera")
 local M={}
 function M.Install(env)
     local G=env.GLOBAL
-    local keys={c=env.GetModConfigData("key_string") or G.KEY_C,z=env.GetModConfigData("key_z") or G.KEY_Z,x=env.GetModConfigData("key_x") or G.KEY_X}
+    local keys={c=env.GetModConfigData("key_string") or G.KEY_R,z=env.GetModConfigData("key_z") or G.KEY_Z,x=env.GetModConfigData("key_x") or G.KEY_X}
     local function Cast(key)
         local p=G.ThePlayer
         if not p or p.prefab~="klbq_kanami" or p:HasTag("playerghost") or G.IsPaused() then return end

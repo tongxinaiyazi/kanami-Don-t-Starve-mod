@@ -31,7 +31,7 @@ function Kanami:CanUseHands() return self.removed or not self:IsProtected() end
 function Kanami:Alive() return not self.state.dead and not self.inst:HasTag("playerghost") and not self.inst.components.health:IsDead() end
 function Kanami:IsMoist()
     local moisture=self.inst.components.moisture
-    -- Native IsWet waits for the second wetness segment; any moisture blocks C.
+    -- Native IsWet waits for the second wetness segment; any moisture blocks entry.
     return moisture~=nil and moisture:GetMoisture()>0
 end
 function Kanami:CanStringWaterWalk()
@@ -204,9 +204,11 @@ end
 function Kanami:Protection(enabled,forceclear)
     if enabled and not forceclear then
         local inventory=self.inst.components.inventory
-        if inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
+        local held = inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+        if held ~= nil and inventory:CanAcceptCount(held, 1) > 0 then
             -- Force removal also handles native equipment that resists ordinary
-            -- unequipping. GiveItem retains native pocket/full-inventory rules.
+            -- unequipping. Check storage first so a full inventory cannot
+            -- force the existing weapon onto the ground during resurrection.
             local hand=inventory:Unequip(EQUIPSLOTS.HANDS,nil,true)
             if hand then inventory:GiveItem(hand) end
         end

@@ -253,6 +253,7 @@ class ResurrectionHands(unittest.TestCase):
           inv.GetOverflowContainer=function() return nil end
           inv.GetSpecializedContainers=function() return nil end
           inv.GetNextAvailableSlot=function(s) if not full then return 1,s.itemslots end end
+          inv.CanAcceptCount=function() return full and 0 or 1 end
           inv.IsItemEquipped=function(s,item) for slot,v in pairs(s.equipslots) do if v==item then return slot end end end
           inv.DropItem=function(s,item) dropped=item;item.components.inventoryitem.owner=nil;return item end
           function item(slot)
@@ -291,12 +292,12 @@ class ResurrectionHands(unittest.TestCase):
         self.assertEqual(self.lua.eval('inst.components.sanity.p'), 1)
         self.assertEqual(self.lua.eval('component:Remaining("protect")'), 30)
 
-    def test_full_native_inventory_drops_weapon_without_deleting_it(self):
+    def test_full_native_inventory_keeps_weapon_in_hand_during_resurrection_protection(self):
         self.lua.execute('full=true;inv.activeitem=item("hands");protect()')
-        self.assertTrue(self.lua.eval('dropped==weapon'))
         self.assertTrue(self.lua.eval('weapon:IsValid()'))
-        self.assertIsNone(self.lua.eval('inv.equipslots.hands'))
-        self.assertIsNone(self.lua.eval('weapon.components.inventoryitem.owner'))
+        self.assertTrue(self.lua.eval('inv.equipslots.hands==weapon'))
+        self.assertIsNone(self.lua.eval('dropped'))
+        self.assertTrue(self.lua.eval('component:IsProtected()'))
 
     def test_protection_locks_only_hand_equipment_until_exact_deadline_without_auto_requip(self):
         self.lua.execute('protect()')

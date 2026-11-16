@@ -73,7 +73,7 @@ class Speech(unittest.TestCase):
         lua.execute(translator[start:end] + '\nTranslateStringTable(STRINGS)')
         lua.execute('package.loaded.speech_willow=STRINGS.CHARACTERS.WILLOW')
         lua.execute(self.native['stringutil.lua'])
-        for name in ('technology', 'chef', 'curse', 'visual', 'bag', 'domain'):
+        for name in ('technology', 'chef', 'curse', 'visual', 'bag', 'domain', 'inventoryguard'):
             lua.execute('package.preload[...] = function() return {Install=function() end} end',
                         'klbq_kanami/' + name)
         speech = (ROOT / 'mods/klbq_kanami/scripts/klbq_kanami/speech.lua').read_text(encoding='utf-8-sig')

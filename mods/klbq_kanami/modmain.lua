@@ -21,6 +21,7 @@ require("klbq_kanami/curse").Install(env)
 require("klbq_kanami/domain").Install(env)
 require("klbq_kanami/visual").Install(env)
 require("klbq_kanami/bag").Install(env)
+require("klbq_kanami/inventoryguard").Install(env)
 for _,name in ipairs({"klbq_finale","klbq_ammo_heart","klbq_ammo_fate","klbq_ammo_doom","klbq_singularity","klbq_omurice","klbq_crystal","klbq_blade","klbq_crossbow","klbq_requiem","klbq_imprint_tool"}) do
     RegisterInventoryItemAtlas("images/klbq_kanami_items.xml",name..".tex")
 end
@@ -262,4 +263,4 @@ AddComponentPostInit("complexprojectile",function(c)
     end
 end)
 if not G.TheNet:IsDedicated() then require("klbq_kanami/client").Install(env) end
-print("[KLBQ_KANAMI] 2.1.0 registered (server-authoritative skills)")
+print("[KLBQ_KANAMI] 2.1.1 registered (server-authoritative skills)")
