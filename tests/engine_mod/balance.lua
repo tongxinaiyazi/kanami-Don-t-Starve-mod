@@ -249,7 +249,8 @@ function RunKanamiBalanceChecks(context)
             assert(c.state.string and c:CanStringWaterWalk())
             assert(loaded._klbq_waterwalk:value() and HasOceanPath(loaded))
             assert(restored._klbq_eyeball:value())
-            assert(not restored.components.trader.enabled, "reloaded upgrade accepted another eye")
+            assert(not restored.components.trader:AbleToAccept(Spawn("deerclops_eyeball"),loaded),
+                "reloaded upgrade accepted another eye")
             eq(loaded.components.inventory:GetWaterproofness(), 1)
             assert(loaded.components.inventory:IsInsulated())
             local value, kind = restored.components.insulator:GetInsulation()
@@ -295,7 +296,7 @@ function RunKanamiBalanceChecks(context)
         assert(actor.components.combat:CanAttack(victim), "native combat did not recover after protection")
     end)
 
-    Scoped("balance native full inventory drops respawn weapon without deleting it", function(Spawn, Actor)
+    Scoped("balance native full inventory keeps respawn weapon equipped and locked", function(Spawn, Actor)
         local actor, weapon = Actor(), Spawn("klbq_blade")
         local c, inv = actor.components.klbq_kanami, actor.components.inventory
         assert(inv:Equip(weapon))
@@ -305,9 +306,10 @@ function RunKanamiBalanceChecks(context)
         assert(inv:GiveItem(Spawn("flint")))
         assert(inv:GetActiveItem() ~= nil and inv:GetOverflowContainer() == nil)
         c:OnDeath();c.autoreviving = true;c:OnRespawn()
-        assert(c:IsProtected() and inv:GetEquippedItem(G.EQUIPSLOTS.HANDS) == nil)
-        assert(weapon:IsValid() and weapon.components.inventoryitem.owner == nil and not weapon:IsInLimbo(),
-            "full native inventory did not leave the hand item alive on the ground")
+        assert(c:IsProtected() and not c:CanUseHands())
+        assert(weapon:IsValid() and inv:GetEquippedItem(G.EQUIPSLOTS.HANDS) == weapon
+            and weapon.components.inventoryitem.owner == actor,
+            "full native inventory lost the protected hand item")
         eq(weapon.components.finiteuses:GetUses(), 200)
     end)
 end

@@ -27,6 +27,12 @@
 !/docs/reports/body-v2-latest.png
 !/docs/reports/joint-rebind-latest.png
 *.log
+/docs/reports/local-deploy-*.json
+/docs/reports/crash-*.json
+/docs/reports/crash-*.md
+/docs/reports/workshop-manifest-repair-*
+/docs/reports/workshop-published-*
+/docs/reports/engine-*-workshop*-result.json
 
 # Dependencies, interpreter caches, task ownership and local settings.
 /tools/python-deps/

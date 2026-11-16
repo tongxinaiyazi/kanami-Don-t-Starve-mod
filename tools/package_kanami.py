@@ -34,7 +34,7 @@ own_tools={'build_kanami_assets.py','deploy_kanami.ps1','inspect_dst_assets.py',
            'retarget_kanami_body.py','derive_kanami_joint_contract.py','check_kanami_joint_poses.py',
            'test_kanami_arm_proportions.py','test_kanami_face_registration.py','test_kanami_joint_registration.py',
            'test_build_kanami_body_v2.py','test_render_kanami_body_v2.py',
-           'test_run_kanami_engine_candidate.py','README-body-v2.md'}
+           'test_run_kanami_engine_candidate.py','test_deploy_kanami.py','README-body-v2.md'}
 for folder in ['art/klbq_kanami','tools','tests/gameplay','tests/engine_mod','tests/void_mod','tests/client_mod',
                RELEASE_REL]:
  for p in (ROOT/folder).rglob('*'):

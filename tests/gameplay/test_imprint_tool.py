@@ -151,6 +151,40 @@ class ImprintTool(unittest.TestCase):
         for action in ("CHOP", "MINE", "DIG", "HAMMER"):
             self.assertFalse(self.lua.eval("tool.components.tool:CanDoAction(ACTIONS[...])", action))
 
+    def test_walrus_tusk_consumes_one_for_permanent_handheld_cane_speed(self):
+        self.lua.execute("sample=Sample('walrus_tusk',100,2);sample.components.finiteuses=nil")
+        self.assertTrue(self.lua.eval('tool.components.trader:AcceptGift(giver,sample)'))
+        self.assertEqual(self.lua.eval('sample.components.stackable:StackSize()'), 1)
+        self.assertEqual(self.lua.eval('tool.components.equippable.walkspeedmult'), 1.25)
+        self.assertTrue(self.lua.eval('Imprint.Has(tool,"speed")'))
+        self.assertEqual(self.lua.eval('Imprint.Mask(tool)'), 0)
+        self.assertIn('手持加速', self.lua.eval('tool:GetDisplayName()'))
+        self.assertFalse(self.lua.eval('tool.components.trader:AcceptGift(giver,sample)'))
+        self.assertEqual(self.lua.eval('sample.components.stackable:StackSize()'), 1)
+
+    def test_speed_upgrade_saves_and_old_saves_default_to_normal_speed(self):
+        self.lua.execute('''
+            sample=Sample('walrus_tusk');sample.components.finiteuses=nil
+            assert(tool.components.trader:AcceptGift(giver,sample))
+            saved=tool.components.klbq_imprint:OnSave()
+            restored=toolprefab.fn();restored.components.klbq_imprint:OnLoad(saved)
+            old=toolprefab.fn();old.components.klbq_imprint:OnLoad({chop=true})
+        ''')
+        self.assertTrue(self.lua.eval('saved.speed and Imprint.Has(restored,"speed")'))
+        self.assertEqual(self.lua.eval('restored.components.equippable.walkspeedmult'), 1.25)
+        self.assertFalse(self.lua.eval('Imprint.Has(old,"speed")'))
+        self.assertEqual(self.lua.eval('old.components.equippable.walkspeedmult'), 1)
+
+    def test_tusk_uses_existing_inventory_imprint_action(self):
+        self.lua.execute('''
+            sample=Sample('walrus_tusk');sample.components.finiteuses=nil
+            tool.components.inventoryitem.owner=giver;actions={}
+            discoveries['USEITEM:inventoryitem'](sample,giver,tool,actions,true)
+        ''')
+        self.assertTrue(self.lua.eval('actions[1]==installedactions.KLBQ_IMPRINT'))
+        self.assertTrue(self.lua.eval('actions[1].fn({doer=giver,target=tool,invobject=sample})'))
+        self.assertTrue(self.lua.eval('Imprint.Has(tool,"speed") and not sample:IsValid()'))
+
     def test_three_gold_samples_permanently_unlock_only_their_action_at_efficiency_one(self):
         for sample, action in (("goldenaxe", "CHOP"), ("goldenpickaxe", "MINE"), ("goldenshovel", "DIG")):
             with self.subTest(sample=sample):
@@ -243,7 +277,7 @@ class ImprintTool(unittest.TestCase):
     def test_client_has_network_flags_status_and_leds_without_server_components(self):
         self.lua.execute("TheWorld.ismastersim=false;client=toolprefab.fn()")
         self.assertTrue(self.lua.eval("client.pristine and next(client.components)==nil"))
-        for name in ("chop", "mine", "dig", "tough"):
+        for name in ("chop", "mine", "dig", "tough", "speed"):
             self.assertFalse(self.lua.eval("client['_klbq_imprint_'.. ...]:value()", name))
         self.lua.execute("client._klbq_imprint_mine:set(true);client:PushEvent('klbq_imprintdirty')")
         self.assertIn("采矿", self.lua.eval("client:GetDisplayName()"))

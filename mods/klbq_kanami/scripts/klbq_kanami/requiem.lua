@@ -51,6 +51,14 @@ local function CanSweep(inst)
     return Ready(inst,Weapon(inst)) and not (rider and rider:IsRiding())
         and GetTime()+EPSILON>=(inst._klbq_requiem_nextsweep or 0)
 end
+function M.Cast(inst)
+    if not TheWorld.ismastersim or inst == nil or not inst.sg
+        or inst.sg:HasStateTag("busy") or not CanSweep(inst) then return false end
+    local locomotor = inst.components.locomotor
+    if locomotor == nil then return false end
+    locomotor:PushAction(BufferedAction(inst,nil,ACTIONS.KLBQ_REQUIEM_SWEEP,Weapon(inst)),true)
+    return true
+end
 local function ValidTarget(inst,target,combat)
     if target==inst or not target:IsValid() or target:IsInLimbo() or target:HasAnyTag(unpack(EXCLUDE))
         -- Native treeguards carry "tree" as well as "plantcreature".
@@ -174,7 +182,7 @@ local function MakeSweep(client)
 end
 
 function M.Install(env)
-    local sweep=Action({rmb=true,priority=-1,distance=math.huge,do_not_locomote=true,mount_valid=false})
+    local sweep=Action({distance=math.huge,do_not_locomote=true,mount_valid=false})
     sweep.id="KLBQ_REQUIEM_SWEEP";sweep.str="镇魂歌 · 圆斩"
     sweep.fn=function(act)
         local inst=act.doer
@@ -185,25 +193,6 @@ function M.Install(env)
         return DoSweep(inst,act.invobject)
     end
     env.AddAction(sweep)
-    -- GetRightClickActions also runs on the authority side for native RPC
-    -- validation. Preserve container widgets, held-item actions, and meaningful
-    -- scene interactions; empty ground and inspect/attack targets receive sweep.
-    env.AddClassPostConstruct("components/playeractionpicker",function(picker)
-        local old=picker.GetRightClickActions
-        picker.GetRightClickActions=function(self,pos,target,...)
-            local actions=old(self,pos,target,...)
-            local inst=self.inst
-            local inv=inst.replica.inventory
-            if not CanSweep(inst) or self.disable_right_click or not inv or inv:GetActiveItem()
-                or (target and self.containers and self.containers[target]) then return actions end
-            for _,action in ipairs(actions) do
-                if action.action~=ACTIONS.LOOKAT and action.action~=ACTIONS.ATTACK then return actions end
-            end
-            -- The cursor entity is not the swing's anchor. Removing it during
-            -- windup must not invalidate this self-centered ground action.
-            return {BufferedAction(inst,nil,sweep,Weapon(inst),pos)}
-        end
-    end)
     env.AddComponentPostInit("combat",function(combat)
         local old=combat.InCooldown
         combat.InCooldown=function(self,...)

@@ -17,7 +17,7 @@
 
 测试世界与中间文件均位于D盘。不得把测试夹具中的赠送物品、无敌、强制昼夜等设置加入正式角色。完整验证证据与尚未验证范围见 `docs/reports/verification.md`。
 
-0.2.2可用 `python tools/run_kanami_engine.py --isolated-mod-copy --happy --seconds 180` 验证本机为爽而虐2.8.14.84，隔离开启巨兽装甲5、额外cap1、影分身；默认只复制自己工程，不改第三方源码。`--weapons-only --equipment` 可单独测试真实F连射和圆斩。最终打包验证后运行 `powershell -File tools/deploy_kanami.ps1`；先加 `-ValidateOnly` 可只列出验证的精确游戏目标。脚本只清本任务有marker的旧游戏模组目录，保留项目/历史ZIP/存档/T配置。
+0.2.2可用 `python tools/run_kanami_engine.py --isolated-mod-copy --happy --seconds 180` 验证本机为爽而虐2.8.14.84，隔离开启巨兽装甲5、额外cap1、影分身；默认只复制自己工程，不改第三方源码。`--weapons-only --equipment` 可单独测试真实F连射和圆斩。每次本地修改验证通过后运行 `powershell -File tools/deploy_kanami.ps1`，同步本地开发副本与已订阅的工坊 3827702076。先加 `-ValidateOnly` 可列出实际目标。部署工具备份差异文件、更新工坊加载清单并逐文件核对 SHA256，结果见 `docs/reports/local-deploy-latest.json`。本地部署独立于发布打包。
 
 
 0.2.4增加原版64像素物品栏图集区域和手持swap_object帧持续区间；只改尺寸／帧时，执行`--only items`、`--only ui`，领域环改动执行`--only fx`。角色PNG无需随之重绘。
@@ -31,6 +31,8 @@
 1.0.1手脚切片／枢轴修订后须重建`--only character`和`--only actions`，并同步工程SCML。`test_assets.py`逐帧腕踝重叠检测仅是连接必要条件；仍需重新载入真实客户端检查站立、跑步、进食和持物。直接对玩家SetPercent可能被状态机覆盖，不能把实际仍为idle的截图标作跑步或进食。
 
 ### 固定工坊更新路径
+
+本机临时更新已下载的工坊副本时，原版 `mod.manifest` 也需覆盖新增文件路径。游戏的工坊加载会按清单筛选路径，新增脚本已复制到磁盘后仍需核对清单并完整重启游戏。可执行 `python tools/run_kanami_engine.py --workshop-runtime --inventory-guard-only --equipment --seconds 180`，该模式在独立测试世界中读取已安装的工坊 3827702076 及其文件清单。
 
 运行tools/package_kanami.py会自动同步纯运行文件到 `D:\SOFTWARE\DSTWorkshop\klbq_kanami` 并逐文件核对哈希。上传器以后始终选此目录；不要再创建新的版本化上传目录。旁边的kanami-current-release.json记录发布来源及文件清单，供下次同步识别旧文件。ZIP历史归档和本地源码仍保留。
 

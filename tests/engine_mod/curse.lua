@@ -55,7 +55,7 @@ function RunKanamiCurseChecks(context)
             local split = token.components.stackable:Get(1)
             assert(split ~= token)
             owned[#owned + 1] = split
-            player.components.inventory:DropItem(split, true, false)
+            assert(G.ACTIONS.DROP.fn(G.BufferedAction(player,nil,G.ACTIONS.DROP,split)))
             assert(split.components.inventoryitem.owner == nil)
             assert(split:HasTag("cursed_inventory_item"))
             ordinary.components.inventory:GiveItem(split)

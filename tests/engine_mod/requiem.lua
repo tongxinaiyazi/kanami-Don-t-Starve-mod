@@ -98,12 +98,8 @@ function RunKanamiRequiemChecks(context)
             victim.components.health:SetPercent(1)
             return victim
         end
-        local function SweepAction(actor,pos,target)
-            local actions=actor.components.playeractionpicker:GetRightClickActions(pos,target)
-            for _,act in ipairs(actions) do
-                if act.action==G.ACTIONS.KLBQ_REQUIEM_SWEEP then return act end
-            end
-
+        local function CastSweep(actor)
+            return G.require("klbq_kanami/requiem").Cast(actor)
         end
         local function Cleanup()
             for _,task in ipairs(tasks) do task:Cancel() end
@@ -129,7 +125,7 @@ function RunKanamiRequiemChecks(context)
                 assert(cleanok,"native Requiem cleanup: "..tostring(cleanerr))
             end)
         end
-        local ok,verify=pcall(setup,Spawn,Actor,Victim,SweepAction,After,Track)
+        local ok,verify=pcall(setup,Spawn,Actor,Victim,CastSweep,After,Track)
         if not ok then Finish(function() G.error(verify,0) end)
         else G.TheWorld:DoTaskInTime(duration,function() Finish(verify) end) end
     end
@@ -206,7 +202,7 @@ function RunKanamiRequiemChecks(context)
         end
     end,2.6)
 
-    Scoped("requiem native remote right click is self centered 360 degrees with .6s windup and 2s period",function(Spawn,Actor,Victim,SweepAction,After)
+    Scoped("requiem native remote key cast is self centered 360 degrees with .6s windup and 2s period",function(Spawn,Actor,Victim,CastSweep,After)
         local actor,sword,pc=Actor()
         local victims={Victim(2.5,0),Victim(-2.5,0),Victim(0,4.2),Victim(0,-4.2)}
         local outside,distant=Victim(4.8,0),Victim(12,0)
@@ -227,12 +223,10 @@ function RunKanamiRequiemChecks(context)
         end)
         local start
         local function RemoteSweep()
-            local pos=distant:GetPosition()
-            local action=assert(SweepAction(actor,pos,distant),"native right picker did not offer self-centered sweep")
-            assert(action.target==nil,"cursor target still anchors the sweep")
             assert(pc.handler==nil,"remote fixture unexpectedly owns a local input handler")
-            pc:OnRemoteRightClick(action.action.code,pos,distant,0,true,0,true,action.action.mod_name)
-            assert(actor.sg.currentstate.name=="klbq_requiem_sweep","remote right click did not enter Requiem sweep")
+            assert(CastSweep(actor),"key cast was refused")
+            assert(actor.sg.currentstate.name=="klbq_requiem_sweep","remote key did not enter Requiem sweep")
+            assert(actor:GetBufferedAction().target==nil,"cursor target still anchors the sweep")
         end
         After(.25,function()
             local ax,_,az=actor.Transform:GetWorldPosition()
@@ -254,18 +248,13 @@ function RunKanamiRequiemChecks(context)
             eq(follower.components.health.currenthealth,1000);eq(friend.components.health.currenthealth,1000)
         end)
         After(1.3,function()
-            assert(SweepAction(actor,distant:GetPosition(),distant)==nil,"right click bypassed 2s cooldown")
-            local action=G.ACTIONS.KLBQ_REQUIEM_SWEEP
-            pc:OnRemoteRightClick(action.code,distant:GetPosition(),distant,0,true,0,true,action.mod_name)
+            assert(not CastSweep(actor),"key bypassed 2s cooldown")
             eq(hits,4);eq(sword.components.finiteuses:GetUses(),599)
-            -- Native RMB may fall back to walking when sweep is unavailable.
-            -- Cancel that fixture input before the second centered swing;
-            -- movement can cancel recovery but must retain its deadline.
             actor.components.locomotor:Stop();actor.components.locomotor:Clear()
         end)
         After(2.15,function()
             assert(G.GetTime()<actor._klbq_requiem_nextsweep,"remote sweep cooldown ended before two seconds")
-            assert(SweepAction(actor,distant:GetPosition(),distant)==nil,"interrupted recovery reset sweep cooldown")
+            assert(not CastSweep(actor),"interrupted recovery reset sweep cooldown")
         end)
         After(2.4,function()
             assert(G.GetTime()-start>=2,"second remote sweep started early")
@@ -279,15 +268,13 @@ function RunKanamiRequiemChecks(context)
         end
     end,3.3)
 
-    Scoped("requiem native ground right click PushAction enters delayed sweep",function(_,Actor,Victim,SweepAction,After)
+    Scoped("requiem native key PushAction enters delayed sweep",function(_,Actor,Victim,CastSweep,After)
         local actor,sword=Actor()
         local victim=Victim(-3,0)
         local start
         After(.25,function()
-            local pos=actor:GetPosition()
-            local action=assert(SweepAction(actor,pos,nil),"native ground right picker did not offer sweep")
             start=G.GetTime()
-            actor.components.locomotor:PushAction(action,true)
+            assert(CastSweep(actor))
             assert(actor.sg.currentstate.name=="klbq_requiem_sweep","native PushAction did not enter Requiem sweep")
         end)
         After(.75,function() eq(victim.components.health.currenthealth,1000) end)

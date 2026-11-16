@@ -33,6 +33,7 @@ local function fn()
     for _, key in ipairs(Imprint.KEYS) do
         inst["_klbq_imprint_"..key] = net_bool(inst.GUID, "klbq_imprint."..key, "klbq_imprintdirty")
     end
+    inst._klbq_imprint_speed = net_bool(inst.GUID, "klbq_imprint.speed", "klbq_imprintdirty")
     inst:ListenForEvent("klbq_imprintdirty", Imprint.RefreshVisuals)
     Imprint.RefreshVisuals(inst)
     local displayname = inst.GetDisplayName

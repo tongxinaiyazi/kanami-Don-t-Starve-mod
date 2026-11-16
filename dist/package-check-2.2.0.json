@@ -1,0 +1,83 @@
+{
+  "version": "2.2.0",
+  "date": "2026-11-16",
+  "append_only_prefixes": {
+    "mods/klbq_kanami/README.md": {
+      "bytes": 23660,
+      "sha256": "063485999fba9b5ef6abeb7f7e2e2c64369139b0261cc8aa031f2c06fb79db56"
+    },
+    "docs/香奈美模组介绍.md": {
+      "bytes": 9293,
+      "sha256": "f22c41afcfb5b322e27e79f7646a64e7e12c2650e3de10784601d66b76dba893"
+    },
+    "发布资料/klbq_kanami_v2_1_1/description.txt": {
+      "bytes": 10950,
+      "sha256": "3e4f82227a2ce677577673666e14575428f7631935d0b3330c4f807eb8c6400c"
+    }
+  },
+  "game_version": "762172",
+  "steam_build_id": "26474873",
+  "fresh_release_tests": {
+    "gameplay": 479,
+    "seconds": 100.865,
+    "deployment": 4,
+    "engine_tool": 7,
+    "all_passed": true
+  },
+  "engine_checks": {
+    "base": {
+      "exit_code": 0,
+      "complete": true,
+      "pass": 73,
+      "fail": 0,
+      "lua_error": false,
+      "log": "D:\\SOFTWARE\\项目\\饥荒\\docs\\reports\\engine-base-equipment-workshop.log",
+      "version": "2.2.0"
+    },
+    "guard": {
+      "exit_code": 0,
+      "complete": true,
+      "pass": 17,
+      "fail": 0,
+      "lua_error": false,
+      "log": "D:\\SOFTWARE\\项目\\饥荒\\docs\\reports\\engine-guard-equipment-workshop-nahida.log",
+      "version": "2.2.0"
+    },
+    "imprint": {
+      "exit_code": 0,
+      "complete": true,
+      "pass": 11,
+      "fail": 0,
+      "lua_error": false,
+      "log": "D:\\SOFTWARE\\项目\\饥荒\\docs\\reports\\engine-imprint-addon-equipment-workshop.log",
+      "version": "2.2.0"
+    }
+  },
+  "workshop_uploaded": false,
+  "graphical_client_retested": false,
+  "restart_required": true,
+  "runtime_files": 92,
+  "source_installed_publish_zip_match": true,
+  "engineering_all_entries_match_workspace": true,
+  "workshop_manifest_exact": true,
+  "original_description_prefix_preserved": true,
+  "publish_directory": "D:\\SOFTWARE\\DSTWorkshop\\klbq_kanami",
+  "local_deployments": [
+    "E:\\steam\\steamapps\\common\\Don't Starve Together\\mods\\klbq_kanami",
+    "E:\\steam\\steamapps\\workshop\\content\\322330\\3827702076"
+  ],
+  "packages": [
+    {
+      "file": "klbq_kanami-2.2.0-dst.zip",
+      "bytes": 4228511,
+      "sha256": "7e62ac64734df876d20d641cb21a6b1c45db5f589d04cf0c5ebdeff92138ed03",
+      "entries": 92
+    },
+    {
+      "file": "klbq_kanami-2.2.0-source-art.zip",
+      "bytes": 81792507,
+      "sha256": "889bcfdb40c2997aca007a844fe888728dc1489714e66620f3ddf6db9557f202",
+      "entries": 1243
+    }
+  ]
+}

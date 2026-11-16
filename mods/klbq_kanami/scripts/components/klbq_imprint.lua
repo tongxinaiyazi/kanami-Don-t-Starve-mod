@@ -39,8 +39,9 @@ function ImprintComponent:CanAccept(sample, giver)
     local key = Imprint.SAMPLES[sample.prefab]
     local uses = sample.components.finiteuses
     local sampleitem = sample.components.inventoryitem
-    if key == nil or self.flags[key] or uses == nil or uses:GetPercent() <= 0
+    if key == nil or self.flags[key]
         or sampleitem == nil or sampleitem:GetGrandOwner() ~= giver then return false end
+    if key ~= "speed" and (uses == nil or uses:GetPercent() <= 0) then return false end
     local owner = self.inst.components.inventoryitem:GetGrandOwner()
     if owner ~= nil then return owner == giver end
     return not self.inst:IsInLimbo() and giver:GetDistanceSqToInst(self.inst) <= 16
@@ -63,12 +64,16 @@ function ImprintComponent:Sync()
         end
     end
     tool:EnableToughWork(self.flags.tough == true)
+    local speed = self.flags.speed == true
+    inst._klbq_imprint_speed:set(speed)
+    inst.components.equippable.walkspeedmult = speed and Imprint.SPEED_MULT or 1
     Imprint.RefreshVisuals(inst)
 end
 
 function ImprintComponent:OnSave()
     local data = {}
     for _, key in ipairs(Imprint.KEYS) do data[key] = self.flags[key] == true end
+    data.speed = self.flags.speed == true
     return data
 end
 
@@ -77,6 +82,7 @@ function ImprintComponent:OnLoad(data)
     for _, key in ipairs(Imprint.KEYS) do
         self.flags[key] = data ~= nil and data[key] == true
     end
+    self.flags.speed = data ~= nil and data.speed == true
     self:Sync()
 end
 

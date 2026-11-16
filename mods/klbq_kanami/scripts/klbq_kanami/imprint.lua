@@ -3,7 +3,8 @@
 local M = {}
 M.KEYS = {"chop", "mine", "dig", "tough"}
 M.SAMPLES = {goldenaxe = "chop", goldenpickaxe = "mine",
-    goldenshovel = "dig", multitool_axe_pickaxe = "tough"}
+    goldenshovel = "dig", multitool_axe_pickaxe = "tough", walrus_tusk = "speed"}
+M.SPEED_MULT = 1.25
 local LABELS = {chop = "砍伐", mine = "采矿", dig = "挖掘", tough = "坚硬作业"}
 -- Verified against SGwilson in the installed scripts.zip. The preparation
 -- state already needs the projected tool, before its first work timeline hit.
@@ -40,6 +41,7 @@ function M.Status(inst)
     for _, key in ipairs(M.KEYS) do
         parts[#parts + 1] = LABELS[key]..(M.Has(inst, key) and "●" or "○")
     end
+    parts[#parts + 1] = "手持加速"..(M.Has(inst, "speed") and "●" or "○")
     return table.concat(parts, " · ")
 end
 

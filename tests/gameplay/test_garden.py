@@ -190,6 +190,37 @@ class Garden(unittest.TestCase):
         self.assertTrue(self.lua.eval('seed.grew_into.components.pickable:CanBePicked()'))
         self.assertEqual(self.lua.eval('seed.grew_into.components.farmplantstress:GetFinalStressState()'), 1)
 
+    def test_native_tree_growth_stops_at_magic_mature_stage(self):
+        self.module()
+        self.lua.execute('''
+          tree=Entity('evergreen');tree:AddTag('tree');tree:AddComponent('growable')
+          tree.components.growable.stages={
+            {name='short',time=function()return 100 end},
+            {name='normal',time=function()return 100 end},
+            {name='tall',time=function()return 100 end},
+            {name='old',time=function()return 100 end}}
+          tree.components.growable:SetStage(1);tree.components.growable:StartGrowing()
+          tree.components.simplemagicgrower={last_stage=3}
+          entities={tree}
+          for i=1,8 do garden.Scan(owner);garden.Scan(other);now=now+1 end
+        ''')
+        self.assertEqual(self.lua.eval('tree.components.growable:GetStage()'), 3)
+        self.assertFalse(self.lua.eval("tree:HasTag('magicgrowth')"))
+
+    def test_barren_pickables_are_not_fertilized_or_revived(self):
+        self.module()
+        self.lua.execute('''
+          entities={}
+          for _,name in ipairs({'grass','berrybush','berrybush2','berrybush_juicy','sapling'})do
+            local b=Entity(name);b:AddTag('plant');b:AddComponent('pickable')
+            b.components.pickable:SetUp('twigs',100);b.components.pickable:MakeBarren()
+            entities[#entities+1]=b
+          end
+          for i=1,4 do garden.Scan(owner);now=now+1 end
+        ''')
+        self.assertEqual(self.lua.eval('#spawned'), 0)
+        self.assertTrue(self.lua.eval('function()for _,b in ipairs(entities)do if not b.components.pickable:IsBarren() then return false end end return true end')())
+
     def test_unknown_weeds_loose_seeds_and_growing_entities_are_never_changed(self):
         self.module()
         self.lua.execute('''

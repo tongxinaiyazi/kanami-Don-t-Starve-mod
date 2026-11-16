@@ -45,6 +45,22 @@ local function AllowDrops(inventory, fn, ...)
     return unpack(result, 2, result.n)
 end
 
+local function AllowCapacityDrops(inventory, item, fn, ...)
+    local previous = inventory._klbq_capacityitems
+    local allowed = {}
+    if item ~= nil then
+        allowed[item] = true
+        -- ReturnActiveItem can split a stack before calling GiveItem. Keep
+        -- that incoming split authorized until the outer return completes.
+        if previous ~= nil then previous[item] = true end
+    end
+    inventory._klbq_capacityitems = allowed
+    local result = Pack(pcall(fn, ...))
+    inventory._klbq_capacityitems = previous
+    if not result[1] then error(result[2], 0) end
+    return unpack(result, 2, result.n)
+end
+
 local function ProtectInventory(inst)
     inst:AddTag("stronggrip")
     local inventory = inst.components.inventory
@@ -62,8 +78,19 @@ local function ProtectInventory(inst)
     end
     local drop = inventory.DropItem
     inventory.DropItem = function(self, item, ...)
-        if item ~= nil and Blocked(item) then return nil end
+        local allowed = self._klbq_capacityitems
+        if item ~= nil and not (allowed and allowed[item]) and Blocked(item) then return nil end
         return drop(self, item, ...)
+    end
+    -- Native capacity handling may drop its incoming item. Keep this allowance
+    -- item-specific so pickup callbacks cannot disarm unrelated equipment.
+    local give = inventory.GiveItem
+    inventory.GiveItem = function(self, item, ...)
+        return AllowCapacityDrops(self, item, give, self, item, ...)
+    end
+    local returnactive = inventory.ReturnActiveItem
+    inventory.ReturnActiveItem = function(self, ...)
+        return AllowCapacityDrops(self, self.activeitem, returnactive, self, ...)
     end
     local everything = inventory.DropEverything
     inventory.DropEverything = function(self, ondeath, ...)

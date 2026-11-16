@@ -70,6 +70,153 @@ function RunKanamiInventoryGuardChecks(context)
         assert(inventory:GiveItem(saved))
         assert(saved:HasTag("nosteal") and saved.components.inventoryitem:GetGrandOwner() == p)
     end)
+    if G.Prefabs.dst_gi_nahida_weapon_grass then
+        local first = #owned + 1
+        check("Nahida native giant harvest with free inventory slots keeps every product accessible", function()
+            assert(inventory:GetNextAvailableSlot(Spawn("spear")) ~= nil, "fixture has no free inventory slot")
+            local scythe = Spawn("dst_gi_nahida_weapon_grass")
+            assert(inventory:GiveItem(scythe) and inventory:Equip(scythe))
+            local plants, harvested = {}, {}
+            for i = 1, 2 do
+                local plant = Spawn("farm_plant_carrot")
+                local x, y, z = p.Transform:GetWorldPosition()
+                plant.Transform:SetPosition(x + i, y, z)
+                plant.force_oversized = true
+                plant.components.growable:SetStage(4)
+                plant.components.growable:DoGrowth()
+                plants[i] = plant
+            end
+            local function Observe(_, data)
+                for _, item in ipairs(data.loot or {}) do
+                    harvested[#harvested + 1] = item
+                    owned[#owned + 1] = item
+                end
+            end
+            p:ListenForEvent("picksomething", Observe)
+            assert(G.ACTIONS.NAHIDA_SCYTHE.fn(G.BufferedAction(p, plants[1], G.ACTIONS.NAHIDA_SCYTHE, scythe)))
+            p:RemoveEventCallback("picksomething", Observe)
+            assert(#harvested == 2 and not plants[1]:IsValid() and not plants[2]:IsValid())
+            for _, item in ipairs(harvested) do
+                local accessible = item:IsValid() and not item:IsInLimbo()
+                inventory:ForEachItem(function(held) if held == item then accessible = true end end)
+                assert(accessible, "giant crop became inaccessible after harvesting with free inventory slots")
+                if not item:IsInLimbo() then
+                    assert(p:GetDistanceSqToInst(item) < 144, "giant crop landed far from the harvesting player")
+                end
+            end
+        end)
+        assert(inventory:Equip(spear))
+        for i = first, #owned do
+            if owned[i]:IsValid() then owned[i]:Remove() end
+        end
+    end
+    local capacitystart = #owned + 1
+    check("native full inventory returns cursor item to ground", function()
+        for slot = 1, inventory.maxslots do
+            if inventory:GetItemInSlot(slot) == nil then
+                local filler = Spawn("spear")
+                assert(inventory:GiveItem(filler, slot))
+            end
+        end
+        for slot = 1, bag.components.container:GetNumSlots() do
+            if bag.components.container:GetItemInSlot(slot) == nil then
+                local filler = Spawn("spear")
+                assert(bag.components.container:GiveItem(filler, slot))
+            end
+        end
+        local item = Spawn("cutgrass")
+        assert(inventory:GiveItem(item))
+        assert(inventory:GetActiveItem() == item)
+        inventory:ReturnActiveItem()
+        assert(inventory:GetActiveItem() == nil)
+        assert(item.components.inventoryitem.owner == nil and not item:IsInLimbo())
+        local stack = Spawn("cutgrass")
+        stack.components.stackable:SetStackSize(3)
+        assert(inventory:GiveItem(stack))
+        inventory:ReturnActiveItem(nil, true)
+        assert(inventory:GetActiveItem() == stack and stack.components.stackable:StackSize() == 3)
+        inventory:ReturnActiveItem()
+        assert(stack.components.inventoryitem.owner == nil and not stack:IsInLimbo())
+        inventory:DropItem(spear)
+        assert(inventory:GetEquippedItem(G.EQUIPSLOTS.HANDS) == spear)
+    end)
+    check("native oversized harvest survives full inventory and occupied cursor", function()
+        local active = Spawn("twigs")
+        assert(inventory:GiveItem(active))
+        assert(inventory:GetActiveItem() == active)
+        local plants = {}
+        for i = 1, 2 do
+            local plant = Spawn("farm_plant_carrot")
+            local x, y, z = p.Transform:GetWorldPosition()
+            plant.Transform:SetPosition(x + i, y, z)
+            plant.force_oversized = true
+            plant.components.growable:SetStage(4)
+            plant.components.growable:DoGrowth()
+            assert(plant.is_oversized and plant.components.pickable:CanBePicked())
+            plants[i] = plant
+        end
+        local harvested = {}
+        local function Observe(_, data)
+            for _, item in ipairs(data.loot or {}) do
+                harvested[#harvested + 1] = item
+                owned[#owned + 1] = item
+            end
+        end
+        p:ListenForEvent("picksomething", Observe)
+        if G.Prefabs.dst_gi_nahida_weapon_grass then
+            local scythe = Spawn("dst_gi_nahida_weapon_grass")
+            scythe.DoScythe(scythe, plants[1], p)
+            assert(not plants[2]:IsValid(), "Nahida bulk harvest did not execute")
+        end
+        if plants[1]:IsValid() then plants[1].components.pickable:Pick(p) end
+        if plants[2]:IsValid() then plants[2].components.pickable:Pick(p) end
+        p:RemoveEventCallback("picksomething", Observe)
+        assert(#harvested == 2, "giant harvest count differs")
+        for _, item in ipairs(harvested) do
+            assert(item.prefab == "carrot_oversized" and item:IsValid())
+            assert(item.components.inventoryitem.owner == nil and not item:IsInLimbo())
+        end
+        inventory:ReturnActiveItem()
+        assert(active.components.inventoryitem.owner == nil and not active:IsInLimbo())
+    end)
+    check("native trees mature while barren grass stays unfertilized", function()
+        local tree, grass = Spawn("evergreen"), Spawn("grass")
+        tree.components.growable:SetStage(1)
+        grass.components.pickable:MakeBarren()
+        local garden = G.require("klbq_kanami/agriculture")
+        garden.Remove(p)
+        garden.Scan(p)
+        assert(tree.components.growable:GetStage() == 2)
+        assert(grass.components.pickable:IsBarren() and not grass.components.pickable:CanBePicked())
+        garden.Remove(p)
+    end)
+    check("native giant harvest stays accessible with an empty cursor and full inventory", function()
+        local plant = Spawn("farm_plant_carrot")
+        plant.force_oversized = true
+        plant.components.growable:SetStage(4)
+        plant.components.growable:DoGrowth()
+        local harvested
+        local function Observe(_, data)
+            harvested = data.loot and data.loot[1]
+        end
+        p:ListenForEvent("picksomething", Observe)
+        if G.Prefabs.dst_gi_nahida_weapon_grass then
+            local scythe = Spawn("dst_gi_nahida_weapon_grass")
+            scythe.DoScythe(scythe, plant, p)
+        else
+            plant.components.pickable:Pick(p)
+        end
+        p:RemoveEventCallback("picksomething", Observe)
+        local giant = assert(harvested, "giant harvest was not produced")
+        owned[#owned + 1] = giant
+        assert(giant.prefab == "carrot_oversized")
+        inventory:ReturnActiveItem()
+        assert(giant:IsValid() and not giant:IsInLimbo() and giant.components.inventoryitem.owner == nil)
+        assert(inventory:GetActiveItem() == nil)
+    end)
+    for i = capacitystart, #owned do
+        if owned[i]:IsValid() then owned[i]:Remove() end
+    end
     if p.components.playercontroller == nil then p:AddComponent("playercontroller") end
     local cases = {
         {"pickaxe", "rock2", G.ACTIONS.MINE, "mine"},
@@ -129,5 +276,36 @@ function RunKanamiInventoryGuardChecks(context)
             Work(index + 1)
         end)
     end
-    Work(1)
+    local plant = Spawn("farm_plant_carrot")
+    local x, y, z = p.Transform:GetWorldPosition()
+    plant.Transform:SetPosition(x + 1.5, y, z)
+    plant.force_oversized = true
+    plant.components.growable:SetStage(4)
+    plant.components.growable:DoGrowth()
+    local hand = inventory:GetEquippedItem(G.EQUIPSLOTS.HANDS)
+    if hand then inventory:Unequip(G.EQUIPSLOTS.HANDS);assert(inventory:GiveItem(hand)) end
+    local harvested = {}
+    local function Observe(_, data)
+        for _, item in ipairs(data.loot or {}) do
+            harvested[#harvested + 1] = item
+            owned[#owned + 1] = item
+        end
+    end
+    p:ListenForEvent("picksomething", Observe)
+    p.components.locomotor:PushAction(G.BufferedAction(p, plant, G.ACTIONS.PICK), true)
+    G.TheWorld:DoTaskInTime(2, function()
+        p:RemoveEventCallback("picksomething", Observe)
+        check("native bare hand giant harvest with free inventory slots preserves nearby product", function()
+            assert(not plant:IsValid() and #harvested == 1, "native PICK action did not harvest giant plant")
+            local item = harvested[1]
+            local accessible = item:IsValid() and not item:IsInLimbo()
+            inventory:ForEachItem(function(held) if held == item then accessible = true end end)
+            assert(accessible, "manual harvest giant became inaccessible")
+            assert(item:IsInLimbo() or p:GetDistanceSqToInst(item) < 144, "manual harvest giant landed far away")
+        end)
+        for _, item in ipairs(harvested) do if item:IsValid() then item:Remove() end end
+        p:ClearBufferedAction()
+        p.sg:GoToState("idle")
+        Work(1)
+    end)
 end

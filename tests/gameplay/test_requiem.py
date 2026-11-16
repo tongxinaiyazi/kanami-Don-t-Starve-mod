@@ -99,12 +99,14 @@ class Requiem(unittest.TestCase):
             return sg
           end
           function sweep()
-            local actions=picker:GetRightClickActions(Vector3(100,0,100),nil)
-            if not actions[1] then return false end
-            player.bufferedaction=actions[1]
-            local h=nativegraph.actionhandlers[ACTIONS.KLBQ_REQUIEM_SWEEP]
+            return requiem.Cast(player)
+          end
+          loco.PushAction=function(self,action)
+            player.bufferedaction=action
+            local h=nativegraph.actionhandlers[action.action]
             assert(h,'missing sweep handler')
-            local d=type(h.deststate)=='function' and h.deststate(player,actions[1]) or h.deststate
+            local d=h.deststate
+            if type(d)=='function' then d=d(player,action) end
             if d then player.sg:GoToState(d) end
           end
         """)
@@ -119,7 +121,7 @@ class Requiem(unittest.TestCase):
             self.lua.execute(vanilla('entityscript.lua', 'function EntityScript:' + method + '('))
         source = (ROOT / 'tests/engine_mod/requiem.lua').read_text(encoding='utf-8-sig')
         start = source.index('        local function Victim(dx,dz)')
-        end = source.index('        local function SweepAction(', start)
+        end = source.index('        local function CastSweep(', start)
         self.lua.execute('''
             brainstarts=0
             target._braindisabled=true;target.brain=nil
@@ -161,7 +163,7 @@ class Requiem(unittest.TestCase):
 
     def test_client_native_stopped_walk_cache_keeps_normal_and_sweep_previews(self):
         for start,release,state in (("pc:DoAttackButton()",.3,"klbq_requiem_attack"),
-                                    ("sweep()",.6,"klbq_requiem_sweep")):
+                                    ("player.bufferedaction=BufferedAction(player,nil,ACTIONS.KLBQ_REQUIEM_SWEEP,hand);player.sg:GoToState('klbq_requiem_sweep')",.6,"klbq_requiem_sweep")):
             with self.subTest(state=state):
                 self.setUp()
                 self.lua.execute("TheWorld.ismastersim=false;pc.ismastersim=false;player.components.combat=nil;replica.classified={minattackperiod=net(.4),canattack=net(true)}")
@@ -318,9 +320,9 @@ class Requiem(unittest.TestCase):
                     self.assertEqual(self.lua.eval("hand.components.finiteuses:GetUses()"), 600)
                     self.assertEqual(self.lua.eval("player.sg.currentstate.name"), "idle")
 
-    def test_rightclick_entity_sweeps_but_preserves_container_and_active_item_actions(self):
-        self.assertTrue(self.lua.eval("picker:GetRightClickActions(Vector3(10,0,10),target)[1].action==ACTIONS.KLBQ_REQUIEM_SWEEP"))
-        self.assertIsNone(self.lua.eval("picker:GetRightClickActions(Vector3(10,0,10),target)[1].target"))
+    def test_key_sweep_ignores_cursor_target_and_preserves_rightclick_actions(self):
+        self.lua.execute('sweep()')
+        self.assertIsNone(self.lua.eval('player.bufferedaction.target'))
         self.lua.execute("ACTIONS.OPEN={};originalactions={{action=ACTIONS.OPEN}}")
         self.assertTrue(self.lua.eval("picker:GetRightClickActions(Vector3(0,0,0),target)[1].action==ACTIONS.OPEN"))
         self.lua.execute("originalactions={};activeitem=entity('twigs')")
@@ -331,7 +333,7 @@ class Requiem(unittest.TestCase):
     def test_client_predicts_without_damage_or_durability_use(self):
         self.lua.execute("TheWorld.ismastersim=false;pc.ismastersim=false;player.components.combat=nil;replica.classified={minattackperiod=net(.4)}")
         self.use_sg("wilson_client")
-        self.lua.execute("sweep();tick(.6)")
+        self.lua.execute("player.bufferedaction=BufferedAction(player,nil,ACTIONS.KLBQ_REQUIEM_SWEEP,hand);player.sg:GoToState('klbq_requiem_sweep');tick(.6)")
         self.assertEqual(self.lua.eval("hits"), 0)
         self.assertEqual(self.lua.eval("hand.components.finiteuses:GetUses()"), 600)
         self.assertEqual(self.lua.eval("previews"), 1)
@@ -449,24 +451,23 @@ class Requiem(unittest.TestCase):
         self.assertAlmostEqual(self.lua.eval("armor.condition"), 1000 - 51 * .8)
         self.assertTrue(self.lua.eval("planarresisted"))
 
-    def test_native_remote_rightclick_validates_same_sweep_and_does_not_attack_cursor_target(self):
-        self.lua.execute(vanilla("components/playercontroller.lua", "function PlayerController:OnRemoteRightClick("))
+    def test_server_key_cast_does_not_attack_cursor_target(self):
         self.lua.execute("""
-          SetClientRequestedAction=function() end;ClearClientRequestedAction=function() end
-          CONTROL_SECONDARY=9
-          pc.DecodeControlMods=function() end;pc.ClearControlMods=function() end;pc.handler=nil
-          ACTIONS.KLBQ_REQUIEM_SWEEP.code=777;ACTIONS.KLBQ_REQUIEM_SWEEP.mod_name='klbq_test'
-          picker.DoGetMouseActions=function(s,pos,target) return nil,s:GetRightClickActions(pos,target)[1] end
-          pc.DoAction=function(s,act)
-            player.bufferedaction=act
-            player.sg:GoToState(nativegraph.actionhandlers[act.action].deststate)
-          end
           distant=entity('hound');distant.x=100
-          pc:OnRemoteRightClick(777,Vector3(100,0,0),distant,0,false,0,false,'klbq_test')
+          originalactions={{action=ACTIONS.LOOKAT,target=distant}}
+          sweep()
           tick(.6)
         """)
         self.assertEqual(self.lua.eval("hits"), 1)
         self.assertTrue(self.lua.eval("hitattacker==player"))
+
+    def test_key_cast_refuses_busy_riding_clients_and_other_weapons(self):
+        for change in ("player.sg.HasStateTag=function()return true end", "player.replica.rider={IsRiding=function()return true end}",
+                       "TheWorld.ismastersim=false", "hand=entity('spear')"):
+            with self.subTest(change=change):
+                self.setUp()
+                self.lua.execute(change)
+                self.assertFalse(self.lua.eval('requiem.Cast(player)'))
 
     def test_native_circle_triggers_kanami_passive_once_globally_and_z_once(self):
         for z, first, second in ((False, 1000-51-51-(1000-51)*.03, 949),

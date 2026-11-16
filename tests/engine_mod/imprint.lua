@@ -12,6 +12,7 @@ function RunKanamiImprintChecks(context)
         local t=Spawn(name);assert(p.components.inventory:GiveItem(t));return t
     end
     p.components.health:SetInvincible(true);p:AddTag("notarget")
+    p.components.inventory:Open()
     local item=Give("klbq_imprint_tool")
     local c=item.components.klbq_imprint
     local imprint=G.require("klbq_kanami/imprint")
@@ -39,10 +40,29 @@ function RunKanamiImprintChecks(context)
         end
         for _,a in ipairs({G.ACTIONS.CHOP,G.ACTIONS.MINE,G.ACTIONS.DIG}) do eq(item.components.tool:GetEffectiveness(a),1) end
     end)
+    check("walrus tusk consumes one and grants cane speed only while held",function()
+        assert(p.components.inventory:Equip(item))
+        local locomotor=p.components.locomotor
+        local normal=locomotor:GetSpeedMultiplier()
+        local sample=Give("walrus_tusk")
+        sample.components.stackable:SetStackSize(2)
+        assert(G.ACTIONS.KLBQ_IMPRINT.fn(G.BufferedAction(p,item,G.ACTIONS.KLBQ_IMPRINT,sample)))
+        eq(sample.components.stackable:StackSize(),1)
+        eq(item.components.equippable.walkspeedmult,G.TUNING.CANE_SPEED_MULT)
+        eq(locomotor:GetSpeedMultiplier(),normal*1.25)
+        assert(imprint.Has(item,"speed"))
+        assert(not item.components.trader:AcceptGift(p,sample))
+        eq(sample.components.stackable:StackSize(),1)
+        sample:Remove()
+        assert(p.components.inventory:Unequip(G.EQUIPSLOTS.HANDS)==item)
+        assert(p.components.inventory:GiveItem(item))
+        eq(locomotor:GetSpeedMultiplier(),normal)
+    end)
     check("native equip state and independent save record restore flags",function()
         assert(p.components.inventory:Equip(item))
         local copy=assert(G.SpawnSaveRecord(item:GetSaveRecord()));owned[#owned+1]=copy
         for _,key in ipairs(imprint.KEYS) do assert(imprint.Has(copy,key)) end
+        assert(imprint.Has(copy,"speed"));eq(copy.components.equippable.walkspeedmult,1.25)
         local fresh=Spawn("klbq_imprint_tool")
         for _,key in ipairs(imprint.KEYS) do assert(not imprint.Has(fresh,key)) end
         copy:Remove();fresh:Remove()
@@ -59,6 +79,14 @@ function RunKanamiImprintChecks(context)
         assert(not t.components.trader:AcceptGift(p,sample2));assert(sample2:IsValid())
         k.state.deadlines.protect=nil
         t:Remove();sample2:Remove()
+    end)
+    check("ground terminal accepts native tusk GIVE without tool durability",function()
+        local t=Spawn("klbq_imprint_tool");t.Transform:SetPosition(x+1,y,z)
+        local sample=Give("walrus_tusk")
+        assert(sample.components.finiteuses==nil)
+        assert(G.ACTIONS.GIVE.fn(G.BufferedAction(p,t,G.ACTIONS.GIVE,sample)))
+        assert(not sample:IsValid() and imprint.Has(t,"speed"))
+        t:Remove()
     end)
     check("native chop, dig and mining keep ordinary work and exactly one base reward",function()
         local tree=Spawn("evergreen");tree.components.workable:SetWorkLeft(1)
@@ -104,7 +132,7 @@ function RunKanamiImprintChecks(context)
             end
             assert(p.components.builder:DoBuild(v[1]),v[1])
             for _,ing in ipairs(recipe.ingredients) do assert(not p.components.inventory:Has(ing.type,1),ing.type) end
-            assert(p.components.inventory:Has(v[1],v[2]),"wrong output quantity")
+            assert(p.components.inventory:Has(v[1],v[2]),v[1].." wrong output quantity")
             local product=p.components.inventory:FindItem(function(t)return t.prefab==v[1] end)
             owned[#owned+1]=product
         end

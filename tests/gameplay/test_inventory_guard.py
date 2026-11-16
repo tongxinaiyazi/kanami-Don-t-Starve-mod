@@ -83,8 +83,9 @@ class InventoryGuard(unittest.TestCase):
         """)
         for name in ('GetGrandOwner', 'SetOwner', 'ClearOwner'):
             self.lua.execute(native_method('components/inventoryitem.lua', 'function InventoryItem:' + name + '('))
-        for name in ('IsThiefProof', 'DropItem', 'DropEverything', 'DropEquipped', 'DropActiveItem', 'SetActiveItem'):
+        for name in ('IsThiefProof', 'DropItem', 'DropEverything', 'DropEquipped', 'DropActiveItem', 'SetActiveItem', 'ReturnActiveItem', 'GiveItem'):
             self.lua.execute(native_method('components/inventory.lua', 'function Inventory:' + name + '('))
+        self.lua.execute(native_method('components/inventory.lua', 'local function ValidateItemForOverflow(').replace('local function', 'function', 1))
         self.lua.execute("GetGhostEnabled=function()return true end;GetGameModeProperty=function()return false end")
         self.lua.execute(native_method('components/container.lua', 'function Container:IsThiefProof('))
         module = ROOT / 'mods/klbq_kanami/scripts/klbq_kanami/inventoryguard.lua'
@@ -114,6 +115,67 @@ class InventoryGuard(unittest.TestCase):
         self.lua.execute('p.components.inventory.activeitem=hat;p.components.inventory.itemslots[1]=nil')
         self.lua.execute('p.components.inventory:DropActiveItem();p.components.inventory:DropEverything()')
         self.assertTrue(self.lua.eval('p.components.inventory.activeitem==hat and hat.components.inventoryitem.owner==p'))
+
+    def full_inventory(self):
+        self.lua.execute('''
+            local inv=p.components.inventory
+            inv.IsItemEquipped=function()return nil end
+            inv.GetOverflowContainer=function()return nil end
+            inv.GetSpecializedContainers=function()return nil end
+            inv.GetNextAvailableSlot=function()return nil end
+            for _,item in ipairs({hat,weapon})do
+                item.components.inventoryitem.OnPickup=function()return false end
+                item.components.inventoryitem.OnPutInInventory=function(self,owner)self:SetOwner(owner)end
+            end
+        ''')
+
+    def test_full_inventory_return_active_item_drops_it_and_clears_cursor(self):
+        self.full_inventory()
+        self.lua.execute('''
+            p.components.inventory.itemslots[1]=nil;p.components.inventory.activeitem=hat
+            p.components.inventory:ReturnActiveItem()
+        ''')
+        self.assertTrue(self.lua.eval('hat.dropped and hat.components.inventoryitem.owner==nil'))
+        self.assertIsNone(self.lua.eval('p.components.inventory.activeitem'))
+        self.lua.execute('p.components.inventory:DropItem(weapon)')
+        self.assertFalse(self.lua.eval('weapon.dropped==true'))
+
+    def test_full_inventory_give_item_returns_overflow_to_ground(self):
+        self.full_inventory()
+        self.lua.execute('''
+            p.components.inventory.activeitem=hat;p.components.inventory.itemslots[1]=nil
+            -- A harvested item may already have a player owner from a pickup hook.
+            crop=Item('carrot_oversized',p)
+            crop.components.inventoryitem.OnPickup=function()return false end
+            p.components.inventory:GiveItem(crop)
+        ''')
+        self.assertTrue(self.lua.eval('crop.dropped and crop.components.inventoryitem.owner==nil'))
+        self.assertTrue(self.lua.eval('p.components.inventory.activeitem==hat'))
+
+    def test_return_active_item_callbacks_cannot_disarm_another_item(self):
+        self.full_inventory()
+        self.lua.execute('''
+            p.components.inventory.activeitem=hat;p.components.inventory.itemslots[1]=nil
+            hat.components.inventoryitem.OnPickup=function()
+                p.components.inventory:DropItem(weapon,true)
+                return false
+            end
+            p.components.inventory:ReturnActiveItem()
+        ''')
+        self.assertFalse(self.lua.eval('weapon.dropped==true'))
+        self.assertTrue(self.lua.eval('hat.dropped and p.components.inventory.equipslots.hands==weapon'))
+
+    def test_capacity_error_restores_drop_protection(self):
+        self.full_inventory()
+        self.lua.execute('''
+            p.components.inventory.activeitem=hat
+            hat.components.inventoryitem.OnPickup=function()error('pickup failed')end
+            ok=pcall(function()p.components.inventory:ReturnActiveItem()end)
+            p.components.inventory:DropItem(weapon)
+        ''')
+        self.assertFalse(self.lua.eval('ok'))
+        self.assertIsNone(self.lua.eval('p.components.inventory._klbq_capacityitems'))
+        self.assertFalse(self.lua.eval('weapon.dropped==true'))
 
     def test_native_death_drop_still_drops_items(self):
         self.lua.execute('p.dead=true;p.components.inventory:DropEverything(true)')

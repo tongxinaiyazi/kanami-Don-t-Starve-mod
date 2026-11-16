@@ -9,8 +9,8 @@ for _,name in ipairs({"carrot","corn","potato","tomato","asparagus","eggplant","
 end
 local PICKABLES = {berrybush=true,berrybush2=true,berrybush_juicy=true,grass=true,sapling=true}
 local LEGACY_CROPS = {plant_normal=true,plant_normal_ground=true}
-local EXCLUDE = {"INLIMBO","FX","DECOR","burnt"}
-local TAGS = {"plant","farm_plant","notreadyforharvest","readyforharvest"}
+local EXCLUDE = {"INLIMBO","FX","DECOR","burnt","stump"}
+local TAGS = {"plant","farm_plant","notreadyforharvest","readyforharvest","tree"}
 local records = setmetatable({}, {__mode="k"})
 local function WeakKeys() return setmetatable({}, {__mode="k"}) end
 local function Release(owner, plant)
@@ -68,13 +68,13 @@ function M.Scan(owner)
     state.nextscan = now+1
     local x,y,z = owner.Transform:GetWorldPosition()
     local current,watered = WeakKeys(),{}
-    local fertilizer
     for _,plant in ipairs(TheSim:FindEntities(x,y,z,Rules.DOMAIN_RADIUS,nil,EXCLUDE,TAGS)) do
         local prefab = plant.prefab
-        if plant:IsValid() and (FARM_PLANTS[prefab] or PICKABLES[prefab] or LEGACY_CROPS[prefab]) then
+        local components = plant.components
+        local tree = plant:HasTag("tree") and components.simplemagicgrower
+        if plant:IsValid() and (FARM_PLANTS[prefab] or PICKABLES[prefab] or LEGACY_CROPS[prefab] or tree) then
             current[plant] = true
             local record = Record(owner,state,plant)
-            local components = plant.components
             local burning = components.burnable and components.burnable:IsBurning()
             if not burning then
                 if FARM_PLANTS[prefab] then
@@ -99,6 +99,17 @@ function M.Scan(owner)
                             record.complete = stage and (stage.name == "full" or stage.name == "rotten") or false
                         end
                     end
+                elseif tree then
+                    local growable = components.growable
+                    local laststage = tree.last_stage
+                    if growable and laststage and growable.magicgrowable ~= false and not record.complete then
+                        if growable:GetStage() < laststage and now >= record.nextgrowth then
+                            record.nextgrowth = now+1
+                            growable:DoGrowth()
+                        end
+                        -- Native magic-growth limits exclude a tree's old/dead stage.
+                        record.complete = growable:GetStage() >= laststage
+                    end
                 elseif LEGACY_CROPS[prefab] then
                     local crop = components.crop
                     if crop and not record.complete then
@@ -110,11 +121,7 @@ function M.Scan(owner)
                     if pickable and not record.complete then
                         if pickable:CanBePicked() then
                             record.complete = true
-                        else
-                            if pickable:CanBeFertilized() then
-                                fertilizer = fertilizer or SpawnPrefab("poop")
-                                if fertilizer then pickable:Fertilize(fertilizer,owner) end
-                            end
+                        elseif not pickable:CanBeFertilized() then
                             -- A paused winter plant has no active timer. Resume
                             -- only to complete this one native regrowth cycle.
                             if pickable.paused then pickable:Resume() end
@@ -126,7 +133,6 @@ function M.Scan(owner)
             if record.complete then state.done[plant] = true end
         end
     end
-    if fertilizer and fertilizer:IsValid() then fertilizer:Remove() end
     for plant in pairs(state.plants) do
         if not current[plant] then Release(owner,plant) end
     end

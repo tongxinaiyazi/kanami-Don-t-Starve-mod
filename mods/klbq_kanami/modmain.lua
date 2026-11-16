@@ -218,7 +218,9 @@ AddPrefabPostInit("klbq_kanami",function(inst)
 end)
 
 AddModRPCHandler("KLBQ_KANAMI","skill",function(player,key)
-    if not player or player.prefab~="klbq_kanami" or type(key)~="string" then return end
+    if not player or type(key)~="string" then return end
+    if key=="v" then require("klbq_kanami/requiem").Cast(player);return end
+    if player.prefab~="klbq_kanami" then return end
     local c=player.components.klbq_kanami
     if not c or not c:Alive() then return end
     -- C is free, but repeated packets within one tick cannot toggle twice.
@@ -263,4 +265,4 @@ AddComponentPostInit("complexprojectile",function(c)
     end
 end)
 if not G.TheNet:IsDedicated() then require("klbq_kanami/client").Install(env) end
-print("[KLBQ_KANAMI] 2.1.1 registered (server-authoritative skills)")
+print("[KLBQ_KANAMI] 2.2.0 registered (server-authoritative skills)")

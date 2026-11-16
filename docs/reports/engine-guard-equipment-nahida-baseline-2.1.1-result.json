@@ -1,0 +1,11 @@
+{
+  "exit_code": 0,
+  "complete": true,
+  "pass": 12,
+  "fail": 5,
+  "lua_error": false,
+  "log": "D:\\SOFTWARE\\项目\\饥荒\\docs\\reports\\engine-guard-equipment-nahida-baseline-2.1.1.log",
+  "baseline_commit": "dec7021966308136af1a7bc544e6bd3f3ba766ae",
+  "baseline_guard_sha256": "f2978b4b727df01c63f3804fe8bbd201aabffcb4fdcd9f71599b4b6c827c9724",
+  "comparison": "Only the isolated verification copy used the released inventoryguard.lua. Source and Workshop runtime were preserved."
+}

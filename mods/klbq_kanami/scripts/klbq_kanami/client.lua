@@ -2,10 +2,16 @@ local Camera=require("klbq_kanami/camera")
 local M={}
 function M.Install(env)
     local G=env.GLOBAL
-    local keys={c=env.GetModConfigData("key_string") or G.KEY_R,z=env.GetModConfigData("key_z") or G.KEY_Z,x=env.GetModConfigData("key_x") or G.KEY_X}
+    local keys={c=env.GetModConfigData("key_string") or G.KEY_R,z=env.GetModConfigData("key_z") or G.KEY_Z,x=env.GetModConfigData("key_x") or G.KEY_X,
+        v=env.GetModConfigData("key_requiem") or G.KEY_V}
     local function Cast(key)
         local p=G.ThePlayer
-        if not p or p.prefab~="klbq_kanami" or p:HasTag("playerghost") or G.IsPaused() then return end
+        if not p or (key~="v" and p.prefab~="klbq_kanami") or p:HasTag("playerghost") or G.IsPaused() then return end
+        if key=="v" then
+            local combat=p.replica and p.replica.combat
+            local weapon=combat and combat:GetWeapon()
+            if not weapon or weapon.prefab~="klbq_requiem" then return end
+        end
         local screen=G.TheFrontEnd:GetActiveScreen()
         if not p.HUD or p.HUD:IsChatInputScreenOpen() or (screen and screen.name~="HUD") then return end
         env.SendModRPCToServer(env.GetModRPC("KLBQ_KANAMI","skill"),key)

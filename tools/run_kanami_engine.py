@@ -68,6 +68,7 @@ def prepare_body_candidate(source,destination,*,allowed_source_root=CANDIDATE_RO
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--seconds',type=int,default=140)
     parser.add_argument('--isolated-mod-copy',action='store_true',help='Test a separate mod copy without overwriting the user installed mod')
+    parser.add_argument('--workshop-runtime',action='store_true',help='Load the installed Kanami Workshop copy and its native file manifest in the isolated test world')
     parser.add_argument('--body-candidate',type=Path,help='Candidate compiled/anim directory under D: temp; forces isolated-mod-copy and forbids happy')
     parser.add_argument('--prepare-only',action='store_true',help='With body-candidate, prepare and hash the verify copy without launching any process')
     parser.add_argument('--equipment',action='store_true',help='Enable the installed four/five/six equipment slots mod only in this test world')
@@ -76,6 +77,7 @@ def main():
     parser.add_argument('--weapons-only',action='store_true',help='Run native weapon checks without the resurrection timer')
     parser.add_argument('--bag-only',action='store_true',help='Target actual backpack crafting, auto equip and save/load')
     parser.add_argument('--inventory-guard-only',action='store_true',help='Test native theft, forced drops, death drops and ordinary work tools')
+    parser.add_argument('--nahida',action='store_true',help='Enable the installed Nahida mod in the isolated compatibility test world')
     parser.add_argument('--audit-only',action='store_true',help='Run post-review native lifecycle and gameplay checks')
     parser.add_argument('--resources-only',action='store_true',help='Test terminal item, crafting and native Charlie death loot')
     parser.add_argument('--imprint-only',action='store_true',help='Test native imprint, work, save and material recipes')
@@ -85,6 +87,8 @@ def main():
     parser.add_argument('--playtest',action='store_true',help='A clean interactive world for the user, without regression-world leftovers')
     parser.add_argument('--user-visual-mods',action='store_true',help='Load the locally observed user mod combination only in the isolated interactive world')
     args=parser.parse_args()
+    if args.workshop_runtime and (args.isolated_mod_copy or args.body_candidate):
+        parser.error('workshop-runtime uses the installed Workshop copy; choose one mod source')
     if args.prepare_only and not args.body_candidate:parser.error('prepare-only requires body-candidate')
     if args.body_candidate:
         if args.happy:parser.error('body-candidate tests must not enable happy')
@@ -106,8 +110,10 @@ def main():
         client_handle=kernel.OpenProcess(0x100000,False,args.until_client_exits)
         if not client_handle:raise ctypes.WinError(ctypes.get_last_error())
     # These are new task-owned paths. No existing mod or world is replaced.
-    modkey='klbq_kanami_verify' if args.isolated_mod_copy else 'klbq_kanami'
-    for name,source in [(modkey,ROOT/'mods/klbq_kanami'),('klbq_kanami_test',ROOT/'tests/engine_mod')]:
+    modkey='workshop-3827702076' if args.workshop_runtime else 'klbq_kanami_verify' if args.isolated_mod_copy else 'klbq_kanami'
+    copies=[('klbq_kanami_test',ROOT/'tests/engine_mod')]
+    if not args.workshop_runtime:copies.insert(0,(modkey,ROOT/'mods/klbq_kanami'))
+    for name,source in copies:
         destination=GAME/'mods'/name
         if args.body_candidate:
             expected=(GAME/'mods').resolve()/name
@@ -129,6 +135,7 @@ def main():
         if args.prepare_only:return
     bag_cluster='KanamiBag023'+('-happy' if args.happy else '')+('-void' if args.void else '')+('-equipment' if args.equipment else '')
     cluster_name='KanamiPlaytest' if args.playtest else bag_cluster if args.bag_only else 'KanamiHappy022' if args.happy else 'KanamiVoid' if args.void or args.void_probe else 'KanamiVisual' if args.interactive else 'KanamiSmoke'
+    if args.workshop_runtime:cluster_name='KanamiWorkshopLoad'
     cluster=STORAGE/'DoNotStarveTogether'/cluster_name
     if not args.playtest and not args.happy and not cluster.exists() and cluster_name!='KanamiSmoke':
         base=STORAGE/'DoNotStarveTogether/KanamiSmoke'
@@ -181,9 +188,15 @@ def main():
         for name in ['workshop-661253977','workshop-1207269058','workshop-3750536829',
                      'workshop-2287303119','workshop-2941527805','klbq_lilith']:
             extra+=', ["'+name+'"]={enabled=true}'
+    if args.nahida:
+        if not Path('E:/steam/steamapps/workshop/content/322330/3520190450/modinfo.lua').is_file():
+            raise RuntimeError('Installed Nahida mod not found')
+        extra+=', ["workshop-3520190450"]={enabled=true}'
     (shard/'modoverrides.lua').write_text('return { ["'+modkey+'"]={enabled=true}, ["klbq_kanami_test"]={enabled=true,configuration_options={mode="'+mode+'"}}'+extra+' }\n')
     report=ROOT/'docs/reports';report.mkdir(parents=True,exist_ok=True)
     report_mode=mode+('-addon' if args.resource_addon else '')+('-happy' if (args.bag_only or args.weapons_only) and args.happy else '')+('-void' if (args.bag_only or args.weapons_only) and args.void else '')+('-equipment' if args.equipment else '')
+    if args.workshop_runtime:report_mode+='-workshop'
+    if args.nahida:report_mode+='-nahida'
     log=report/('engine-'+report_mode+'.log')
     command=[str(GAME/'bin64/dontstarve_dedicated_server_nullrenderer_x64.exe'),
         '-persistent_storage_root',str(STORAGE),'-conf_dir','DoNotStarveTogether',
