@@ -76,6 +76,50 @@ class Rifle(unittest.TestCase):
           TheNet.GetPVPEnabled=function()return false end
         ''')
 
+    def test_lock_pauses_without_ammo_or_when_busy_and_releases_when_holstered(self):
+        self.lua.execute('''
+          inst.components.health:SetVal(10000)
+          inst.DoPeriodicTask=function(s,period,fn) tick=fn;return {Cancel=function() canceled=true end} end
+          busy=false;inst.sg={HasStateTag=function(s,t) return t=="busy" and busy end}
+          count=0
+          assert(registeredactions.KLBQ_SHOOT_LOCK.fn({doer=inst,target=target}))
+          assert(spent==0 and inst._klbq_rifle_lock)
+          count=3;busy=true;now=1;tick();assert(spent==0)
+          busy=false;tick();assert(spent==1)
+          local old=gun;gun=nil;inst:PushEvent("unequip",{item=old})
+          assert(canceled and inst._klbq_rifle_lock==nil)
+          now=10;tick();assert(spent==1)
+        ''')
+
+    def test_lock_reuses_shot_cooldown_and_clears_on_phase_or_manual_retarget(self):
+        self.lua.execute('''
+          inst.components.health:SetVal(10000)
+          inst.DoPeriodicTask=function(s,period,fn) tick=fn;return {Cancel=function() canceled=true end} end
+          subscriptions={}
+          inst.ListenForEvent=function(s,event,fn,source)
+            if source then subscriptions[event]=fn else s.events[event]=fn end
+          end
+          inst.RemoveEventCallback=function(s,event,fn,source)
+            if source then subscriptions[event]=nil else s.events[event]=nil end
+          end
+          rifle=require('klbq_kanami/rifle')
+          target.prefab='alterguardian_phase1'
+          assert(registeredactions.KLBQ_SHOOT_LOCK.fn({doer=inst,target=target}))
+          assert(spent==1)
+          now=1;tick()
+          assert(spent==1)
+          now=1.5;tick()
+          assert(spent==2)
+          subscriptions.phasetransition(target)
+          assert(canceled and inst._klbq_rifle_lock==nil)
+          now=1.6;registeredactions.KLBQ_SHOOT_LOCK.fn({doer=inst,target=target})
+          assert(inst._klbq_rifle_lock and spent==2)
+          local second={components=target.components,HasTag=target.HasTag,tags={},IsValid=target.IsValid,
+            IsInLimbo=target.IsInLimbo,entity=target.entity}
+          registeredactions.KLBQ_SHOOT.fn({doer=inst,target=second})
+          assert(inst._klbq_rifle_lock==nil and spent==2)
+        ''')
+
     def test_fate_shot_uses_configured_max_health_fraction(self):
         for fraction in (.03, .05, .1, .2):
             with self.subTest(fraction=fraction):

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Anims>
+  <anim name="idle" root="turf_klbq_imprint" framerate="30">
+    <frame x="0" y="0" w="108" h="84">
+      <element name="plate" frame="0" layername="object" z_index="0" m_a="1" m_b="0" m_c="0" m_d="1" m_tx="0" m_ty="0" />
+    </frame>
+  </anim>
+</Anims>

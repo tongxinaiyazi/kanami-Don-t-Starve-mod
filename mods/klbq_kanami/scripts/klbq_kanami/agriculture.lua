@@ -9,8 +9,12 @@ for _,name in ipairs({"carrot","corn","potato","tomato","asparagus","eggplant","
 end
 local PICKABLES = {berrybush=true,berrybush2=true,berrybush_juicy=true,grass=true,sapling=true}
 local LEGACY_CROPS = {plant_normal=true,plant_normal_ground=true}
+local TREE_SAPLINGS = {pinecone_sapling=true,lumpy_sapling=true,acorn_sapling=true,
+    twiggy_nut_sapling=true,marblebean_sapling=true,moonbutterfly_sapling=true,
+    palmcone_sapling=true,tree_rock_sapling=true}
+local OTHER_TREES = {marbleshrub=true,tree_rock1=true,tree_rock2=true}
 local EXCLUDE = {"INLIMBO","FX","DECOR","burnt","stump"}
-local TAGS = {"plant","farm_plant","notreadyforharvest","readyforharvest","tree"}
+local TAGS = {"plant","farm_plant","notreadyforharvest","readyforharvest","tree","marbleshrub","boulder"}
 local records = setmetatable({}, {__mode="k"})
 local function WeakKeys() return setmetatable({}, {__mode="k"}) end
 local function Release(owner, plant)
@@ -37,8 +41,6 @@ local function Soil(plant, watered)
     if watered[key] then return end
     watered[key] = true
     manager:AddSoilMoistureAtPoint(x,y,z,100)
-    local n1,n2,n3 = manager:GetTileNutrients(tx,tz)
-    manager:AddTileNutrients(tx,tz,100-n1,100-n2,100-n3)
 end
 local function Record(owner, state, plant)
     local record = records[plant]
@@ -71,8 +73,15 @@ function M.Scan(owner)
     for _,plant in ipairs(TheSim:FindEntities(x,y,z,Rules.DOMAIN_RADIUS,nil,EXCLUDE,TAGS)) do
         local prefab = plant.prefab
         local components = plant.components
-        local tree = plant:HasTag("tree") and components.simplemagicgrower
-        if plant:IsValid() and (FARM_PLANTS[prefab] or PICKABLES[prefab] or LEGACY_CROPS[prefab] or tree) then
+        local growable = components.growable
+        local tree_stage
+        if plant:HasTag("tree") and components.simplemagicgrower then
+            tree_stage = components.simplemagicgrower.last_stage
+        elseif OTHER_TREES[prefab] and growable and growable.stages then
+            tree_stage = #growable.stages
+        end
+        if plant:IsValid() and (FARM_PLANTS[prefab] or PICKABLES[prefab] or LEGACY_CROPS[prefab]
+            or TREE_SAPLINGS[prefab] or tree_stage) then
             current[plant] = true
             local record = Record(owner,state,plant)
             local burning = components.burnable and components.burnable:IsBurning()
@@ -99,16 +108,23 @@ function M.Scan(owner)
                             record.complete = stage and (stage.name == "full" or stage.name == "rotten") or false
                         end
                     end
-                elseif tree then
-                    local growable = components.growable
-                    local laststage = tree.last_stage
-                    if growable and laststage and growable.magicgrowable ~= false and not record.complete then
-                        if growable:GetStage() < laststage and now >= record.nextgrowth then
+                elseif TREE_SAPLINGS[prefab] then
+                    local timer = components.timer
+                    if not record.complete and timer and timer:TimerExists("grow") then
+                        record.complete = true
+                        -- planted_tree.lua owns the replacement and its seed-growth
+                        -- callbacks. Match Timer's native completion event sequence.
+                        timer:StopTimer("grow")
+                        plant:PushEvent("timerdone",{name="grow"})
+                    end
+                elseif tree_stage then
+                    if growable and growable.magicgrowable ~= false and not record.complete then
+                        if growable:GetStage() < tree_stage and now >= record.nextgrowth then
                             record.nextgrowth = now+1
                             growable:DoGrowth()
                         end
                         -- Native magic-growth limits exclude a tree's old/dead stage.
-                        record.complete = growable:GetStage() >= laststage
+                        record.complete = growable:GetStage() >= tree_stage
                     end
                 elseif LEGACY_CROPS[prefab] then
                     local crop = components.crop

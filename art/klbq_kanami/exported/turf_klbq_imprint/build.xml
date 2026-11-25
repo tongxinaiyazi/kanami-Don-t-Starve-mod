@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="turf_klbq_imprint">
+  <Symbol name="plate">
+    <Frame framenum="0" duration="1" x="0" y="0" w="108" h="84" image="plate_0" />
+  </Symbol>
+</Build>

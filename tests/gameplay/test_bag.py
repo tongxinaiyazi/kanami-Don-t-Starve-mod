@@ -30,7 +30,7 @@ class SingularityBag(unittest.TestCase):
                     "components/preserver", "components/perishable",
                     "components/trader", "components/waterproofer", "components/insulator",
                     "components/stackable", "components/inventory", "components/temperature",
-                    "components/equippable",
+                    "components/equippable", "components/armor", "util/sourcemodifierlist",
                     "componentactions", "actions", "prefabs/hats", "tuning",
                 )
             }
@@ -67,6 +67,9 @@ class SingularityBag(unittest.TestCase):
                 assert(not entities[guid].pristine,'net_bool must be declared before pristine')
                 return {current=false,set=function(s,v) s.current=v end,value=function(s) return s.current end}
             end
+            net_byte=function(guid,name,dirty)
+                local var=net_bool(guid,name,dirty);var.current=0;return var
+            end
             function MakeEntity()
                 nextguid=nextguid+1
                 local inst={GUID=nextguid,components={},tags={},events={},tasks={},replica={},persists=true}
@@ -99,7 +102,7 @@ class SingularityBag(unittest.TestCase):
                 inst.replica.stackable=setmetatable({}, {__index=function() return function() end end})
                 inst.AddComponent=function(s,name)
                     if name=='container' or name=='preserver' or name=='perishable' or name=='trader'
-                            or name=='waterproofer' or name=='insulator' or name=='stackable' then
+                            or name=='waterproofer' or name=='insulator' or name=='stackable' or name=='armor' then
                         s.components[name]=require('components/'..name)(s)
                     elseif name=='equippable' then
                         s.components[name]={SetOnEquip=function(c,fn) c.onequipfn=fn end,
@@ -129,7 +132,8 @@ class SingularityBag(unittest.TestCase):
         self.lua.execute("package.preload.containers=function() local params={};local containers={params=params};"
                          + widgetsetup + krampus + " return containers end")
         for name in ("components/container", "components/preserver", "components/perishable",
-                     "components/trader", "components/waterproofer", "components/insulator", "components/stackable"):
+                     "components/trader", "components/waterproofer", "components/insulator", "components/stackable",
+                     "components/armor", "util/sourcemodifierlist"):
             self.lua.execute("package.preload[...] = function() " + native[name] + " end", name)
         module = ROOT / "mods/klbq_kanami/scripts/klbq_kanami/bag.lua"
         if module.exists():
@@ -228,7 +232,7 @@ class SingularityBag(unittest.TestCase):
     def test_equip_opens_and_unequip_or_model_closes_without_changing_player_art(self):
         self.lua.execute("""
             opened=0;closed=0;visualwrites=0
-            owner={prefab='klbq_kanami',AnimState=setmetatable({}, {__index=function()
+            owner={prefab='klbq_kanami',PushEvent=function() end,AnimState=setmetatable({}, {__index=function()
                 return function() visualwrites=visualwrites+1 end end})}
             bag.components.container.Open=function(c,w) assert(w==owner);opened=opened+1 end
             bag.components.container.Close=function(c,w) assert(w==owner);closed=closed+1 end

@@ -18,8 +18,9 @@ def vanilla(path, signature):
 
 
 def register(lua):
-    from resource_fixture import preload_resources
+    from resource_fixture import preload_resources, preload_midgame
     preload_resources(lua)
+    preload_midgame(lua)
     lua.execute('''
       STRINGS={CHARACTER_TITLES={},CHARACTER_NAMES={},CHARACTER_DESCRIPTIONS={},CHARACTER_QUOTES={},CHARACTER_SURVIVABILITY={},NAMES={},CHARACTERS={GENERIC={DESCRIBE={}}},SKIN_NAMES={},RECIPE_DESC={}}
       TheNet={IsDedicated=function() return true end};TECH={SCIENCE_ONE=1,SCIENCE_TWO=2}
@@ -36,7 +37,7 @@ def register(lua):
       env.GetModConfigData=function(key) return nil end -- existing world without overrides
       env.Asset=function() return {} end;hooks={};postinits={}
       env.RegisterInventoryItemAtlas=function() end
-      for _,n in ipairs({'AddMinimapAtlas','AddModCharacter','AddAction','AddComponentAction','AddStategraphActionHandler','AddStategraphState','AddStategraphPostInit','AddModRPCHandler','AddRecipe2','AddClassPostConstruct'}) do env[n]=function() end end
+      for _,n in ipairs({'AddMinimapAtlas','AddModCharacter','AddAction','AddComponentAction','AddStategraphActionHandler','AddStategraphState','AddStategraphPostInit','AddModRPCHandler','AddClientModRPCHandler','AddRecipe2','AddClassPostConstruct'}) do env[n]=function() end end
       env.AddComponentPostInit=function(name,fn) hooks[name]=fn end
       env.AddPlayerPostInit=function(fn) playerpostinit=fn end
       env.AddPrefabPostInit=function(name,fn) postinits[name]=fn end
@@ -193,7 +194,7 @@ class ReviewRegressions(unittest.TestCase):
           hand={replica={equippable={EquipSlot=function()return EQUIPSLOTS.HANDS end}}}
           body={replica={equippable={EquipSlot=function()return 'body' end}}}
         ''')
-        for action in ('ATTACK','CHOP','MINE','HAMMER','KLBQ_SHOOT','KLBQ_REQUIEM_SWEEP'):
+        for action in ('ATTACK','CHOP','MINE','HAMMER','KLBQ_SHOOT','KLBQ_SHOOT_LOCK','KLBQ_REQUIEM_SWEEP'):
             self.assertEqual(self.lua.eval('#picker:SortActionList({{id=...}})',action),0)
         for action in ('PICKUP','EAT','LOOKAT'):
             self.assertEqual(self.lua.eval('#picker:SortActionList({{id=...}})',action),1)

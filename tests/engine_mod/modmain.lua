@@ -68,6 +68,13 @@ AddSimPostInit(function()
         p.userid="KANAMI_ENGINE_TEST"
         local startportal=G.c_find("multiplayer_portal")
         if startportal then local px,py,pz=startportal.Transform:GetWorldPosition();p.Transform:SetPosition(px+4,py,pz+4)end
+        if mode=="cave_rifle" then
+            modimport("cave_rifle.lua")
+            RunKanamiCaveRifleChecks(p,check,function()
+                print("[KANAMI_TEST] COMPLETE");G.c_shutdown(false)
+            end)
+            return
+        end
         if mode=="bag" then
             modimport("bag.lua");RunKanamiBagChecks({player=p,check=check,eq=eq})
             return

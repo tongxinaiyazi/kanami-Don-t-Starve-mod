@@ -15,8 +15,9 @@ class Registration(unittest.TestCase):
   self.assertEqual([v.data for _,v in option.options.items()],[.03,.05,.1,.2])
  def test_modmain_registers_in_restricted_game_mod_environment(self):
   lua=LuaRuntime(unpack_returned_tuples=True)
-  from resource_fixture import preload_resources
+  from resource_fixture import preload_resources, preload_midgame
   preload_resources(lua)
+  preload_midgame(lua)
   lua.execute('''
    STRINGS={CHARACTER_TITLES={},CHARACTER_NAMES={},CHARACTER_DESCRIPTIONS={},CHARACTER_QUOTES={},CHARACTER_SURVIVABILITY={},NAMES={},CHARACTERS={GENERIC={DESCRIBE={}}},SKIN_NAMES={},RECIPE_DESC={}}
    TheNet={IsDedicated=function() return true end};TECH={SCIENCE_ONE=1,SCIENCE_TWO=2}
@@ -34,7 +35,7 @@ class Registration(unittest.TestCase):
    env.Asset=function() return {} end
    env.GetModConfigData=function(key) if key=='fate_crit_fraction' then return .1 end end
    env.RegisterInventoryItemAtlas=function() end
-   for _,n in ipairs({'AddMinimapAtlas','AddModCharacter','AddAction','AddComponentAction','AddStategraphActionHandler','AddStategraphState','AddStategraphPostInit','AddModRPCHandler','AddComponentPostInit','AddClassPostConstruct'}) do env[n]=function() end end
+   for _,n in ipairs({'AddMinimapAtlas','AddModCharacter','AddAction','AddComponentAction','AddStategraphActionHandler','AddStategraphState','AddStategraphPostInit','AddModRPCHandler','AddClientModRPCHandler','AddComponentPostInit','AddClassPostConstruct'}) do env[n]=function() end end
    env.AddPrefabPostInit=function(name,fn) postinits[name]=fn end
    env.AddPlayerPostInit=function() end
    env.AddRecipe2=function(name,ingredients,tech,config) recipes[name]={ingredients=ingredients,tech=tech,config=config} end

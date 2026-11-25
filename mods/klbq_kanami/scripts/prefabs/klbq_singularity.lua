@@ -47,6 +47,8 @@ local function LightOwner(inst, owner)
         inst._klbq_light = SpawnPrefab("minerhatlight")
     end
     if inst._klbq_light ~= nil then
+        inst._klbq_light.Light:SetRadius(2.5 + .5 * (inst._klbq_sapphires:value()
+            + (inst._klbq_nightvision:value() and 1 or 0)))
         inst._klbq_light.entity:SetParent(owner.entity)
     end
 end
@@ -55,21 +57,22 @@ local function OnEquip(inst, owner)
     -- A spatial pocket has no worn model. Do not clear any armour symbols.
     inst.components.container:Open(owner)
     LightOwner(inst, owner)
+    owner:PushEvent(Bag.LIGHT_DIRTY)
 end
 
 local function OnUnequip(inst, owner)
     inst.components.container:Close(owner)
     RemoveLight(inst)
+    owner:PushEvent(Bag.LIGHT_DIRTY)
 end
 
 local function CanAcceptUpgrade(inst, item)
-    return item ~= nil and (
-        (item.prefab == "deerclops_eyeball" and not inst._klbq_eyeball:value())
-        or (item.prefab == "minerhat" and not inst._klbq_minerhat:value()))
+    return item ~= nil and Bag.CanUpgrade(inst, item.prefab)
 end
 
 local function RefreshTrader(inst)
-    if inst._klbq_eyeball:value() and inst._klbq_minerhat:value() then
+    if inst._klbq_eyeball:value() and inst._klbq_rubies:value() == Bag.MAX_RUBIES
+        and inst._klbq_nightvision:value() then
         inst.components.trader:Disable()
     else
         inst.components.trader:Enable()
@@ -114,17 +117,50 @@ local function UpgradeMinerhat(inst)
     end
 end
 
+local function SetArmor(inst, count)
+    inst._klbq_rubies:set(count)
+    if count > 0 then
+        if inst.components.armor == nil then
+            inst:AddComponent("armor")
+            inst.components.armor:InitIndestructible(count / 50)
+        else
+            inst.components.armor:SetAbsorption(count / 50)
+        end
+    end
+end
+
+local function RefreshWornLight(inst)
+    local owner = inst.components.inventoryitem.owner
+    if owner ~= nil and inst.components.equippable:IsEquipped() then
+        LightOwner(inst, owner)
+        owner:PushEvent(Bag.LIGHT_DIRTY)
+    end
+end
+
 local function OnAcceptUpgrade(inst, giver, item)
     if item.prefab == "deerclops_eyeball" then
         UpgradeEyeball(inst)
     elseif item.prefab == "minerhat" then
         UpgradeMinerhat(inst)
+    elseif item.prefab == "redgem" then
+        SetArmor(inst, inst._klbq_rubies:value() + 1)
+        RefreshTrader(inst)
+    elseif item.prefab == "bluegem" then
+        inst._klbq_sapphires:set(inst._klbq_sapphires:value() + 1)
+        RefreshWornLight(inst)
+    elseif item.prefab == Bag.CORE then
+        inst._klbq_nightvision:set(true)
+        RefreshWornLight(inst)
+        RefreshTrader(inst)
     end
 end
 
 local function OnSave(inst, data)
     data.klbq_eyeball = inst._klbq_eyeball:value() or nil
     data.klbq_minerhat = inst._klbq_minerhat:value() or nil
+    data.klbq_rubies = inst._klbq_rubies:value()
+    data.klbq_sapphires = inst._klbq_sapphires:value()
+    data.klbq_nightvision = inst._klbq_nightvision:value() or nil
 end
 
 local function OnLoad(inst, data)
@@ -133,6 +169,13 @@ local function OnLoad(inst, data)
     end
     if data ~= nil and data.klbq_minerhat == true then
         UpgradeMinerhat(inst)
+        inst._klbq_sapphires:set(math.clamp(math.floor(tonumber(data.klbq_sapphires) or 0), 0, Bag.MAX_SAPPHIRES))
+        inst._klbq_nightvision:set(data.klbq_nightvision == true and inst._klbq_sapphires:value() == Bag.MAX_SAPPHIRES)
+        RefreshWornLight(inst)
+    end
+    if data ~= nil then
+        SetArmor(inst, math.clamp(math.floor(tonumber(data.klbq_rubies) or 0), 0, Bag.MAX_RUBIES))
+        RefreshTrader(inst)
     end
 end
 
@@ -153,10 +196,29 @@ local function fn()
     inst:AddTag("alltrader")
     inst._klbq_eyeball = net_bool(inst.GUID, "klbq_singularity.eyeball", "klbq_eyeballdirty")
     inst._klbq_minerhat = net_bool(inst.GUID, "klbq_singularity.minerhat", "klbq_minerhatdirty")
+    inst._klbq_rubies = net_byte(inst.GUID, "klbq_singularity.rubies")
+    inst._klbq_sapphires = net_byte(inst.GUID, "klbq_singularity.sapphires")
+    inst._klbq_nightvision = net_bool(inst.GUID, "klbq_singularity.nightvision", Bag.LIGHT_DIRTY)
+
+    local oldname = inst.GetDisplayName
+    if oldname ~= nil then
+        inst.GetDisplayName = function(self, ...)
+            local name = oldname(self, ...)
+            if name == nil then return nil end
+            local armor = 2 * self._klbq_rubies:value()
+            local light = self._klbq_minerhat:value() and (self._klbq_sapphires:value() + 1) or 0
+            return name..string.format("\n护甲 %d%% · 光源 %s", armor,
+                self._klbq_nightvision:value() and "夜视" or light > 0 and string.format("%.1f", 2 + .5 * light) or "未解锁")
+        end
+    end
     MakeInventoryFloatable(inst, "small", .15, .7)
 
     inst.entity:SetPristine()
     if not TheWorld.ismastersim then
+        inst:ListenForEvent(Bag.LIGHT_DIRTY, function()
+            local owner = ThePlayer
+            if owner ~= nil then owner:PushEvent(Bag.LIGHT_DIRTY) end
+        end)
         return inst
     end
 

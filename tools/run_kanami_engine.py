@@ -80,6 +80,7 @@ def main():
     parser.add_argument('--nahida',action='store_true',help='Enable the installed Nahida mod in the isolated compatibility test world')
     parser.add_argument('--audit-only',action='store_true',help='Run post-review native lifecycle and gameplay checks')
     parser.add_argument('--resources-only',action='store_true',help='Test terminal item, crafting and native Charlie death loot')
+    parser.add_argument('--cave-rifle',action='store_true',help='Test native cave void movement and remote Finale lock-on in a separate caves world')
     parser.add_argument('--imprint-only',action='store_true',help='Test native imprint, work, save and material recipes')
     parser.add_argument('--resource-addon',action='store_true',help='Also enable the task-owned copy of the unchanged resource add-on')
     parser.add_argument('--test-admin',help='Grant admin only inside the isolated test cluster')
@@ -136,23 +137,26 @@ def main():
     bag_cluster='KanamiBag023'+('-happy' if args.happy else '')+('-void' if args.void else '')+('-equipment' if args.equipment else '')
     cluster_name='KanamiPlaytest' if args.playtest else bag_cluster if args.bag_only else 'KanamiHappy022' if args.happy else 'KanamiVoid' if args.void or args.void_probe else 'KanamiVisual' if args.interactive else 'KanamiSmoke'
     if args.workshop_runtime:cluster_name='KanamiWorkshopLoad'
+    if args.cave_rifle:cluster_name='KanamiCaveRifleWorkshop' if args.workshop_runtime else 'KanamiCaveRifle'
     cluster=STORAGE/'DoNotStarveTogether'/cluster_name
-    if not args.playtest and not args.happy and not cluster.exists() and cluster_name!='KanamiSmoke':
+    if not args.playtest and not args.happy and not args.cave_rifle and not cluster.exists() and cluster_name!='KanamiSmoke':
         base=STORAGE/'DoNotStarveTogether/KanamiSmoke'
         if base.exists():shutil.copytree(base,cluster)
     shard=cluster/'Master';shard.mkdir(parents=True,exist_ok=True)
     if args.test_admin:(cluster/'adminlist.txt').write_text(args.test_admin+'\n',encoding='utf-8')
-    port=11016 if args.interactive else 11015
+    port=11016 if args.interactive else 11019 if args.cave_rifle else 11015
     (cluster/'cluster.ini').write_text('[GAMEPLAY]\ngame_mode=endless\nmax_players=2\npvp=false\npause_when_empty='+('true' if args.playtest else 'false')+'\n\n[NETWORK]\ncluster_name='+('Kanami Playtest' if args.playtest else 'Kanami isolated regression')+'\noffline_cluster=true\nlan_only_cluster=true\n\n[MISC]\nconsole_enabled=true\n\n[SHARD]\nshard_enabled=false\n')
     (shard/'server.ini').write_text('[NETWORK]\nserver_port='+str(port)+'\n\n[STEAM]\nauthentication_port=8767\nmaster_server_port=27017\n\n[SHARD]\nis_master=true\n')
     # worldgenoverride is the preset+overrides format; leveldataoverride instead
     # requires a complete level (id/name/desc/location). Do not conflate them.
     obsolete=shard/'leveldataoverride.lua'
     if obsolete.exists():obsolete.unlink()
-    (shard/'worldgenoverride.lua').write_text('return {override_enabled=true,preset="SURVIVAL_TOGETHER",overrides={world_size="small",season_start="autumn",autumn="verylongseason",start_location="default"}}\n')
+    preset='DST_CAVE' if args.cave_rifle else 'SURVIVAL_TOGETHER'
+    (shard/'worldgenoverride.lua').write_text('return {override_enabled=true,preset="'+preset+'",overrides={world_size="small",season_start="autumn",autumn="verylongseason",start_location="default"}}\n')
     mode='audit' if args.audit_only else 'bag' if args.bag_only else 'weapon_inputs' if args.weapons_only and (args.happy or args.void) else 'weapons' if args.weapons_only else 'happy' if args.happy else 'void_probe' if args.void_probe else 'void' if args.void else 'interactive' if args.interactive else 'base'
     if args.resources_only:mode='resources'
     if args.imprint_only:mode='imprint'
+    if args.cave_rifle:mode='cave_rifle'
     if args.inventory_guard_only:mode='guard'
     if args.interactive:mode='interactive'
     extra=''

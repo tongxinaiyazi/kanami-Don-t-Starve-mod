@@ -54,18 +54,22 @@ function RunKanamiGardenChecks(context)
                 local angle=step*math.pi/24
                 local x,z=px+radius*math.cos(angle),pz+radius*math.sin(angle)
                 local land=true
-                for _,offset in ipairs({{0,0},{4,0},{0,4},{-4,0}}) do
+                for _,offset in ipairs({{0,0},{4,0},{0,4},{-4,0},
+                    {-4,-4},{-2,-4},{0,-4},{2,-4},{4,-4},{6,-4},{-4,-2},{-2,-2}}) do
                     local tx,tz=x+offset[1],z+offset[2]
                     if not (map:IsInMapBounds(tx,0,tz) and map:IsVisualGroundAtPoint(tx,0,tz)
                         and map:IsPassableAtPoint(tx,0,tz)) then land=false;break end
                 end
                 if land then
                     for _,entity in ipairs(G.TheSim:FindEntities(x,0,z,70,nil,{"INLIMBO","FX","DECOR"},
-                        {"player","plant","farm_plant","notreadyforharvest","readyforharvest"})) do
+                        {"player","plant","farm_plant","notreadyforharvest","readyforharvest","tree","boulder"})) do
+                        local ex,_,ez=entity.Transform:GetWorldPosition()
                         if entity:HasTag("player") or entity.components.farmplanttendable
                             or entity.prefab=="grass" or entity.prefab=="sapling"
                             or entity.prefab=="berrybush" or entity.prefab=="berrybush2"
-                            or entity.prefab=="berrybush_juicy" or entity.components.crop then land=false;break end
+                            or entity.prefab=="berrybush_juicy" or entity.components.crop
+                            or ((entity:HasTag("tree") or entity.prefab=="marbleshrub")
+                                and (ex-x)*(ex-x)+(ez-z)*(ez-z)<=16*16) then land=false;break end
                     end
                 end
                 if land then ax,az=x,z;break end
@@ -99,6 +103,21 @@ function RunKanamiGardenChecks(context)
         local c,oc=owner.components.klbq_kanami,other.components.klbq_kanami
         local crop,bush=Spawn("farm_plant_carrot"),Spawn("berrybush",1,0)
         local seed=Spawn("farm_plant_randomseed",0,1)
+        local saplings={}
+        for _,definition in ipairs({
+            {"pinecone_sapling",-4,-4,"evergreen",3},
+            {"lumpy_sapling",-2,-4,"evergreen_sparse",3},
+            {"acorn_sapling",0,-4,"deciduoustree",3},
+            {"twiggy_nut_sapling",2,-4,"twiggytree",3},
+            {"marblebean_sapling",4,-4,"marbleshrub",3},
+            {"moonbutterfly_sapling",6,-4,"moon_tree",3},
+            {"palmcone_sapling",-4,-2,"palmconetree",3},
+            {"tree_rock_sapling",-2,-2,nil,2},
+        }) do
+            local sapling=Spawn(definition[1],definition[2],definition[3])
+            saplings[#saplings+1]={inst=sapling,timer=sapling.components.timer,
+                x=ax+definition[2],z=az+definition[3],prefab=definition[4],mature=definition[5]}
+        end
         -- The ordinary planted-seed prefab must replace itself via native code.
         -- Fix only this fixture's random outcome; the mod leaves randomness intact.
         seed._identified_plant_type="farm_plant_tomato"
@@ -124,6 +143,24 @@ function RunKanamiGardenChecks(context)
         local othermod=other.components.sanity.externalmodifiers:Get()
         local allymod=ally.components.sanity.externalmodifiers:Get()
         assert(c:Cast("x"),"real X activation failed")
+        for _,sapling in ipairs(saplings) do
+            for _,tree in ipairs(G.TheSim:FindEntities(sapling.x,0,sapling.z,.1,nil,{"INLIMBO","FX","DECOR"})) do
+                if tree.components.growable then
+                    owned[#owned+1]=tree
+                    assert(sapling.tree==nil,"sapling produced duplicate trees")
+                    sapling.tree=tree
+                end
+            end
+        end
+        check("X native planted tree timers preserve original replacements",function()
+            for _,sapling in ipairs(saplings) do
+                assert(not sapling.inst:IsValid(),sapling.inst.prefab.." did not germinate")
+                assert(not sapling.timer:TimerExists("grow"),"native sapling timer was left running")
+                local tree=assert(sapling.tree,"native sapling replacement missing")
+                if sapling.prefab then assert(tree.prefab==sapling.prefab,"native tree species changed")
+                else assert(tree.prefab=="tree_rock1" or tree.prefab=="tree_rock2","native stone tree variation changed") end
+            end
+        end)
         local seedtended=0
         do
             local plant=assert(seed.grew_into,"ordinary planted seed did not germinate on activation")
@@ -165,7 +202,7 @@ function RunKanamiGardenChecks(context)
                 -- through actual successful TendTo calls, not a giant-crop claim.
                 assert(seedtended>=3,"replacement crop growth stages were not tended")
             end)
-            check("X native farm crop tend water nutrients and real-time maturity",function()
+            check("X native farm crop tend water and real-time maturity without fertilizer",function()
                 assert(G.GetTime()-started>=4.2,"native time did not advance")
                 assert(c:IsX(),"domain expired during crop checks")
                 assert(crop.components.growable:GetCurrentStageData().name=="full","crop did not mature")
@@ -174,9 +211,17 @@ function RunKanamiGardenChecks(context)
                 assert(not crop:HasTag("farm_plant_killjoy"),"mature crop was advanced into rot")
                 assert(manager:IsSoilMoistAtPoint(ax,0,az),"native crop soil was not watered")
                 local a,b,d=manager:GetTileNutrients(tx,tz)
-                assert(a>0 and b>0 and d>0,"native crop nutrients were not replenished")
+                assert(a==0 and b==0 and d==0,"domain replenished depleted soil nutrients")
                 assert(not pickable:CanBePicked(),"quarter-second scans refilled harvested bush repeatedly")
                 assert(crop._magicgrowthtask==nil,"growth leaked into a deferred magic chain")
+            end)
+            check("X native planted trees stop at their original mature stages",function()
+                for _,sapling in ipairs(saplings) do
+                    local tree=assert(sapling.tree,"native sapling replacement missing")
+                    assert(tree:IsValid(),"mature tree was removed")
+                    eq(tree.components.growable:GetStage(),sapling.mature)
+                    assert(not tree:HasTag("magicgrowth"),"domain leaked a native magic growth chain")
+                end
             end)
             c.state.deadlines.x_active=nil;c:Tick()
             check("X native last domain exit removes only its sanity source",function()

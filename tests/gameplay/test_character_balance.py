@@ -131,6 +131,60 @@ class CharacterBalance(unittest.TestCase):
         self.assertIsNone(self.lua.eval('teleported'))
         self.assertTrue(self.lua.eval('inst.components.drownable:ShouldDrown()'))
 
+    def test_cave_gap_is_traversable_but_not_safe_ground(self):
+        self.lua.execute('''
+          WORLD_TILES={IMPASSABLE=4,INVALID=255}
+          TheWorld.HasTag=function(s,t) return t=='cave' end
+          local m=TheWorld.Map
+          m.IsInMapBounds=function(s,x,y,z) return x<40 end
+          m.GetTileAtPoint=function(s,x,y,z) return x<10 and 1 or x<30 and 4 or 255 end
+          m.IsInvalidTileAtPoint=function(s,x,y,z) return m:GetTileAtPoint(x,y,z)~=1 end
+          m.IsVisualGroundAtPoint=function(s,x,y,z) return x<10 end
+          m.IsPassableAtPoint=m.IsVisualGroundAtPoint
+          equips.body=bag;component:ToggleString();position={20,0,20};component:Tick()
+        ''')
+        self.assertEqual(self.lua.eval('position[1]'), 20)
+        self.assertFalse(self.lua.eval('component:ToggleString()'))
+        self.assertFalse(self.lua.eval('inst.components.drownable:ShouldFallInVoid()'))
+        self.lua.execute('position={35,0,20};component:Tick()')
+        self.assertEqual(self.lua.eval('position[1]'), 0)
+        self.lua.execute('position={50,0,20};component:Tick()')
+        self.assertEqual(self.lua.eval('position[1]'), 0)
+        self.lua.execute('position={20,0,20};equips.body=nil;inst:PushEvent("unequip")')
+        self.assertEqual(self.lua.eval('position[1]'), 0)
+        self.assertTrue(self.lua.eval('inst.components.drownable:ShouldFallInVoid()'))
+
+    def test_cave_mask_recovers_from_native_state_restore_with_unchanged_equipment(self):
+        self.lua.execute(native('stategraphs/SGwilson.lua', 'local function ToggleOnPhysics(')
+                         + '\nRestoreNativePhysics = ToggleOnPhysics')
+        self.lua.execute('''
+          WORLD_TILES={IMPASSABLE=4}
+          TheWorld.HasTag=function(s,t) return t=='cave' end
+          TheWorld.Map.GetTileAtPoint=function() return 1 end
+          COLLISION.OBSTACLES=4;COLLISION.SMALLOBSTACLES=8;COLLISION.CHARACTERS=16;COLLISION.GIANTS=32
+          mask=62
+          inst.sg={statemem={},HasStateTag=function() return true end}
+          inst.Physics.GetCollisionMask=function() return mask end
+          inst.Physics.SetCollisionMask=function(self, ...)
+            mask=0;for i=1,select('#',...) do mask=mask+select(i,...) end
+          end
+          equips.body=bag
+          assert(component:ToggleString())
+          assert(mask==COLLISION.GROUND)
+          mask=COLLISION.WORLD
+          inst.sg.statemem.isphysicstoggle=true
+          inst:PushEvent('newstate');component:Tick()
+          assert(mask==COLLISION.WORLD, 'temporary native physics changed before its exit')
+          RestoreNativePhysics(inst)
+          assert(mask==62)
+          inst:PushEvent('newstate')
+        ''')
+        self.assertEqual(self.lua.eval('mask'), 1)
+        self.lua.execute('RestoreNativePhysics(inst);component:Tick()')
+        self.assertEqual(self.lua.eval('mask'), 1)
+        self.lua.execute('component:ToggleString()')
+        self.assertEqual(self.lua.eval('mask'), 62)
+
     def test_load_drops_a_safety_coordinate_from_another_shard(self):
         self.lua.execute('''
           TheShard={GetShardId=function() return 'Master' end}
@@ -233,6 +287,25 @@ class PredictionBalance(unittest.TestCase):
         self.assertFalse(self.lua.eval('inst.components.locomotor.pathcaps and inst.components.locomotor.pathcaps.allowocean') or False)
         self.lua.execute('inst:AddTag("playerghost");inst:PushEvent("klbq_statusdirty")')
         self.assertAlmostEqual(self.lua.eval('inst.components.locomotor:GetSpeedMultiplier()'), 1.3)
+
+    def test_cave_prediction_repairs_native_mask_reset_without_a_netvar_change(self):
+        self.lua.execute('''
+          TheWorld.HasTag=function(s,t) return t=='cave' end
+          mask=31
+          inst.Physics.GetCollisionMask=function() return mask end
+          inst.Physics.SetCollisionMask=function(s,n) mask=n end
+          inst._klbq_string:set(true);inst._klbq_waterwalk:set(true);inst:PushEvent('klbq_statusdirty')
+          assert(mask==COLLISION.GROUND)
+          mask=31
+          inst:PushEvent('playeractivated');drain()
+        ''')
+        self.assertEqual(self.lua.eval('mask'), 1)
+        self.lua.execute('mask=31;inst:PushEvent("newstate")')
+        self.assertEqual(self.lua.eval('mask'), 1)
+        self.lua.execute('mask=31;inst.components.locomotor:GetSpeedMultiplier()')
+        self.assertEqual(self.lua.eval('mask'), 1)
+        self.lua.execute('inst._klbq_string:set(false);inst:PushEvent("klbq_statusdirty")')
+        self.assertEqual(self.lua.eval('mask'), 31)
 
 
 class ResurrectionHands(unittest.TestCase):

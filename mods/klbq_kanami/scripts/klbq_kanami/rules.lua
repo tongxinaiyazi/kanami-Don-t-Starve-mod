@@ -50,6 +50,40 @@ end
 function M.Speed(existing, string, allied, wet)
     return (existing * 1.5 + (string and .5 or 0) + (allied and .2 or 0)) * (wet and .5 or 1)
 end
+function M.IsCaveVoid(map,x,y,z)
+    return TheWorld.HasTag and TheWorld:HasTag("cave")
+        and map:IsInMapBounds(x,y,z) and map:GetTileAtPoint(x,y,z)==WORLD_TILES.IMPASSABLE
+end
+function M.RefreshCaveCollisionMask(inst,enabled)
+    if not enabled or not (TheWorld.HasTag and TheWorld:HasTag("cave")) then return end
+    local mem=inst.sg and inst.sg.statemem
+    local physics=inst.Physics
+    -- Native jumps/teleports/knockbacks temporarily own the mask. Their
+    -- cleanup restores character physics, regardless of whether C changed.
+    if not (mem and mem.isphysicstoggle) and physics and physics.GetCollisionMask
+        and physics:GetCollisionMask()~=COLLISION.GROUND then
+        physics:SetCollisionMask(COLLISION.GROUND)
+    end
+end
+function M.ConfigureCaveGlide(loco)
+    if not (TheWorld.HasTag and TheWorld:HasTag("cave")) or loco._klbq_caveglide then return end
+    loco._klbq_caveglide=true
+    local findpath=loco.FindPath
+    loco.FindPath=function(self,...)
+        local inst=self.inst
+        if inst._klbq_string:value() and inst._klbq_waterwalk:value() and self.dest:IsValid() then
+            local x,y,z=self.dest:GetPoint()
+            if x and TheWorld.Map:IsInMapBounds(x,y,z) then
+                -- The cave pathfinder treats gaps as walls even with allowocean.
+                -- Let the same collision mask as direct movement guide a point click.
+                self:ResetPath()
+                self.lastdesttile=nil
+                return
+            end
+        end
+        return findpath(self,...)
+    end
+end
 M.DOMAIN_RADIUS = 12
 -- Native reticuleaoe idle (AnimState scale1.5) has a four-world-unit radius.
 function M.DomainScale() return M.DOMAIN_RADIUS/4 end

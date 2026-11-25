@@ -14,12 +14,14 @@ local Kanami=Class(function(self,inst)
     self._hit=function(_,data) self:OnHit(data) end
     self._moisture=function() self:Sync() end
     self._equipment=function() self:ApplyString();self:Sync() end
+    self._movementstate=function() Rules.RefreshCaveCollisionMask(inst,self:CanStringWaterWalk()) end
     inst:ListenForEvent("death",self._death)
     inst:ListenForEvent("ms_respawnedfromghost",self._respawn)
     inst:ListenForEvent("onhitother",self._hit)
     inst:ListenForEvent("moisturedelta",self._moisture)
     inst:ListenForEvent("equip",self._equipment)
     inst:ListenForEvent("unequip",self._equipment)
+    inst:ListenForEvent("newstate",self._movementstate)
     self.task=inst:DoPeriodicTask(.25,function() self:Tick() end)
     self:Sync()
 end)
@@ -58,7 +60,8 @@ function Kanami:Sync()
 end
 function Kanami:SafePoint(x,y,z)
     local map=TheWorld.Map
-    if not (map:IsInMapBounds(x,y,z) and (self.inst:GetCurrentPlatform()~=nil or map:IsVisualGroundAtPoint(x,y,z))
+    if not (map:IsInMapBounds(x,y,z) and not Rules.IsCaveVoid(map,x,y,z)
+        and (self.inst:GetCurrentPlatform()~=nil or map:IsVisualGroundAtPoint(x,y,z))
         and map:IsPassableAtPoint(x,y,z) and not map:IsGroundTargetBlocked(Vector3(x,y,z))) then return false end
     local radius=self.inst:GetPhysicsRadius(.5)
     for _,obstacle in ipairs(TheSim:FindEntities(x,y,z,radius+(MAX_PHYSICS_RADIUS or 4),nil,{"INLIMBO","FX","DECOR","NOBLOCK"})) do
@@ -82,7 +85,12 @@ function Kanami:SafeGroundPoint(point)
         and map:IsVisualGroundAtPoint(unpack(point)) and self:SafePoint(unpack(point))
 end
 function Kanami:ReturnToSafeGround()
-    if self:SafeGroundPoint(self.lastsafe) then self.inst.Physics:Teleport(unpack(self.lastsafe));return true end
+    if self:SafeGroundPoint(self.lastsafe) then
+        local loco=self.inst.components.locomotor
+        if loco.Stop then loco:Stop() end
+        self.inst.Physics:Teleport(unpack(self.lastsafe))
+        return true
+    end
     return false
 end
 function Kanami:ApplyString()
@@ -110,11 +118,14 @@ function Kanami:ApplyString()
         loco:AdjustPathCaps(self.savedallowocean,"allowocean")
     end
     self.waterwalkapplied=waterwalk
-    -- Equipment loss must not leave a player indefinitely immune above ocean.
+    -- Equipment loss must not leave a player suspended over water or a cave gap.
     -- A loaded/shard-migrated string state also needs this check before drowning.
     if enabled and not waterwalk then
         local x,y,z=inst.Transform:GetWorldPosition()
-        if inst:GetCurrentPlatform()==nil and not TheWorld.Map:IsVisualGroundAtPoint(x,y,z) then self:ReturnToSafeGround() end
+        local map=TheWorld.Map
+        if Rules.IsCaveVoid(map,x,y,z) or (inst:GetCurrentPlatform()==nil and not map:IsVisualGroundAtPoint(x,y,z)) then
+            self:ReturnToSafeGround()
+        end
     end
     self.stringapplied=enabled
     Visual.StringBuild(inst,enabled)
@@ -269,11 +280,16 @@ function Kanami:Tick()
     end
     if self.state.string then
         local x,y,z=inst.Transform:GetWorldPosition()
-        if not TheWorld.Map:IsInMapBounds(x,y,z) or (TheWorld.Map.IsInvalidTileAtPoint and TheWorld.Map:IsInvalidTileAtPoint(x,y,z)) then
+        local map=TheWorld.Map
+        if not map:IsInMapBounds(x,y,z) or
+            (map.IsInvalidTileAtPoint and map:IsInvalidTileAtPoint(x,y,z)
+                and not (self:CanStringWaterWalk() and Rules.IsCaveVoid(map,x,y,z))) then
             self:ReturnToSafeGround()
         elseif self:SafeGroundPoint({x,y,z}) then self.lastsafe={x,y,z} end
     end
-    if self.waterwalkapplied~=self:CanStringWaterWalk() then self:ApplyString() end
+    local waterwalk=self:CanStringWaterWalk()
+    if self.waterwalkapplied~=waterwalk then self:ApplyString() end
+    Rules.RefreshCaveCollisionMask(inst,waterwalk)
     self:Protection(self:IsProtected())
     if self:IsX() then
         self.targets=Domain.Scan(inst,self.targets)
@@ -383,6 +399,7 @@ function Kanami:InstallHooks()
         return olddelta(h,amount,...)
     end
     local loco=inst.components.locomotor
+    Rules.ConfigureCaveGlide(loco)
     local oldspeed=loco.GetSpeedMultiplier
     loco.GetSpeedMultiplier=function(l,...)
         local result=Pack(oldspeed(l,...))
@@ -394,7 +411,13 @@ function Kanami:InstallHooks()
         local old=drown.ShouldDrown
         drown.ShouldDrown=function(d,...) if self:CanStringWaterWalk() then return false end;return old(d,...) end
         local oldvoid=drown.ShouldFallInVoid
-        drown.ShouldFallInVoid=function(d,...) if self:CanStringWaterWalk() then return false end;return oldvoid(d,...) end
+        drown.ShouldFallInVoid=function(d,...)
+            if self:CanStringWaterWalk() then
+                if not (TheWorld.HasTag and TheWorld:HasTag("cave"))
+                    or Rules.IsCaveVoid(TheWorld.Map,inst.Transform:GetWorldPosition()) then return false end
+            end
+            return oldvoid(d,...)
+        end
     end
 end
 function Kanami:FinishOceanLoad()
@@ -411,14 +434,16 @@ function Kanami:GuardOceanLoad()
     local inst=self.inst
     local drown=inst.components.drownable
     local x,y,z=inst.Transform:GetWorldPosition()
-    if not drown or drown.enabled==false or not TheWorld.Map:IsOceanTileAtPoint(x,y,z)
-        or TheWorld.Map:IsVisualGroundAtPoint(x,y,z) then return end
+    local map=TheWorld.Map
+    if not drown or drown.enabled==false or
+        (not Rules.IsCaveVoid(map,x,y,z) and
+            (not map:IsOceanTileAtPoint(x,y,z) or map:IsVisualGroundAtPoint(x,y,z))) then return end
     self:FinishOceanLoad()
     local guard={drownable=drown,enabled=drown.enabled}
     self.oceanloadguard=guard
     drown.enabled=false
     -- Native player_common's next-tick OnLoad rescue ignores ShouldDrown and
-    -- tests land passability directly. Skip only that check for this swimmer.
+    -- tests land passability directly. Skip only when the saved location is traversable.
     -- Scheduler iterates same-tick tasks with pairs, so restore one tick later.
     guard.task=inst:DoTaskInTime(0,function()
         guard.task=inst:DoTaskInTime(0,function()
@@ -463,6 +488,7 @@ function Kanami:OnRemoveFromEntity()
     self.inst:RemoveEventCallback("moisturedelta",self._moisture)
     self.inst:RemoveEventCallback("equip",self._equipment)
     self.inst:RemoveEventCallback("unequip",self._equipment)
+    self.inst:RemoveEventCallback("newstate",self._movementstate)
     if self.inst:IsValid() then self:Sync() end
 end
 -- Disconnects and shard migration remove the entire EntityScript; that path

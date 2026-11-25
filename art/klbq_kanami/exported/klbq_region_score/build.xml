@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Build name="klbq_region_score">
+  <Symbol name="score">
+    <Frame framenum="0" duration="1" x="0" y="0" w="96" h="96" image="score_0" />
+  </Symbol>
+</Build>

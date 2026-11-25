@@ -42,9 +42,9 @@ class Actions(unittest.TestCase):
         self.assertEqual(self.lua.eval('result[1].action.id'),'KLBQ_SHOOT')
         self.assertTrue(self.lua.eval('result[1].invobject==gun'))
 
-    def test_force_attack_route_uses_rifle_without_melee(self):
+    def test_force_attack_route_uses_distinct_lock_action(self):
         self.lua.execute('control=CONTROL_FORCE_ATTACK;result=p:GetLeftClickActions({},target)')
-        self.assertEqual(self.lua.eval('result[1].action.id'),'KLBQ_SHOOT')
+        self.assertEqual(self.lua.eval('result[1].action.id'),'KLBQ_SHOOT_LOCK')
         self.assertTrue(self.lua.eval('result[1].invobject==gun'))
 
     def test_non_kanami_native_hostile_and_equipped_routes_use_rifle(self):

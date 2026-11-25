@@ -21,7 +21,8 @@ class Garden(unittest.TestCase):
                       for name in ('class', 'util/sourcemodifierlist', 'components/growable',
                                    'components/farmplanttendable', 'components/farmplantstress',
                                    'components/farmsoildrinker', 'components/pickable',
-                                   'components/crop', 'prefabs/farm_plants')}
+                                   'components/crop', 'components/timer',
+                                   'prefabs/farm_plants', 'prefabs/planted_tree')}
         self.lua.execute(native['class'])
         modifiers = self.lua.execute(native['util/sourcemodifierlist'])
         self.lua.globals().package.loaded['util/sourcemodifierlist'] = modifiers
@@ -33,6 +34,8 @@ class Garden(unittest.TestCase):
           now=0;GetTime=function() return now end
           function Task() return {Cancel=noop} end
           GetRandomMinMax=function(a,b) return a end
+          GetRandomWithVariance=function(base) return base end
+          GetRandomItem=function(items) return items[1] end
           SpringGrowthMod=function(t) return t end
           math.clamp=function(n,a,b) return math.max(a,math.min(n,b)) end
           c_sel=function() end
@@ -40,9 +43,12 @@ class Garden(unittest.TestCase):
           Prefab=function(n,fn) return {name=n,fn=fn} end
           net_tinybyte=function() return {set=function(s,n) s.n=n end,value=function(s) return s.n end} end
           MakeSmallBurnable=noop;MakeSmallPropagator=noop;MakeWaxablePlant=noop
+          MakeHauntableIgnite=noop;MakeHauntableWork=noop
+          DEPLOYSPACING={DEFAULT=1,PLACER_DEFAULT=2};DEPLOYSPACING_RADIUS={2,2}
           ACTIONS={DIG={}};WORLD_TILES={FARMING_SOIL=1}
           FARM_PLANT_STRESS={NONE=1,LOW=2,MODERATE=3,HIGH=4}
           TUNING={FARM_PLANT_KILLJOY_RADIUS=5,FARM_PANT_OVERCROWDING_MAX_PLANTS=9,FARM_PLANT_LONG_LIFE_MULT=1}
+          TUNING.PINECONE_GROWTIME={base=100,random=0};TUNING.TREE_ROCK={SAPLING_GROW_TIME={base=100,random=0}}
           plantdef={prefab='farm_plant_carrot',bank='farm_plant_carrot',build='farm_plant_carrot',
             product='carrot',seed='carrot_seeds',fireproof=true,moisture={drink_rate=1,min_percent=.35},
             grow_time={seed={100,100},sprout={100,100},small={100,100},med={100,100},full=1000,oversized=1000},
@@ -55,7 +61,7 @@ class Garden(unittest.TestCase):
           package.loaded['prefabs/veggies']={}
           nativecomponents={};entities={};spawned={}
           function Entity(name)
-            local e={prefab=name,components={},tags={},valid=true,x=0,z=0}
+            local e={prefab=name,components={},tags={},events={},valid=true,x=0,z=0}
             e.IsValid=function(s) return s.valid end
             e.IsAsleep=function() return false end
             e.AddTag=function(s,t) s.tags[t]=true end
@@ -63,7 +69,13 @@ class Garden(unittest.TestCase):
             e.HasTag=function(s,t) return s.tags[t] or false end
             e.DoTaskInTime=function() return Task() end;e.DoPeriodicTask=e.DoTaskInTime
             e.SetDeploySmartRadius=noop;e.SetPhysicsRadiusOverride=noop
-            e.WatchWorldState=noop;e.ListenForEvent=noop;e.PushEvent=noop
+            e.WatchWorldState=noop
+            e.ListenForEvent=function(s,event,fn)
+              s.events[event]=s.events[event] or {};table.insert(s.events[event],fn)
+            end
+            e.PushEvent=function(s,event,data)
+              for _,fn in ipairs(s.events[event] or {}) do fn(s,data) end
+            end
             e.Remove=function(s) s.valid=false end
             e.Transform=Passive();e.Transform.GetWorldPosition=function() return e.x,0,e.z end
             e.Transform.SetPosition=function(_,x,y,z) e.x=x;e.z=z end
@@ -100,9 +112,33 @@ class Garden(unittest.TestCase):
             return found
           end}
           CreateEntity=function() return Entity('farm_plant_carrot') end
+          treeprefabs={
+            evergreen_short={prefab='evergreen',last=3,stages=4,tag='tree',magic=true},
+            evergreen_sparse_short={prefab='evergreen_sparse',last=3,stages=4,tag='tree',magic=true},
+            deciduoustree={prefab='deciduoustree',last=3,stages=3,tag='tree',magic=true},
+            twiggy_short={prefab='twiggytree',last=3,stages=4,tag='tree',magic=true},
+            marbleshrub_short={prefab='marbleshrub',last=3,stages=3,tag='boulder'},
+            moon_tree_short={prefab='moon_tree',last=3,stages=3,tag='tree',magic=true},
+            palmconetree_short={prefab='palmconetree',last=3,stages=3,tag='tree',magic=true},
+            tree_rock1_short={prefab='tree_rock1',last=2,stages=2,tag='tree'},
+            tree_rock2_short={prefab='tree_rock2',last=2,stages=2,tag='tree'}}
+          grown_trees={}
+          function NativeTree(def)
+            local e=Entity(def.prefab);e:AddTag(def.tag);e:AddComponent('growable')
+            local growable=e.components.growable;growable.stages={};growable.magicgrowable=true
+            for i=1,def.stages do
+              growable.stages[i]={time=function()return 100 end,
+                growfn=function(inst)inst.growth_calls=(inst.growth_calls or 0)+1 end}
+            end
+            growable.loopstages=def.stages~=2;growable:SetStage(1);growable:StartGrowing()
+            if def.magic then e.components.simplemagicgrower={last_stage=def.last} end
+            e.growfromseed=function(inst)inst.components.growable:SetStage(1)end
+            grown_trees[#grown_trees+1]=e;return e
+          end
           SpawnPrefab=function(name)
             local e
-            if prefabs and prefabs[name] then e=prefabs[name].fn();e.prefab=name;entities[#entities+1]=e
+            if treeprefabs[name] then e=NativeTree(treeprefabs[name]);entities[#entities+1]=e
+            elseif prefabs and prefabs[name] then e=prefabs[name].fn();e.prefab=name;entities[#entities+1]=e
             else e=Entity(name);e.components.fertilizer={withered_cycles=0} end
             spawned[#spawned+1]=e;return e
           end
@@ -116,10 +152,12 @@ class Garden(unittest.TestCase):
           end
           owner=Player('klbq_kanami');other=Player('klbq_kanami');ally=Player('wilson')
         ''')
-        for name in ('growable', 'farmplanttendable', 'farmplantstress', 'farmsoildrinker', 'pickable', 'crop'):
+        for name in ('growable', 'farmplanttendable', 'farmplantstress', 'farmsoildrinker', 'pickable', 'crop', 'timer'):
             self.lua.globals().nativecomponents[name] = self.lua.execute(native['components/' + name])
         self.lua.globals().prefab_list = self.lua.table_from(self.lua.execute(native['prefabs/farm_plants']))
         self.lua.execute('prefabs={};for _,p in ipairs(prefab_list) do prefabs[p.name]=p end;carrotprefab=prefabs.farm_plant_carrot')
+        self.lua.globals().planted_tree_prefabs = self.lua.table_from(self.lua.execute(native['prefabs/planted_tree']))
+        self.lua.execute('for _,p in ipairs(planted_tree_prefabs) do prefabs[p.name]=p end')
         self.lua.execute('crop=carrotprefab.fn();entities={crop,owner,other,ally};now=10')
         # Lua 5.1's Windows C stdio cannot open this Unicode workspace path.
         for name in ('cleanse', 'recruit', 'hermit', 'agriculture', 'domain'):
@@ -135,9 +173,10 @@ class Garden(unittest.TestCase):
         self.assertTrue(path.exists(), 'domain must implement automatic native plant care and maturation')
         self.lua.globals().garden = self.lua.eval("require('klbq_kanami/agriculture')")
 
-    def test_native_crop_gets_tended_watered_fertilized_and_matures_without_rotting(self):
+    def test_native_crop_gets_tended_watered_and_matures_without_rotting(self):
         self.module()
         self.lua.execute('''
+          TheWorld.components.farming_manager.nutrients={100,100,100}
           local original=crop.components.farmplanttendable.ontendtofn
           crop.components.farmplanttendable.ontendtofn=function(inst,doer)
             crop.tend_count=(crop.tend_count or 0)+1;return original(inst,doer)
@@ -148,10 +187,25 @@ class Garden(unittest.TestCase):
         self.assertTrue(self.lua.eval('crop.components.pickable:CanBePicked()'))
         self.assertGreater(self.lua.eval('TheWorld.components.farming_manager.water'), 0)
         self.assertGreater(self.lua.eval('TheWorld.components.farming_manager.nutrients[1]'), 0)
+        self.assertLess(self.lua.eval('TheWorld.components.farming_manager.nutrients[1]'), 100)
         self.assertEqual(self.lua.eval('crop.tend_count'), 4)
         self.assertEqual(self.lua.eval('crop.components.farmplantstress:GetFinalStressState()'), 1)
         self.assertFalse(self.lua.eval("crop:HasTag('farm_plant_killjoy')"))
         self.assertIsNone(self.lua.eval('crop._magicgrowthtask'))
+
+    def test_native_soil_nutrients_are_never_replenished(self):
+        self.module()
+        self.lua.execute('''
+          local original=crop.components.farmplanttendable.ontendtofn
+          crop.components.farmplanttendable.ontendtofn=function(inst,doer)
+            crop.tend_count=(crop.tend_count or 0)+1;return original(inst,doer)
+          end
+          for i=1,8 do garden.Scan(owner);now=now+1 end
+        ''')
+        self.assertEqual(self.lua.eval('crop.components.growable:GetCurrentStageData().name'), 'full')
+        self.assertEqual(tuple(self.lua.eval('TheWorld.components.farming_manager.nutrients').values()), (0, 0, 0))
+        self.assertGreater(self.lua.eval('TheWorld.components.farming_manager.water'), 0)
+        self.assertEqual(self.lua.eval('crop.tend_count'), 4)
 
     def test_common_pickables_get_one_harvest_per_activation_not_quarter_second_refills(self):
         self.module()
@@ -179,6 +233,7 @@ class Garden(unittest.TestCase):
     def test_ordinary_planted_seed_replacement_is_tended_and_matures(self):
         self.module()
         self.lua.execute('''
+          TheWorld.components.farming_manager.nutrients={100,100,100}
           seed=SpawnPrefab('farm_plant_randomseed');entities={seed}
           -- Native replacement is deterministic here; production keeps random crops/weeds.
           seed._identified_plant_type='farm_plant_carrot'
@@ -206,6 +261,48 @@ class Garden(unittest.TestCase):
         ''')
         self.assertEqual(self.lua.eval('tree.components.growable:GetStage()'), 3)
         self.assertFalse(self.lua.eval("tree:HasTag('magicgrowth')"))
+
+    def test_native_planted_tree_timers_replace_all_saplings_and_mature_their_trees(self):
+        self.module()
+        self.lua.execute('''
+          entities={};saplings={}
+          for _,name in ipairs({'pinecone_sapling','lumpy_sapling','acorn_sapling','twiggy_nut_sapling',
+              'marblebean_sapling','moonbutterfly_sapling','palmcone_sapling','tree_rock_sapling'})do
+            saplings[#saplings+1]=SpawnPrefab(name)
+          end
+          for i=1,8 do garden.Scan(owner);garden.Scan(other);now=now+1 end
+        ''')
+        self.assertTrue(self.lua.eval('function()for _,s in ipairs(saplings)do if s:IsValid() or s.components.timer:TimerExists("grow") then return false end end return true end')())
+        self.assertEqual(self.lua.eval('#grown_trees'), 8)
+        self.assertTrue(self.lua.eval('function()for _,t in ipairs(grown_trees)do local expected=(t.prefab=="tree_rock1") and 2 or 3;if t.components.growable:GetStage()~=expected then return false end end return true end')())
+        self.assertEqual(self.lua.eval('grown_trees[1].growth_calls'), 2)
+        self.assertEqual(self.lua.eval('grown_trees[8].growth_calls'), 1)
+
+    def test_native_stone_tree_sapling_keeps_its_random_second_variant(self):
+        self.module()
+        self.lua.execute('''
+          GetRandomItem=function(items)return items[#items]end
+          entities={};stone=SpawnPrefab('tree_rock_sapling')
+          for i=1,4 do garden.Scan(owner);now=now+1 end
+        ''')
+        self.assertFalse(self.lua.eval('stone:IsValid()'))
+        self.assertEqual(self.lua.eval('grown_trees[1].prefab'), 'tree_rock2')
+        self.assertEqual(self.lua.eval('grown_trees[1].components.growable:GetStage()'), 2)
+
+    def test_burning_and_unknown_saplings_keep_their_native_growth_timers(self):
+        self.module()
+        self.lua.execute('''
+          entities={};burning=SpawnPrefab('pinecone_sapling')
+          burning.components.burnable={IsBurning=function()return true end}
+          unknown=Entity('mod_tree_sapling');unknown:AddTag('plant');unknown:AddComponent('timer')
+          unknown.components.timer:StartTimer('grow',100)
+          unknown:ListenForEvent('timerdone',function()error('unknown sapling was matured')end)
+          entities[#entities+1]=unknown
+          for i=1,4 do garden.Scan(owner);now=now+1 end
+        ''')
+        self.assertTrue(self.lua.eval('burning:IsValid() and unknown:IsValid()'))
+        self.assertTrue(self.lua.eval('burning.components.timer:TimerExists("grow") and unknown.components.timer:TimerExists("grow")'))
+        self.assertEqual(self.lua.eval('#grown_trees'), 0)
 
     def test_barren_pickables_are_not_fertilized_or_revived(self):
         self.module()

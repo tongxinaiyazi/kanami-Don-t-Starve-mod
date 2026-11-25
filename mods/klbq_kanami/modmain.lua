@@ -2,8 +2,11 @@ local G=GLOBAL
 -- The world's mod configuration controls server-authoritative bullet damage.
 require("klbq_kanami/rules").ConfigureFate(GetModConfigData("fate_crit_fraction"))
 PrefabFiles={"klbq_kanami","klbq_finale","klbq_ammo","klbq_kanami_fx","klbq_singularity","klbq_omurice","klbq_crystal","klbq_blade","klbq_crossbow","klbq_requiem","klbq_imprint_tool"}
+PrefabFiles[#PrefabFiles+1]="klbq_region_score"
+PrefabFiles[#PrefabFiles+1]="klbq_ember_core"
 Assets={
     Asset("ATLAS","images/klbq_kanami_items.xml"),Asset("IMAGE","images/klbq_kanami_items.tex"),
+    Asset("ATLAS","images/turf_klbq_imprint.xml"),Asset("IMAGE","images/turf_klbq_imprint.tex"),
     Asset("ATLAS","images/map_icons/klbq_kanami.xml"),Asset("IMAGE","images/map_icons/klbq_kanami.tex"),
     Asset("ATLAS","images/avatars/avatar_klbq_kanami.xml"),Asset("IMAGE","images/avatars/avatar_klbq_kanami.tex"),
     Asset("ATLAS","images/avatars/avatar_ghost_klbq_kanami.xml"),Asset("IMAGE","images/avatars/avatar_ghost_klbq_kanami.tex"),
@@ -26,6 +29,14 @@ for _,name in ipairs({"klbq_finale","klbq_ammo_heart","klbq_ammo_fate","klbq_amm
     RegisterInventoryItemAtlas("images/klbq_kanami_items.xml",name..".tex")
 end
 require("klbq_kanami/resources").Install(env)
+RegisterInventoryItemAtlas("images/klbq_region_score.xml", "klbq_region_score.tex")
+RegisterInventoryItemAtlas("images/turf_klbq_imprint.xml", "turf_klbq_imprint.tex")
+AddPrefabPostInit("turf_klbq_imprint",function(inst)
+    if G.TheWorld.ismastersim then
+        inst.components.inventoryitem.atlasname="images/turf_klbq_imprint.xml"
+        inst.components.inventoryitem:ChangeImageName("turf_klbq_imprint")
+    end
+end)
 local S=G.STRINGS
 S.CHARACTER_TITLES.klbq_kanami="弦上的终曲"
 S.CHARACTER_NAMES.klbq_kanami="香奈美"
@@ -45,6 +56,8 @@ local descriptions={
     KLBQ_BLADE={"忍锋","银白刃缘掠过，连风也短暂屏住呼吸。"},
     KLBQ_CROSSBOW={"连弩","细密的弦声，把沉默缝成一条直线。"},
     KLBQ_IMPRINT_TOOL={"拓印终端","把陌生的形状，留作下一次重逢的记忆。"},
+    KLBQ_REGION_SCORE={"记录初心的乐谱","这本承载着梦想的乐谱回到了少女的手中。右键打开乐谱，记录脚下地区并选用已记录的地区。"},
+    TURF_KLBQ_IMPRINT={"拟态拓印地皮","用乐谱为它留下一个地区的回响。"},
     KLBQ_REQUIEM={"镇魂歌","为远去的回声，留下一段温柔而锋利的尾奏。"},
 }
 for name,data in pairs(descriptions) do
@@ -61,6 +74,14 @@ require("klbq_kanami/speech").Install(S,env)
 -- Crafting registration uses the shared material catalog.
 require("klbq_kanami/recipes").Install(env)
 require("klbq_kanami/imprint").Install(env, require("klbq_kanami/bag").CollectUpgradeAction)
+local region_actions=require("klbq_kanami/region_actions")
+local midgame=require("klbq_kanami/midgame")
+region_actions.Install(env)
+midgame.Install(env)
+AddComponentAction("INVENTORY","inventoryitem",function(item,doer,actions,right)
+    region_actions.CollectInventoryActions(item,doer,actions,right)
+    midgame.CollectInventoryActions(item,doer,actions,right)
+end)
 
 -- Container definitions must run on clients before container replicas are built.
 local containers=require("containers")
@@ -71,12 +92,23 @@ containers.params.klbq_finale={
 }
 containers.MAXITEMSLOTS=math.max(containers.MAXITEMSLOTS,1)
 
-local shoot=G.Action({priority=20,distance=math.huge,do_not_locomote=true,mount_valid=false})
-shoot.id="KLBQ_SHOOT";shoot.str="谢幕曲 · 射击"
-shoot.fn=function(act)
-    return require("klbq_kanami/rifle").Shoot(act.doer,act.target)
+local function RegisterShot(id,label,locking)
+    local action=G.Action({priority=20,distance=math.huge,do_not_locomote=true,mount_valid=false,invalid_hold_action=true})
+    action.id=id
+    action.str=label
+    action.fn=function(act) return require("klbq_kanami/rifle").Click(act.doer,act.target,locking) end
+    AddAction(action)
+    for _,sg in ipairs({"wilson","wilson_client"}) do AddStategraphActionHandler(sg,G.ActionHandler(action,"klbq_shoot")) end
+    return action
 end
-AddAction(shoot)
+local shoot=RegisterShot("KLBQ_SHOOT","谢幕曲 · 射击",false)
+local shootlock=RegisterShot("KLBQ_SHOOT_LOCK","谢幕曲 · 锁定",true)
+local function ShotAction(doer)
+    local controller=doer.components.playercontroller
+    -- Native left click transmits these modifiers, then clears them before
+    -- executing the buffered action. Capture the choice at action selection.
+    return controller and controller:IsControlPressed(G.CONTROL_FORCE_ATTACK) and shootlock or shoot
+end
 local function CanSelectShot(doer,target)
     return not doer:HasTag("playerghost") and not (doer._klbq_string and doer._klbq_string:value())
         and not (doer._klbq_protect and doer._klbq_protect:value())
@@ -87,10 +119,9 @@ end
 AddComponentAction("EQUIPPED","inventoryitem",function(item,doer,target,actions,right)
     if not right and item:HasTag("klbq_finale")
         and CanSelectShot(doer,target) then
-        actions[#actions+1]=shoot
+        actions[#actions+1]=ShotAction(doer)
     end
 end)
-for _,sg in ipairs({"wilson","wilson_client"}) do AddStategraphActionHandler(sg,G.ActionHandler(shoot,"klbq_shoot")) end
 require("klbq_kanami/states").Install(env)
 require("klbq_kanami/crossbow").Install(env)
 require("klbq_kanami/requiem").Install(env)
@@ -119,7 +150,7 @@ local function Allowed(inst,action,item)
     local projectiledeploy=(action.id=="DEPLOY" or action.id=="DEPLOY_TILEARRIVE" or action.id=="DEPLOY_FLOATING")
         and item~=nil and item:HasTag("complexprojectile")
     return not (locked and (forbidden[action.id] or (G.TOOLACTIONS and G.TOOLACTIONS[action.id])
-        or projectiledeploy or action.id=="KLBQ_SHOOT" or action.id=="KLBQ_REQUIEM_SWEEP"))
+        or projectiledeploy or action.id=="KLBQ_SHOOT" or action.id=="KLBQ_SHOOT_LOCK" or action.id=="KLBQ_REQUIEM_SWEEP"))
 end
 -- Retain native pickup validation, events and full-inventory handling. The
 -- temporary scope only changes its implicit HANDS auto-equip during protection.
@@ -149,7 +180,7 @@ local function InstallActionFilter(picker)
             local filtered={}
             for _,action in ipairs(actions) do
                 -- Hostile/Ctrl-click routes skip EQUIPPED collection entirely.
-                if rifle and action==G.ACTIONS.ATTACK then action=shoot;useitem=gun end
+                if rifle and action==G.ACTIONS.ATTACK then action=ShotAction(inst);useitem=gun end
                 if Allowed(inst,action,useitem) then filtered[#filtered+1]=action end
             end
             -- Vanilla activates ONLY the top filter. Do not push our own filter:
@@ -265,4 +296,4 @@ AddComponentPostInit("complexprojectile",function(c)
     end
 end)
 if not G.TheNet:IsDedicated() then require("klbq_kanami/client").Install(env) end
-print("[KLBQ_KANAMI] 2.2.0 registered (server-authoritative skills)")
+print("[KLBQ_KANAMI] 2.4.0 registered (server-authoritative skills)")

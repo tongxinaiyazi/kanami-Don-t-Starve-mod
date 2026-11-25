@@ -1,14 +1,33 @@
 local M = {}
+M.MAX_RUBIES = 45
+M.MAX_SAPPHIRES = 5
+M.CORE = "klbq_ember_core"
+M.LIGHT_DIRTY = "klbq_baglightdirty"
 
 local function IsBag(inst)
     return inst ~= nil and (inst.prefab == "klbq_singularity"
         or (inst.HasTag ~= nil and inst:HasTag("klbq_singularity")))
 end
 
+function M.CanUpgrade(bag, prefab)
+    if prefab == "deerclops_eyeball" then
+        return bag._klbq_eyeball ~= nil and not bag._klbq_eyeball:value()
+    elseif prefab == "minerhat" then
+        return bag._klbq_minerhat ~= nil and not bag._klbq_minerhat:value()
+    elseif prefab == "redgem" then
+        return bag._klbq_rubies ~= nil and bag._klbq_rubies:value() < M.MAX_RUBIES
+    elseif prefab == "bluegem" then
+        return bag._klbq_minerhat ~= nil and bag._klbq_minerhat:value()
+            and bag._klbq_sapphires:value() < M.MAX_SAPPHIRES
+    elseif prefab == M.CORE then
+        return bag._klbq_minerhat ~= nil and bag._klbq_minerhat:value()
+            and bag._klbq_sapphires:value() == M.MAX_SAPPHIRES and not bag._klbq_nightvision:value()
+    end
+    return false
+end
+
 function M.CollectUpgradeAction(item, doer, target, actions, right)
-    if item.prefab ~= "minerhat" or not IsBag(target)
-        or not target:HasTag("trader") or target._klbq_minerhat == nil
-        or target._klbq_minerhat:value() then
+    if not IsBag(target) or not target:HasTag("trader") or not M.CanUpgrade(target, item.prefab) then
         return
     end
     local inventoryitem = item.replica.inventoryitem

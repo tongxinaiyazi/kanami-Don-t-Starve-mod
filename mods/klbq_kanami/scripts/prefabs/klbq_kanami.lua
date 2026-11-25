@@ -14,6 +14,7 @@ local function common(inst)
     for _,name in ipairs({"string","z","x","protect","wet","waterwalk"}) do
         inst["_klbq_"..name]=net_bool(inst.GUID,"klbq_kanami."..name,"klbq_statusdirty")
     end
+    inst._klbq_memory_sequence = net_bool(inst.GUID, "klbq_kanami.memory_sequence", "klbq_memorysequencedirty")
     for _,name in ipairs({"ztime","xtime","zcd","xcd","revive","passivecd","shotcd","ammo"}) do
         inst["_klbq_"..name]=net_ushortint(inst.GUID,"klbq_kanami."..name,"klbq_statusdirty")
     end
@@ -33,10 +34,12 @@ local function common(inst)
         if not loco then return end
         if not loco._klbq_prediction then
             loco._klbq_prediction={}
+            Rules.ConfigureCaveGlide(loco)
             local old=loco.GetSpeedMultiplier
             loco.GetSpeedMultiplier=function(self,...)
                 local existing=old(self,...)
                 if inst:HasTag("playerghost") then return existing end
+                Rules.RefreshCaveCollisionMask(inst,inst._klbq_string:value() and inst._klbq_waterwalk:value())
                 return Rules.Speed(existing,inst._klbq_string:value(),false,inst._klbq_wet:value())
             end
         end
@@ -55,6 +58,9 @@ local function common(inst)
         local protect=inst._klbq_protect:value()
         if stringed~=laststring then Visual.StringBuild(inst,stringed);Visual.HideEquipment(inst) end
         if not TheWorld.ismastersim then ConfigurePrediction(stringed,waterwalk) end
+        if not TheWorld.ismastersim and stringed and waterwalk and laststring then
+            Rules.RefreshCaveCollisionMask(inst,true)
+        end
         if not TheWorld.ismastersim and (stringed~=laststring or waterwalk~=lastwaterwalk) then
             if stringed then
                 if not laststring then originalmask=inst.Physics:GetCollisionMask() end
@@ -72,6 +78,10 @@ local function common(inst)
     end
     inst:ListenForEvent("klbq_statusdirty",StringVisual)
     if not TheWorld.ismastersim then
+        inst:ListenForEvent("newstate",function()
+            Rules.RefreshCaveCollisionMask(inst,inst._klbq_string:value() and inst._klbq_waterwalk:value()
+                and not inst:HasTag("playerghost"))
+        end)
         local pending
         local function RefreshPrediction()
             if pending then return end

@@ -80,7 +80,65 @@ function RunKanamiBagChecks(context)
         assert(target._klbq_minerhat:value() and target._klbq_light==nil)
         local eye=Spawn("deerclops_eyeball");inv:GiveItem(eye)
         assert(target.components.trader:AcceptGift(p,eye))
-        assert(target._klbq_eyeball:value() and not target.components.trader.enabled)
+        assert(target._klbq_eyeball:value() and target.components.trader.enabled)
+    end)
+    check("bag native gemstone stages, guaranteed Dragonfly core and save migration",function()
+        local slot=assert(bag).components.equippable.equipslot
+        local function Gift(name)
+            local item=Spawn(name)
+            assert(inv:GiveItem(item))
+            local use=p.components.playeractionpicker:GetUseItemActions(bag,item,true)[1]
+            assert(use and use.action==G.ACTIONS.GIVE,name.." native input did not choose GIVE")
+            assert(G.ACTIONS.GIVE.fn(use),name.." was refused")
+            assert(not item:IsValid(),name.." was not consumed")
+        end
+        for _=1,45 do Gift("redgem") end
+        local red=Spawn("redgem");assert(inv:GiveItem(red))
+        assert(not bag.components.trader:AcceptGift(p,red) and red:IsValid())
+        eq(bag.components.armor:GetAbsorption(),.9)
+        for i=1,5 do
+            Gift("bluegem")
+            eq(bag._klbq_light.Light:GetRadius(),2.5+i*.5)
+        end
+        local dragonfly=Spawn("dragonfly")
+        local count=0
+        for _,prefab in ipairs(dragonfly.components.lootdropper:GenerateLoot()) do
+            if prefab=="klbq_ember_core" then count=count+1 end
+        end
+        eq(count,1)
+        Gift("klbq_ember_core")
+        eq(bag._klbq_light.Light:GetRadius(),5.5)
+        local upgraded=assert(G.SpawnSaveRecord(bag:GetSaveRecord()));owned[#owned+1]=upgraded
+        assert(upgraded._klbq_nightvision:value() and not upgraded._klbq_light)
+        eq(upgraded.components.armor:GetAbsorption(),.9)
+        assert(inv:Unequip(slot)==bag and inv:Equip(upgraded))
+        eq(upgraded._klbq_light.Light:GetRadius(),5.5)
+        assert(inv:Unequip(slot)==upgraded and inv:Equip(bag))
+    end)
+    check("memory sequence native inventory action and save roundtrip",function()
+        local recipe=assert(G.GetValidRecipe("klbq_resource_memory_sequence"))
+        eq(recipe.level.SCIENCE,2)
+        local builder=p.components.builder
+        local portable=assert(G.GetValidRecipe("icebox"))
+        local station=assert(G.GetValidRecipe("klbq_ammo_doom"))
+        assert(not builder:KnowsRecipe(portable) and not builder:KnowsRecipe(station))
+        local sequence=Spawn("klbq_resource_memory_sequence")
+        sequence.components.stackable:SetStackSize(2)
+        assert(inv:GiveItem(sequence))
+        local use=p.components.playeractionpicker:GetInventoryActions(sequence)[1]
+        assert(use and use.action.id=="KLBQ_MEMORY_SEQUENCE","native inventory index did not offer use")
+        assert(use.action.fn(use))
+        eq(sequence.components.stackable:StackSize(),1)
+        assert(not use.action.fn(use),"same player consumed another sequence")
+        assert(builder:KnowsRecipe(portable) and not builder:KnowsRecipe(station))
+        local saved={};p:OnSave(saved)
+        assert(saved.klbq_memory_sequence==true)
+        -- Directly reload the same flag on the test actor. Native Builder's
+        -- own save format continues to carry its learned recipes.
+        p._klbq_memory_sequence:set(false)
+        assert(not builder:KnowsRecipe(portable))
+        p:OnLoad(saved)
+        assert(p._klbq_memory_sequence:value() and builder:KnowsRecipe(portable))
     end)
     G.TheWorld:DoTaskInTime(.25,function()
         check("bag native saved upgraded container opens after deferred loading",function()

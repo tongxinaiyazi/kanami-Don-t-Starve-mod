@@ -76,12 +76,22 @@ class BagMouseUpgrade(unittest.TestCase):
         self.lua.execute("choices=Collect(bag,food,false)")
         self.assertTrue(self.lua.eval("#choices==1 and choices[1]==ACTIONS.STORE"))
 
-    def test_trader_tags_exist_on_client_and_follow_disabled_state(self):
+    def test_trader_tags_keep_pending_gem_upgrades_available(self):
         self.assertTrue(self.lua.eval("bag:HasTag('alltrader') and bag.components.trader.acceptnontradable"))
         self.lua.execute("assert(bag.components.trader:AcceptGift(giver,hat));assert(bag.components.trader:AcceptGift(giver,eye))")
-        self.assertFalse(self.lua.eval("bag:HasTag('trader') or bag:HasTag('alltrader')"))
+        self.assertTrue(self.lua.eval("bag:HasTag('trader') and bag:HasTag('alltrader')"))
         self.lua.execute("TheWorld.ismastersim=false;client=bagprefab.fn()")
         self.assertTrue(self.lua.eval("client:HasTag('alltrader')"))
+
+    def test_blue_gems_offer_give_only_between_hat_and_five_gems(self):
+        self.lua.execute("blue=MakeGift('bluegem',1);blue.replica.inventoryitem=hat.replica.inventoryitem")
+        self.assertTrue(self.lua.eval("Collect(bag,blue,true)[1]==ACTIONS.STORE"))
+        self.lua.execute("assert(bag.components.trader:AcceptGift(giver,hat))")
+        self.assertTrue(self.lua.eval("Collect(bag,blue,true)[1]==ACTIONS.GIVE"))
+        self.lua.execute("""
+            for i=1,5 do assert(Gift(bag,'bluegem')) end
+        """)
+        self.assertTrue(self.lua.eval("Collect(bag,blue,true)[1]==ACTIONS.STORE"))
 
 
 if __name__ == "__main__":

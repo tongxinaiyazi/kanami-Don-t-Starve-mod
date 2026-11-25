@@ -187,6 +187,9 @@ class Recipes(unittest.TestCase):
           'klbq_ammo_fate':(2,20,{'klbq_resource_topology_ring':2,'nitre':2}),
           'klbq_crystal':(2,1,{'klbq_resource_terminal_kanami':1,'klbq_resource_topology_ring':2,'moonrocknugget':12,'gears':2}),
           'klbq_imprint_tool':(2,1,{'klbq_resource_tracing_plate':1,'klbq_resource_base_string':4,'goldnugget':2,'rope':2}),
+          'klbq_region_score':(2,1,{'klbq_resource_topology_ring':2,'klbq_resource_tracing_plate':1}),
+          'turf_klbq_imprint':(2,2,{'klbq_resource_tracing_plate':2,'cutstone':2,'thulecite':1}),
+          'klbq_resource_memory_sequence':(2,1,{'klbq_resource_topology_ring':2,'dreadstone':2,'klbq_resource_tracing_plate':1,'purplegem':1}),
           'klbq_ammo_heart':(1,20,{'rocks':4,'flint':2,'nitre':1}),
           'klbq_blade':(1,1,{'flint':6,'twigs':2,'rope':2}),
           'klbq_ammo_doom':(3,1,{'purebrilliance':2,'horrorfuel':2,'nightmarefuel':6,'opalpreciousgem':1})}
@@ -196,7 +199,10 @@ class Recipes(unittest.TestCase):
             self.assertEqual(r.tech,tech,name);self.assertEqual(r.config.numtogive,num,name)
             self.assertEqual(r.config.builder_tag,'klbq_kanami',name)
             atlas='images/klbq_resources_items.xml' if name.startswith('klbq_resource_') else 'images/klbq_kanami_items.xml'
+            if name=='klbq_region_score': atlas='images/klbq_region_score.xml'
+            if name=='turf_klbq_imprint': atlas='images/turf_klbq_imprint.xml'
             self.assertEqual(r.config.atlas,atlas,name)
+            if name=='turf_klbq_imprint': self.assertEqual(r.config.image,'turf_klbq_imprint.tex')
             self.assertEqual({v.name:v.n for v in r.ingredients.values()},cost,name)
             for v in r.ingredients.values():
                 if v.name.startswith('klbq_resource_'):self.assertEqual(v.atlas,'images/klbq_resources_items.xml')

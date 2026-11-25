@@ -17,6 +17,7 @@ class SingularityMinerHatUpgrade(unittest.TestCase):
                 local light=MakeEntity();light.prefab=prefab
                 light.IsValid=function(s)return not s.removed end
                 light.entity.SetParent=function(_,parent)light.parent=parent end
+                light.Light={SetRadius=function(_, radius) light.radius=radius end}
                 lights[#lights+1]=light
                 return light
             end
@@ -28,6 +29,11 @@ class SingularityMinerHatUpgrade(unittest.TestCase):
             function Unwear(target,owner)
                 target.components.equippable.equipped=false
                 target.components.equippable.onunequipfn(target,owner)
+            end
+            function Gift(target,name,count)
+                local gift=MakeGift(name,count or 1)
+                gift.components.inventoryitem.owner=giver
+                return target.components.trader:AcceptGift(giver,gift), gift
             end
             hat=MakeGift('minerhat',1)
             hat.components.stackable=nil
@@ -76,7 +82,7 @@ class SingularityMinerHatUpgrade(unittest.TestCase):
                 self.assertTrue(self.lua.eval("bag.components.trader.enabled and bag:HasTag('trader')"))
                 self.assertTrue(self.lua.eval(f"bag.components.trader:AcceptGift(giver,{second})"))
                 self.assertTrue(self.lua.eval("bag._klbq_eyeball:value() and bag._klbq_minerhat:value()"))
-                self.assertFalse(self.lua.eval("bag.components.trader.enabled"))
+                self.assertTrue(self.lua.eval("bag.components.trader.enabled"))
                 self.assertTrue(self.lua.eval("bag.components.waterproofer:GetEffectiveness()==1"))
 
     def test_save_reload_restores_both_upgrades_but_only_equipped_lights(self):
@@ -92,6 +98,43 @@ class SingularityMinerHatUpgrade(unittest.TestCase):
         self.lua.execute("Wear(restored,giver)")
         self.assertEqual(self.lua.eval("#lights"), 1)
         self.assertTrue(self.lua.eval("lights[1].parent==giver.entity"))
+        self.assertTrue(self.lua.eval("restored.components.trader.enabled"))
+
+    def test_tiers_consume_one_gem_at_a_time_and_survive_save(self):
+        self.lua.execute("Wear(bag,giver)")
+        self.assertFalse(self.lua.eval("(Gift(bag,'bluegem'))"))
+        self.assertFalse(self.lua.eval("(Gift(bag,'klbq_ember_core'))"))
+        self.assertTrue(self.lua.eval("(Gift(bag,'redgem'))"))
+        self.assertAlmostEqual(self.lua.eval("bag.components.armor.absorb_percent"), .02)
+        self.lua.execute("""
+            for i=2,45 do assert(Gift(bag,'redgem')) end
+            excessRubyOK,excessRuby=Gift(bag,'redgem',2)
+            assert(Gift(bag,'minerhat'))
+            for i=1,4 do assert(Gift(bag,'bluegem')) end
+        """)
+        self.assertFalse(self.lua.eval("excessRubyOK"))
+        self.assertEqual(self.lua.eval("excessRuby.components.stackable:StackSize()"), 2)
+        self.assertAlmostEqual(self.lua.eval("bag.components.armor.absorb_percent"), .9)
+        self.assertEqual(self.lua.eval("lights[1].radius"), 4.5)
+        self.assertFalse(self.lua.eval("(Gift(bag,'klbq_ember_core'))"))
+        self.lua.execute("""
+            accepted,blues=Gift(bag,'bluegem',2)
+            assert(accepted)
+            assert(not Gift(bag,'bluegem'))
+        """)
+        self.assertEqual(self.lua.eval("blues.components.stackable:StackSize()"), 1)
+        self.assertEqual(self.lua.eval("lights[1].radius"), 5)
+        self.lua.execute("""
+            assert(Gift(bag,'klbq_ember_core'))
+            assert(not Gift(bag,'klbq_ember_core'))
+            assert(Gift(bag,'deerclops_eyeball'))
+            saved={};bag:OnSave(saved)
+            restored=bagprefab.fn();restored:OnLoad(saved);Wear(restored,giver)
+        """)
+        self.assertEqual(self.lua.eval("lights[1].radius"), 5.5)
+        self.assertEqual(self.lua.eval("lights[2].radius"), 5.5)
+        self.assertAlmostEqual(self.lua.eval("restored.components.armor.absorb_percent"), .9)
+        self.assertTrue(self.lua.eval("restored.components.armor:IsIndestructible()"))
         self.assertFalse(self.lua.eval("restored.components.trader.enabled"))
 
     def test_legacy_eyeball_save_keeps_hat_upgrade_available_without_free_light(self):

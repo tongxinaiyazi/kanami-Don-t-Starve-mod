@@ -121,7 +121,7 @@ function RunKanamiImprintChecks(context)
         end
     end)
     check("native material crafts and terminal craft spend exact ingredients",function()
-        for _,v in ipairs({{"klbq_resource_base_string",8},{"klbq_resource_tracing_plate",1},{"klbq_resource_topology_ring",2},{"klbq_imprint_tool",1}}) do
+        for _,v in ipairs({{"klbq_resource_base_string",8},{"klbq_resource_tracing_plate",1},{"klbq_resource_topology_ring",2},{"klbq_imprint_tool",1},{"klbq_region_score",1},{"turf_klbq_imprint",2}}) do
             -- Clear only resources created by this fixture before each recipe.
             for _,t in ipairs(owned) do
                 if t:IsValid() and t~=item and t.components.inventoryitem and t.components.inventoryitem:GetGrandOwner()==p then t:Remove() end
@@ -136,6 +136,78 @@ function RunKanamiImprintChecks(context)
             local product=p.components.inventory:FindItem(function(t)return t.prefab==v[1] end)
             owned[#owned+1]=product
         end
+    end)
+    check("region score book actions, tile and tree keep the selected biome through reload",function()
+        local world,map=G.TheWorld,G.TheWorld.Map
+        local regions=G.require("klbq_kanami/regions")
+        local tile=assert(G.WORLD_TILES.KLBQ_IMPRINT)
+        local score=Give("klbq_region_score")
+        if not p.components.playercontroller then p:AddComponent("playercontroller") end
+        if not p.components.playeractionpicker then p:AddComponent("playeractionpicker") end
+        p.components.playeractionpicker:PushActionFilter(function(_,action)
+            return not action.ghost_exclusive
+        end,G.ACTION_FILTER_PRIORITIES.default)
+        local terminal_actions=p.components.playeractionpicker:GetInventoryActions(item, true)
+        for _,act in ipairs(terminal_actions) do assert(act.action~=G.ACTIONS.KLBQ_READ_REGION_SCORE) end
+        assert(p.components.playeractionpicker:GetInventoryActions(score, true)[1].action==G.ACTIONS.KLBQ_READ_REGION_SCORE)
+        score._klbq_regions:set("FOREST_AREA,DESERT_AREA,EMPTY_AREA")
+        score._klbq_region:set("EMPTY_AREA")
+        local copy=assert(G.SpawnSaveRecord(score:GetSaveRecord()))
+        assert(regions.Select(copy._klbq_regions:value(),"FOREST_AREA"))
+        assert(regions.Select(copy._klbq_regions:value(),"DESERT_AREA"))
+        assert(copy._klbq_region:value()=="EMPTY_AREA")
+        copy:Remove()
+        local tx,ty=map:GetTileCoordsAtPoint(x, y, z)
+        local cx,cy,cz=map:GetTileCenterPoint(tx,ty)
+        local pos=G.Vector3(cx,cy,cz)
+        local previous=map:GetTile(tx,ty)
+        if previous==tile then previous=G.WORLD_TILES.DIRT end -- Reuse the isolated cluster after an interrupted fixture.
+        map:SetTile(tx,ty,tile)
+        assert(world.components.klbq_regiontiles~=nil)
+        local ground_actions=p.components.playeractionpicker:GetPointActions(pos,score,true,nil)
+        for _,act in ipairs(ground_actions) do assert(act.action~=G.ACTIONS.KLBQ_IMPRINT_REGION) end
+        p.components.inventory:RemoveItem(score,true)
+        p.components.inventory:GiveActiveItem(score)
+        assert(score.components.inventoryitem:GetGrandOwner()==p)
+        local act=p.components.playeractionpicker:GetPointActions(pos,score,true,nil)[1]
+        assert(act~=nil,"native point picker did not offer imprint")
+        assert(act.action==G.ACTIONS.KLBQ_IMPRINT_REGION)
+        assert(act.action.fn(act))
+        assert(regions.GetTile(world,map,tx,ty)=="EMPTY_AREA")
+        local saved=assert(world.components.klbq_regiontiles:OnSave())
+        assert(saved[tx..":"..ty]=="EMPTY_AREA")
+        local seed=Spawn("tree_rock_seed")
+        seed.components.deployable.ondeploy(seed,pos,p)
+        local sapling
+        for _,plant in ipairs(map:GetEntitiesOnTileAtPoint(cx,cy,cz)) do
+            if plant.prefab=="tree_rock_sapling" then sapling=plant; break end
+        end
+        assert(sapling,"native deploy did not create the sapling")
+        assert(sapling._klbq_planted_region=="EMPTY_AREA")
+        local sapling_record=sapling:GetSaveRecord()
+        sapling:Remove()
+        sapling=assert(G.SpawnSaveRecord(sapling_record))
+        sapling.Transform:SetPosition(cx,cy,cz)
+        assert(sapling._klbq_planted_region=="EMPTY_AREA")
+        regions.SetTile(world,map,tx,ty,"FOREST_AREA")
+        sapling.components.timer:StopTimer("grow")
+        sapling:PushEvent("timerdone",{name="grow"})
+        local tree
+        for _,plant in pairs(G.Ents) do
+            if (plant.prefab=="tree_rock1" or plant.prefab=="tree_rock2"
+                or plant.prefab=="tree_rock1_short" or plant.prefab=="tree_rock2_short")
+                and plant:GetDistanceSqToPoint(pos)<.01 then tree=plant; break end
+        end
+        assert(tree,"sapling did not spawn its tree")
+        assert(tree.vine_loot,"new tree should have the planted region loot")
+        for _,loot in ipairs(tree.vine_loot) do assert(loot=="EMPTY") end
+        local tree_record=tree:GetSaveRecord()
+        tree:Remove()
+        tree=assert(G.SpawnSaveRecord(tree_record))
+        for _,loot in ipairs(tree.vine_loot) do assert(loot=="EMPTY") end
+        tree:Remove()
+        map:SetTile(tx,ty,previous)
+        assert(regions.GetTile(world,map,tx,ty)==nil)
     end)
     for _,t in ipairs(owned) do if t:IsValid() then t:Remove() end end
     p.components.health:SetInvincible(false);p:RemoveTag("notarget")

@@ -27,5 +27,11 @@ function M.Install(env)
     Recipe("klbq_crossbow",{Ingredient("boards",2),Ingredient("silk",4),Ingredient("goldnugget",2),Ingredient("purplegem",1),Resource("base_string",4)},TECH.SCIENCE_TWO,1,{"CHARACTER","WEAPONS"})
     Recipe("klbq_requiem",{Ingredient("flint",8),Ingredient("boards",2),Ingredient("goldnugget",2),Ingredient("rope",2),Resource("base_string",6)},TECH.SCIENCE_ONE,1,{"CHARACTER","WEAPONS"})
     Recipe("klbq_imprint_tool",{Resource("tracing_plate",1),Resource("base_string",4),Ingredient("goldnugget",2),Ingredient("rope",2)},TECH.SCIENCE_TWO,1,{"CHARACTER","TOOLS"})
+    Recipe("klbq_region_score",{Resource("topology_ring",2),Resource("tracing_plate",1)},TECH.SCIENCE_TWO,1,
+        {"CHARACTER","TOOLS"},{atlas="images/klbq_region_score.xml"})
+    Recipe("turf_klbq_imprint",{Resource("tracing_plate",2),Ingredient("cutstone",2),Ingredient("thulecite",1)},TECH.SCIENCE_TWO,2,
+        {"CHARACTER","DECOR"},{atlas="images/turf_klbq_imprint.xml"})
+    Recipe("klbq_resource_memory_sequence",{Resource("topology_ring",2),Ingredient("dreadstone",2),Resource("tracing_plate",1),
+        Ingredient("purplegem",1)},TECH.SCIENCE_TWO,1,{"CHARACTER","REFINE"},{atlas=resource_atlas})
 end
 return M
