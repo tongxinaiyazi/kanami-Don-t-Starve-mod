@@ -4,6 +4,29 @@ local MEMORY = "klbq_resource_memory_sequence"
 local VISION = "klbq_singularity"
 local use
 
+local function InstallArchiveAccess(inst)
+    if not TheWorld.ismastersim then return end
+    local activatable = inst.components.activatable
+    local activate = activatable ~= nil and activatable.OnActivate or nil
+    if activate == nil then return end
+    activatable.OnActivate = function(dispenser, doer, ...)
+        local memory = doer ~= nil and doer.prefab == "klbq_kanami" and doer._klbq_memory_sequence or nil
+        local health = memory ~= nil and doer.components.health or nil
+        if memory == nil or not memory:value() or doer:HasTag("playerghost")
+            or (health ~= nil and health:IsDead()) or dispenser.vaultpowered then
+            return activate(dispenser, doer, ...)
+        end
+        -- The native callback checks vaultpowered before archive power.
+        -- Only bypass that check for this activation, not for the whole Archive.
+        local previous = dispenser.vaultpowered
+        dispenser.vaultpowered = true
+        local ok, result, reason = pcall(activate, dispenser, doer, ...)
+        dispenser.vaultpowered = previous
+        if not ok then error(result, 0) end
+        return result, reason
+    end
+end
+
 local function CanLearnMemory(doer, item)
     return doer ~= nil and doer.prefab == "klbq_kanami" and doer:HasTag("klbq_kanami")
         and not doer:HasTag("playerghost") and doer._klbq_memory_sequence ~= nil
@@ -139,7 +162,7 @@ function M.Install(env)
     local strings = G.STRINGS
     strings.NAMES.KLBQ_EMBER_CORE = "弦海信标·余烬核心"
     strings.CHARACTERS.GENERIC.DESCRIBE.KLBQ_EMBER_CORE = "龙蝇的余热仍在弦海信标中跳动。"
-    strings.RECIPE_DESC.KLBQ_RESOURCE_MEMORY_SEQUENCE = "记下已经学会的配方，随身携带炼金引擎级科技。"
+    strings.RECIPE_DESC.KLBQ_RESOURCE_MEMORY_SEQUENCE = "记下学过的配方，随身携带炼金引擎级科技。可使用未通电的知识饮水机。"
 
     use = G.Action({priority = 2, mount_valid = true})
     use.id, use.str, use.fn = "KLBQ_MEMORY_SEQUENCE", "铭记配方", Remember
@@ -148,6 +171,7 @@ function M.Install(env)
         env.AddStategraphActionHandler(sg, G.ActionHandler(use, "doshortaction"))
     end
     env.AddPrefabPostInit("klbq_kanami", RefineMemory)
+    env.AddPrefabPostInit("archive_lockbox_dispencer", InstallArchiveAccess)
     env.AddPlayerPostInit(InstallVision)
     env.AddPrefabPostInit("dragonfly", function(inst)
         if TheWorld.ismastersim and inst.components.lootdropper ~= nil then

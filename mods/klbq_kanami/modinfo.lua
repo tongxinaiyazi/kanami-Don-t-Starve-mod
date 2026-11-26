@@ -1,7 +1,7 @@
 name="香奈美 · 谢幕曲"
 description="模组交流群：1131263408"
 author="奈娅子"
-version="2.4.0"
+version="2.4.1"
 api_version=10
 dst_compatible=true
 dont_starve_compatible=false

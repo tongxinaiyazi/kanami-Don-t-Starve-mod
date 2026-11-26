@@ -296,4 +296,4 @@ AddComponentPostInit("complexprojectile",function(c)
     end
 end)
 if not G.TheNet:IsDedicated() then require("klbq_kanami/client").Install(env) end
-print("[KLBQ_KANAMI] 2.4.0 registered (server-authoritative skills)")
+print("[KLBQ_KANAMI] 2.4.1 registered (server-authoritative skills)")

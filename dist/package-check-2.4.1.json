@@ -1,0 +1,55 @@
+{
+  "version": "2.4.1",
+  "date": "2026-11-26",
+  "game_version": "763928",
+  "steam_build_id": "26797476",
+  "append_only_prefixes": {
+    "mods/klbq_kanami/README.md": {
+      "bytes": 26208,
+      "sha256": "402ac5df044f8ea5dfad5f87808925950e2cd75f106012be975334245305c1ad"
+    },
+    "docs/香奈美模组介绍.md": {
+      "bytes": 11034,
+      "sha256": "acc9db3b1f7a1c9084a9ab88b6de8c163a369e4211a2389d6f38a588c9312100"
+    },
+    "发布资料/klbq_kanami_v2_4_0/description.txt": {
+      "bytes": 12975,
+      "sha256": "311ab9ba902ac59c6344b2692039b0d7118046fc1ec30ba835111c57fcf66ffa"
+    }
+  },
+  "game_launched_for_release": false,
+  "graphical_client_retested": false,
+  "workshop_uploaded": false,
+  "restart_required": true,
+  "runtime_files": 109,
+  "source_installed_publish_zip_match": true,
+  "engineering_all_entries_match_workspace": true,
+  "workshop_manifest_exact": true,
+  "publish_directory": "D:\\SOFTWARE\\DSTWorkshop\\klbq_kanami",
+  "local_deployments": [
+    "E:\\steam\\steamapps\\common\\Don't Starve Together\\mods\\klbq_kanami",
+    "E:\\steam\\steamapps\\workshop\\content\\322330\\3827702076"
+  ],
+  "packages": [
+    {
+      "file": "klbq_kanami-2.4.1-dst.zip",
+      "bytes": 4309345,
+      "sha256": "bb1605be561aa6288a9d1eff9afdd6774c5f4d404252ac3ef6f8989ed4dd3f09",
+      "entries": 109
+    },
+    {
+      "file": "klbq_kanami-2.4.1-source-art.zip",
+      "bytes": 81970987,
+      "sha256": "1801f788e424034fc75b63eb482122e35af8d637f53f75c37b35a74b8eef4431",
+      "entries": 1277
+    }
+  ],
+  "fresh_release_tests": {
+    "gameplay": 501,
+    "seconds": 79.643,
+    "deployment": 4,
+    "engine_tool": 7,
+    "lua_51_files": 54,
+    "all_passed": true
+  }
+}

@@ -1,4 +1,4 @@
-"""Exercise portable science against the installed game's recipe rules."""
+"""Exercise the memory sequence against the installed game's recipe and Archive rules."""
 import sys
 import unittest
 import zipfile
@@ -17,6 +17,8 @@ class MidgameMemory(unittest.TestCase):
         with zipfile.ZipFile(Path("E:/steam/steamapps/common/Don't Starve Together/data/databundles/scripts.zip")) as z:
             src = z.read('scripts/components/builder.lua').decode()
             replica = z.read('scripts/components/builder_replica.lua').decode()
+            self.dispenser = z.read('scripts/prefabs/archive_lockbox.lua').decode()
+            self.actions = z.read('scripts/actions.lua').decode()
         self.lua.execute('''
             function noop() end
             table.contains=function(t,k) for _,v in ipairs(t) do if v==k then return true end end return false end
@@ -107,3 +109,77 @@ class MidgameMemory(unittest.TestCase):
         self.assertFalse(self.lua.eval('Use(other)'))
         self.assertFalse(self.lua.eval('Use(p)'))
         self.assertEqual(self.lua.eval('item.count'), 2)
+
+    def install_fountain(self):
+        self.lua.execute(self.dispenser[self.dispenser.index('local function OnActivate(inst, doer)'):
+                                       self.dispenser.index('local function getstatus(inst)')]
+                         + '\nNativeActivate=OnActivate')
+        self.lua.execute('ACTIONS={ACTIVATE={}};'+self.actions[self.actions.index('ACTIONS.ACTIVATE.fn = function(act)'):
+                                                            self.actions.index('ACTIONS.ACTIVATE.strfn = function(act)')])
+        self.lua.execute('''
+            TheWorld.components={archivemanager={GetPowerSetting=function() return archivepowered end}}
+            archivepowered=false;PI2=2*math.pi;PI=math.pi
+            Vector3=function() return {} end
+            movesound=noop
+            function GetString() return "ANNOUNCE_ARCHIVE_NO_POWER" end
+            function SpawnPrefab(name)
+                assert(name=="archive_dispencer_sfx")
+                starts=(starts or 0)+1
+                return {SoundEmitter={PlaySound=noop},DoTaskInTime=noop}
+            end
+            function Fountain()
+                local f={prefab="archive_lockbox_dispencer",components={},Transform={GetWorldPosition=noop}}
+                f.AnimState={anim="idle",IsCurrentAnimation=function(self,n) return self.anim==n end,
+                    PlayAnimation=function(self,n) self.anim=n end}
+                f.components.activatable={inactive=true,OnActivate=NativeActivate,
+                    CanActivate=function(self) return self.inactive end,
+                    DoActivate=function(self,who) self.inactive=false; return self.OnActivate(f,who) end}
+                if prefabinit.archive_lockbox_dispencer then prefabinit.archive_lockbox_dispencer(f) end
+                return f
+            end
+            function ReadFountain(f,who)
+                return ACTIONS.ACTIVATE.fn({target=f,doer=who})
+            end
+            function Observe(who)
+                who.components.talker={Say=function(self,msg) self.message=msg end}
+            end
+            Observe(p)
+        ''')
+
+    def test_learned_kanami_activates_unpowered_fountain_without_powering_archive(self):
+        self.install_fountain()
+        self.lua.execute('''
+            fountain=Fountain()
+            ReadFountain(fountain,p)
+            assert(fountain.AnimState.anim=="idle" and fountain.components.activatable.inactive)
+            assert(p.components.talker.message=="ANNOUNCE_ARCHIVE_NO_POWER")
+            assert(Use(p))
+            ReadFountain(fountain,p)
+            assert(fountain.AnimState.anim=="use_pre" and not fountain.components.activatable.inactive)
+            assert(starts==1 and not fountain.vaultpowered and not archivepowered)
+            ReadFountain(fountain,p)
+            assert(starts==1)
+        ''')
+
+    def test_old_saved_entitlement_applies_only_to_living_kanami(self):
+        self.install_fountain()
+        self.lua.execute('''
+            q=Player("klbq_kanami")
+            q:OnLoad({klbq_memory_sequence=true})
+            other={prefab="wilson",components={},_klbq_memory_sequence=Net(true)}
+            Observe(q);Observe(other)
+            local normal=q.HasTag
+            q.HasTag=function(self,tag) return tag=="playerghost" or normal(self,tag) end
+            local fountain=Fountain()
+            ReadFountain(fountain,q)
+            assert(fountain.AnimState.anim=="idle")
+            q.HasTag=normal
+            ReadFountain(fountain,q)
+            assert(fountain.AnimState.anim=="use_pre")
+            local unpowered=Fountain()
+            ReadFountain(unpowered,other)
+            assert(unpowered.AnimState.anim=="idle")
+            archivepowered=true
+            ReadFountain(unpowered,other)
+            assert(unpowered.AnimState.anim=="use_pre" and archivepowered)
+        ''')
